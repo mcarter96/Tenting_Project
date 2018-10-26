@@ -19,13 +19,16 @@ export default class App extends Component {
   render() {
     return (
       <Grid>
-        <Row size={25}>
-        <QRCodeScanner
-        onRead={this.onSuccess.bind(this)}
-        cameraStyle = {styles.camera}
-        />
-      </Row>
-        <Row size={75}></Row>
+        <Row size={10}></Row>
+        <Row size={40}>
+        <Col size={10}></Col>
+        <Col size={80}><QRCodeScanner
+          onRead={this.onSuccess.bind(this)}
+          cameraStyle = {styles.camera}
+          /></Col>
+        <Col size={10}></Col>
+        </Row>
+        <Row size={50}></Row>
       </Grid>
     );
   }
@@ -54,8 +57,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    height: 200,
-    width: 200,
+    height: '100%',
+    width: '100%',
   },
 });
 
