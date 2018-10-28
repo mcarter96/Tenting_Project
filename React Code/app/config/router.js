@@ -9,6 +9,7 @@ import Settings from '../screens/Settings';
 import Feed from '../screens/Feed';
 import TentRegInitial from '../screens/TentRegInitial';
 import TentRuleConfirmation from '../screens/TentRuleConfirmation';
+import InitialTentDetails from '../screens/InitialTentDetails'
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -21,6 +22,12 @@ export const CreateTentStack = StackNavigator({
     screen: TentRuleConfirmation,
     navigationOptions: {
       title: 'Tent Rule Confirmation',
+    },
+  },
+  InitialTentDetails: {
+    screen: InitialTentDetails,
+    navigationOptions: {
+      title: 'Setup Tent',
     },
   },
 });

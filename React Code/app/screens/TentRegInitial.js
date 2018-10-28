@@ -6,7 +6,7 @@ import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { me } from '../config/data';
 
 class TentRegInitial extends Component {
-  onPress = () => {
+  onPressCreateTent = () => {
     this.props.navigation.navigate('TentRuleConfirmation');
   }
 
@@ -18,7 +18,7 @@ class TentRegInitial extends Component {
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPress}>
+            <TouchableOpacity onPress={this.onPressCreateTent}>
                 <Text style = {styles.text}>
                   Create Tent
                 </Text>

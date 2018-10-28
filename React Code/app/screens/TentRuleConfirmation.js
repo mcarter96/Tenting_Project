@@ -1,22 +1,72 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  ScrollView
-} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import { CheckBox } from 'react-native-elements';
+import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 
 class TentRuleConfirmation extends Component {
+    onPressConfirm = () => {
+        if(this.state.checked){
+            this.props.navigation.navigate('InitialTentDetails');
+        }
+        
+    }
+   state = {
+    checked: false,
+   };
   render() {
     return (
       <Grid>
-        <Row size={30}></Row>
-        <Row size={40}>
-          <Col size={30}></Col>
-          <Col size={40}><Text style={{fontSize: 50}}>Rules</Text></Col>
-          <Col size={30}></Col>
+        <Row size={10}>
+            <View style = {styles.container}>
+                <CheckBox
+                    title='All team members registered?'
+                    checked={this.state.checked}
+                    onPress={() => this.setState({ checked: !this.state.checked })}
+                />
+            </View>
         </Row>
-        <Row size={30}></Row>
+        <Row size={10}>
+            <View style = {styles.container}>
+                <CheckBox
+                    title='You can only register 6 members total.'
+                    checked={this.state.checked}
+                    onPress={() => this.setState({ checked: !this.state.checked })}
+                />
+            </View>
+        </Row>
+        <Row size={10}>
+            <View style = {styles.container}>
+                <CheckBox
+                    title='Terms and Conditions.'
+                    checked={this.state.checked}
+                    onPress={() => this.setState({ checked: !this.state.checked })}
+                />
+            </View>
+        </Row>
+        <Row size={10}>
+            <View style = {styles.container}>
+                <CheckBox
+                    title='Waiver'
+                    checked={this.state.checked}
+                    onPress={() => this.setState({ checked: !this.state.checked })}
+                />
+            </View>
+        </Row>
+        <Row size={40}></Row>
+        <Row size={20}>
+          <Col size={20}></Col>
+          <Col size={60}>
+            <View style = {styles.containerOne}>
+            <TouchableOpacity onPress={this.onPressConfirm}>
+                <Text style = {styles.text}>
+                  Confirm
+                </Text>
+            </TouchableOpacity>
+            </View>
+          </Col>
+          <Col size={20}></Col>
+        </Row>
+        
       </Grid>
       
     );
@@ -24,3 +74,29 @@ class TentRuleConfirmation extends Component {
 }
 
 export default TentRuleConfirmation;
+
+const styles = StyleSheet.create ({
+    container: {
+       //alignItems: 'center',
+       width: '100%'
+    },
+    containerOne:{
+        alignItems: 'center',
+        width: '100%'
+    },
+    text: {
+       borderWidth: 1,
+       padding: 25,
+       borderColor: 'black',
+       fontSize: 30
+    },
+    textJoin: {
+      borderWidth: 1,
+      paddingLeft: 40,
+      paddingRight: 40,
+      paddingTop: 25,
+      paddingBottom: 25,
+      borderColor: 'black',
+      fontSize: 30
+   },
+  })
