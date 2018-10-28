@@ -1,19 +1,15 @@
 import React from 'react';
 import { createBottomTabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import Entypo from "react-native-vector-icons/Entypo";
 
-import Feed from '../screens/Feed';
+import Home from '../screens/Home';
 import Settings from '../screens/Settings';
-import UserDetail from '../screens/UserDetail';
-import Me from '../screens/Me';
-
+import Feed from '../screens/Feed';
+import TentRegInitial from '../screens/TentRegInitial';
+/*
 export const FeedStack = StackNavigator({
-  Feed: {
-    screen: Feed,
-    navigationOptions: {
-      title: 'Feed',
-    },
-  },
   Details: {
     screen: UserDetail,
     navigationOptions: ({ navigation }) => ({
@@ -21,20 +17,34 @@ export const FeedStack = StackNavigator({
     }),
   },
 });
-
+*/
 export const Tabs = createBottomTabNavigator({
-  Feed: {
-    screen: FeedStack,
+  Home: {
+    screen: Home,
     navigationOptions: {
-      tabBarLabel: 'Feed',
-      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />,
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />,
     },
   },
-  Me: {
-    screen: Me,
+  TentRegInitial: {
+    screen: TentRegInitial,
     navigationOptions: {
-      tabBarLabel: 'Me',
-      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
+      tabBarLabel: 'Tent',
+      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
+    },
+  },
+  Feed: {
+    screen: Feed,
+    navigationOptions: {
+      tabBarLabel: 'Feed',
+      tabBarIcon: ({ tintColor }) => <Entypo name="news" size={35} color={tintColor} />
+    },
+  },
+  Settings: {
+    screen: Settings,
+    navigationOptions: {
+      tabBarLabel: 'Settings',
+      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />
     },
   },
 });

@@ -4,30 +4,21 @@ import {
   View,
   ScrollView
 } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
-import { users } from '../config/data';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 class Feed extends Component {
-  onLearnMore = (user) => {
-    this.props.navigation.navigate('Details', { ...user });
-  };
-
   render() {
     return (
-      <ScrollView>
-        <List>
-          {users.map((user) => (
-            <ListItem
-              key={user.login.username}
-              roundAvatar
-              avatar={{ uri: user.picture.thumbnail }}
-              title={`${user.name.first.toUpperCase()} ${user.name.last.toUpperCase()}`}
-              subtitle={user.email}
-              onPress={() => this.onLearnMore(user)}
-            />
-          ))}
-        </List>
-      </ScrollView>
+      <Grid>
+        <Row size={30}></Row>
+        <Row size={40}>
+          <Col size={30}></Col>
+          <Col size={40}><Text style={{fontSize: 50}}>Feed</Text></Col>
+          <Col size={30}></Col>
+        </Row>
+        <Row size={30}></Row>
+      </Grid>
+      
     );
   }
 }
