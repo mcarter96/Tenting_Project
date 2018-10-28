@@ -6,9 +6,9 @@ import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { me } from '../config/data';
 
 class TentRegInitial extends Component {
-  handleSettingsPress = () => {
-    this.props.navigation.navigate('Settings');
-  };
+  onPress = () => {
+    this.props.navigation.navigate('TentRuleConfirmation');
+  }
 
   render() {
     return (
@@ -18,7 +18,7 @@ class TentRegInitial extends Component {
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.onPress}>
                 <Text style = {styles.text}>
                   Create Tent
                 </Text>

@@ -8,16 +8,23 @@ import Home from '../screens/Home';
 import Settings from '../screens/Settings';
 import Feed from '../screens/Feed';
 import TentRegInitial from '../screens/TentRegInitial';
-/*
-export const FeedStack = StackNavigator({
-  Details: {
-    screen: UserDetail,
-    navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
-    }),
+import TentRuleConfirmation from '../screens/TentRuleConfirmation';
+
+export const CreateTentStack = StackNavigator({
+  TentRegInitial: {
+    screen: TentRegInitial,
+    navigationOptions: {
+      title: 'Tent Registration',
+    },
+  },
+  TentRuleConfirmation: {
+    screen: TentRuleConfirmation,
+    navigationOptions: {
+      title: 'Tent Rule Confirmation',
+    },
   },
 });
-*/
+
 export const Tabs = createBottomTabNavigator({
   Home: {
     screen: Home,
@@ -27,7 +34,7 @@ export const Tabs = createBottomTabNavigator({
     },
   },
   TentRegInitial: {
-    screen: TentRegInitial,
+    screen: CreateTentStack,
     navigationOptions: {
       tabBarLabel: 'Tent',
       tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
