@@ -3,6 +3,7 @@ import { createBottomTabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Entypo from "react-native-vector-icons/Entypo";
+import AntDesign from "react-native-vector-icons/AntDesign"
 
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
@@ -10,6 +11,8 @@ import Feed from '../screens/Feed';
 import TentRegInitial from '../screens/TentRegInitial';
 import TentRuleConfirmation from '../screens/TentRuleConfirmation';
 import InitialTentDetails from '../screens/InitialTentDetails'
+import addMembers from '../screens/addMembers'
+import QRScreen from '../screens/QRScreen'
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -28,6 +31,12 @@ export const CreateTentStack = StackNavigator({
     screen: InitialTentDetails,
     navigationOptions: {
       title: 'Setup Tent',
+    },
+  },
+  addMembers: {
+    screen: addMembers,
+    navigationOptions: {
+      title: 'Add Members',
     },
   },
 });
@@ -54,6 +63,13 @@ export const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Entypo name="news" size={35} color={tintColor} />
     },
   },
+  QRCode: {
+    screen: QRScreen,
+    navigationOptions: {
+      tabBarLabel: 'QR',
+      tabBarIcon: ({ tintColor }) => <AntDesign name="qrcode" size={35} color={tintColor} />
+    },
+  },
   Settings: {
     screen: Settings,
     navigationOptions: {
@@ -61,6 +77,7 @@ export const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />
     },
   },
+  
 });
 
 export const SettingsStack = StackNavigator({

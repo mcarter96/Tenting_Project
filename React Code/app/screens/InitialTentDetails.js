@@ -11,14 +11,38 @@ class InitialTentDetails extends Component {
   handleTentName = (text) => {
     this.setState({ tentName: text })
   }
-  handleTentName = (text) => {
+  handleLastName = (text) => {
     this.setState({ lastName: text })
   }
   handlePin = (text) => {
     this.setState({ pin: text })
   }
-  login = (tentName, lastName, pin) => {
-    alert('tentName: ' + tentName + ' lastName: ' + lastName + 'Pin:' + pin)
+  submit = (tentName, lastName, pin) => {
+    if(tentName == '' && lastName == '' && pin == ''){
+      alert("You left all of the fields empty.")
+    }
+    else if (tentName == '' && lastName == ''){
+      alert("You left tent name and last name empty.")
+    }
+    else if (tentName == '' && pin == ''){
+      alert("You left tent name and pin empty.")
+    }
+    else if (pin == '' && lastName == ''){
+      alert("You left pin and last name empty.")
+    }
+    else if (tentName == ''){
+      alert("You left tent name empty.")
+    }
+    else if (lastName == ''){
+      alert("You left last name empty.")
+    }
+    else if (pin == ''){
+      alert("You left pin empty.")
+    }
+    else{
+      console.log('tentName: ' + tentName + ' lastName: ' + lastName + 'Pin:' + pin)
+      this.props.navigation.navigate('addMembers');
+    }
  }
   render() {
     return (
@@ -56,6 +80,7 @@ class InitialTentDetails extends Component {
                   placeholder = "Pin"
                   placeholderTextColor = "black"
                   keyboardType = 'number-pad'
+                  maxLength={6} 
                   secureTextEntry = {true}
                   autoCapitalize = "none"
                   onChangeText = {this.handlePin}/>
@@ -67,9 +92,9 @@ class InitialTentDetails extends Component {
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.login(this.state.tentName, this.state.lastName, this.state.pin)}>
+              <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.lastName, this.state.pin)}>
                   <Text style = {styles.text}>
-                    Submit
+                    Next
                   </Text>
               </TouchableOpacity>
               </View>
@@ -98,8 +123,11 @@ const styles = StyleSheet.create({
  },
  text: {
     borderWidth: 1,
-    padding: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft:50,
+    paddingRight:50,
     borderColor: 'black',
-    fontSize: 30
+    fontSize: 20
  },
 })

@@ -85,10 +85,13 @@ const styles = StyleSheet.create ({
         width: '100%'
     },
     text: {
-       borderWidth: 1,
-       padding: 25,
-       borderColor: 'black',
-       fontSize: 30
+        borderWidth: 1,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft:30,
+        paddingRight:30,
+        borderColor: 'black',
+        fontSize: 20
     },
     textJoin: {
       borderWidth: 1,
