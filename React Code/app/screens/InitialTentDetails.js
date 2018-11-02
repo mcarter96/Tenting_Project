@@ -5,43 +5,43 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 class InitialTentDetails extends Component {
   state = {
     tentName: '',
-    lastName: '',
+    fullName: '',
     pin: ''
   }
   handleTentName = (text) => {
     this.setState({ tentName: text })
   }
-  handleLastName = (text) => {
-    this.setState({ lastName: text })
+  handleFullName = (text) => {
+    this.setState({ fullName: text })
   }
   handlePin = (text) => {
     this.setState({ pin: text })
   }
-  submit = (tentName, lastName, pin) => {
-    if(tentName == '' && lastName == '' && pin == ''){
+  submit = (tentName, fullName, pin) => {
+    if(tentName == '' && fullName == '' && pin == ''){
       alert("You left all of the fields empty.")
     }
-    else if (tentName == '' && lastName == ''){
+    else if (tentName == '' && fullName == ''){
       alert("You left tent name and last name empty.")
     }
     else if (tentName == '' && pin == ''){
       alert("You left tent name and pin empty.")
     }
-    else if (pin == '' && lastName == ''){
+    else if (pin == '' && fullName == ''){
       alert("You left pin and last name empty.")
     }
     else if (tentName == ''){
       alert("You left tent name empty.")
     }
-    else if (lastName == ''){
+    else if (fullName == ''){
       alert("You left last name empty.")
     }
     else if (pin == ''){
       alert("You left pin empty.")
     }
     else{
-      console.log('tentName: ' + tentName + ' lastName: ' + lastName + 'Pin:' + pin)
-      this.props.navigation.navigate('addMembers');
+      console.log('tentName: ' + tentName + ' fullName: ' + fullName + 'Pin:' + pin)
+      this.props.navigation.navigate('addMembers', {creatorName: fullName});
     }
  }
   render() {
@@ -65,10 +65,10 @@ class InitialTentDetails extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
-                  placeholder = "Last Name"
+                  placeholder = "Full Name"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
-                  onChangeText = {this.handleLastName}/>
+                  onChangeText = {this.handleFullName}/>
           </Col>
           <Col size={10}></Col>
         </Row>
@@ -92,7 +92,7 @@ class InitialTentDetails extends Component {
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.lastName, this.state.pin)}>
+              <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.fullName, this.state.pin)}>
                   <Text style = {styles.text}>
                     Next
                   </Text>

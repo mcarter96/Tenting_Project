@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  ScrollView
-} from 'react-native';
+import {Text,View,ScrollView} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import QRCode from 'react-native-qrcode';
 
 class QRScreen extends Component {
   render() {
