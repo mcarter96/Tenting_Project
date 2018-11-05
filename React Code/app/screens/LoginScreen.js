@@ -15,7 +15,33 @@ class Login extends Component {
   state = {
     username: '',
     password: '',
+    loading: false,
+    data: [],
+    error: null,
+    refreshing: false,
+    base_url: "https://localhost:8000"
   }
+  fetchDataFromApi = ()  => {
+    const url = "http://localhost:8000/users/";
+
+    this.setState({ loading: true });
+
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.setState({
+          data: res,
+          error: null,
+          loading: false,
+          refreshing: false
+        });
+      })
+      .catch(error => {
+        this.setState({ error, loading : false });
+      })
+  };
+
   password = (text) => {
     this.setState({password: text});
   }
@@ -23,6 +49,7 @@ class Login extends Component {
     this.setState({username: text});
    }
   login = (username, password) => {
+    this.fetchDataFromApi()
     if(username == '' && password == ''){
         alert("Username and Password fields are required.")
     }
@@ -36,6 +63,7 @@ class Login extends Component {
         alert("Check if " + username + " and " + password + " are correct!")
         this.props.navigation.navigate('Tabs');
     }
+
   }
   render() {
     return (
