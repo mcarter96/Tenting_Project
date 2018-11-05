@@ -44,8 +44,9 @@ class UserProfileManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represents a user profile inside our system"""
-
-    email = models.EmailField(max_length=255, unique=True)
+    email_regex = RegexValidator(regex=r'^\w{3,15}@zagmail.gonzaga.edu',
+                                 message="Email address must be a zagmail email address")
+    email = models.EmailField(max_length=255, unique=True, validators=[email_regex])
     name = models.CharField(max_length=255)
     student_id = models.IntegerField(default=-1, unique=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{3,3}?-?\d{3,3}?-?\d{4,4}$',
@@ -57,7 +58,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    REQUIRED_FIELDS = ['name', 'student_id', 'phone_number']
 
     def get_full_name(self):
         """Used to get a users full name."""
