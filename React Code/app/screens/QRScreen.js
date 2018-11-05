@@ -24,7 +24,8 @@ class QRScreen extends Component {
         </Row>
         <Row size={30}>
           <Col size={24}></Col>
-          <Col size={52}><QRCode
+          <Col size={52}>
+          <QRCode
             value={tentMembers[0]}
             size={200}
             bgColor='black'
