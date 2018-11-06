@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'Users',
+    'Api',
 ]
 
 MIDDLEWARE = [
@@ -128,4 +128,5 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-AUTH_USER_MODEL = 'Users.UserProfile'
+# Overrides the current user to use our own custom user
+AUTH_USER_MODEL = 'Api.UserProfile'
