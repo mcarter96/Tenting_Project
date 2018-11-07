@@ -33,4 +33,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
         return user
 
-
+# TODO: Create class TentSerializer
+class TentSerializer(serializers.ModelSerializer):
+    """A serializer for our tent objects."""
