@@ -14,6 +14,7 @@ import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
+import SearchForTent from '../screens/SearchForTent'
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -38,6 +39,12 @@ export const CreateTentStack = StackNavigator({
     screen: addMembers,
     navigationOptions: {
       title: 'Add Members',
+    },
+  },
+  SearchForTent: {
+    screen: SearchForTent, 
+    navigationOptions: {
+      title: 'Search for Tents',
     },
   },
 });

@@ -10,6 +10,10 @@ class TentRegInitial extends Component {
     this.props.navigation.navigate('TentRuleConfirmation');
   }
 
+  onPressJoinTent = () => {
+    this.props.navigation.navigate('SearchForTent');
+  }
+
   render() {
     return (
       <Grid>
@@ -31,7 +35,7 @@ class TentRegInitial extends Component {
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.onPressJoinTent}>
               <Text style = {styles.textJoin}>
                 Join Tent
               </Text>
