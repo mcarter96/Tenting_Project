@@ -36,3 +36,33 @@ class UserProfileSerializer(serializers.ModelSerializer):
 # TODO: Create class TentSerializer
 class TentSerializer(serializers.ModelSerializer):
     """A serializer for our tent objects."""
+    tenter_1 = serializers.IntegerField(read_only=True)
+    tenter_2 = serializers.IntegerField(required=False)
+    tenter_3 = serializers.IntegerField(required=False)
+    tenter_4 = serializers.IntegerField(required=False)
+    tenter_5 = serializers.IntegerField(required=False)
+    tenter_6 = serializers.IntegerField(required=False)
+    tent_pin = serializers.IntegerField(read_only=True)
+    qr_code_str = serializers.CharField(read_only=True)
+
+    def create(self, validated_data):
+        """
+        Create and return a new `TentSerializer` instance, given the validated data.
+        """
+        return TentSerializer.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing `Snippet` instance, given the validated data.
+        """
+        instance.tenter_1 = validated_data.get('tenter_1', instance.tenter_1)
+        instance.tenter_2 = validated_data.get('tenter_2', instance.tenter_2)
+        instance.tenter_3 = validated_data.get('tenter_3', instance.tenter_3)
+        instance.tenter_4 = validated_data.get('tenter_4', instance.tenter_4)
+        instance.tenter_5 = validated_data.get('tenter_5', instance.tenter_5)
+        instance.tenter_6 = validated_data.get('tenter_6', instance.tenter_6)
+        instance.tent_pin = validated_data.get('tent_pin', instance.tent_pin)
+        instance.qr_code_str = validated_data.get('qr_code_str', instance.qr_code_str)
+        instance.save()
+        return instance
+
