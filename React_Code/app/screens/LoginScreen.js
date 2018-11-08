@@ -19,10 +19,10 @@ class Login extends Component {
     data: [],
     error: null,
     refreshing: false,
-    base_url: "https://localhost:8000"
+    base_url: "http://tenting-rewards.gonzaga.edu/"
   }
   fetchDataFromApi = ()  => {
-    const url = "http://localhost:8000/users/";
+    const url = "http://tenting-rewards.gonzaga.edu/users/";
 
     this.setState({ loading: true });
 
