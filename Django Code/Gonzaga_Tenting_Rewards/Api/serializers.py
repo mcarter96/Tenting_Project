@@ -36,14 +36,21 @@ class UserProfileSerializer(serializers.ModelSerializer):
 # TODO: Create class TentSerializer
 class TentSerializer(serializers.ModelSerializer):
     """A serializer for our tent objects."""
-    tenter_1 = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = models.TentGroup
+        fields = ('tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str')
+        # Defines extra parameters on the certain fields
+        extra_kwargs = {'tent_pin': {'read_only': True}, 'qr_code_str': {'read_only': True}}
+
+    tenter_1 = serializers.IntegerField(required=True)
     tenter_2 = serializers.IntegerField(required=False)
     tenter_3 = serializers.IntegerField(required=False)
     tenter_4 = serializers.IntegerField(required=False)
     tenter_5 = serializers.IntegerField(required=False)
     tenter_6 = serializers.IntegerField(required=False)
-    tent_pin = serializers.IntegerField(read_only=True)
-    qr_code_str = serializers.CharField(read_only=True)
+    tent_pin = serializers.IntegerField(required=True)
+    qr_code_str = serializers.CharField(required=True)
 
     def create(self, validated_data):
         """
