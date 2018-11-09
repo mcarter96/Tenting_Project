@@ -91,4 +91,4 @@ class TestLoginFeature(TestCase):
                               data="{\"username\": \"wrong@zagmail.gonzaga.edu\", \"password\": \"testPassword1\"}",
                               content_type="application/json")
 
-        assert (request.data['non_field_errors'] != None)
+        assert(request.data['non_field_errors'] != None)
