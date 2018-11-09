@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-
+import { Col, Row, Grid } from "react-native-easy-grid";
 import {
   AppRegistry,
   StyleSheet,
@@ -13,16 +13,23 @@ import {
 import QRCodeScanner from 'react-native-qrcode-scanner';
 export default class App extends Component {
   onSuccess(e) {
-    Linking
-      .openURL(e.data)
-      .catch(err => console.error('An error occured', err));
+    console.log(e.data)
   }
 
   render() {
     return (
-      <QRCodeScanner
-        onRead={this.onSuccess.bind(this)}
-      />
+      <Grid>
+        <Row size={10}></Row>
+        <Row size={40}>
+        <Col size={10}></Col>
+        <Col size={80}><QRCodeScanner
+          onRead={this.onSuccess.bind(this)}
+          cameraStyle = {styles.camera}
+          /></Col>
+        <Col size={10}></Col>
+        </Row>
+        <Row size={50}></Row>
+      </Grid>
     );
   }
 }
@@ -44,6 +51,14 @@ const styles = StyleSheet.create({
   },
   buttonTouchable: {
     padding: 16,
+  },
+  camera: {
+    flex: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    height: '100%',
+    width: '100%',
   },
 });
 
