@@ -107,5 +107,5 @@ class TentGroup(models.Model):
     tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.CASCADE,)
     tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.CASCADE,)
     tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.CASCADE,)
-    tent_pin = models.IntegerField
-    qr_code_str = models.CharField
+    tent_pin = models.IntegerField()
+    qr_code_str = models.CharField(max_length=100)

@@ -2,8 +2,6 @@
 
 # Imports
 from rest_framework import serializers
-from django.core.validators import RegexValidator
-
 from . import models
 
 # Define serializers here
@@ -41,22 +39,26 @@ class TentSerializer(serializers.ModelSerializer):
         model = models.TentGroup
         fields = ('tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str')
         # Defines extra parameters on the certain fields
-        extra_kwargs = {'tent_pin': {'read_only': True}, 'qr_code_str': {'read_only': True}}
-
-    tenter_1 = serializers.IntegerField(required=True)
-    tenter_2 = serializers.IntegerField(required=False)
-    tenter_3 = serializers.IntegerField(required=False)
-    tenter_4 = serializers.IntegerField(required=False)
-    tenter_5 = serializers.IntegerField(required=False)
-    tenter_6 = serializers.IntegerField(required=False)
-    tent_pin = serializers.IntegerField(required=True)
-    qr_code_str = serializers.CharField(required=True)
 
     def create(self, validated_data):
         """
         Create and return a new `TentSerializer` instance, given the validated data.
         """
-        return TentSerializer.objects.create(**validated_data)
+        user = models.TentGroup(
+            tenter_1=validated_data['tenter_1'],
+            tenter_2=validated_data['tenter_2'],
+            tenter_3=validated_data['tenter_3'],
+            tenter_4=validated_data['tenter_4'],
+            tenter_5=validated_data['tenter_5'],
+            tenter_6=validated_data['tenter_6'],
+            tent_pin=validated_data['tent_pin'],
+            qr_code_str=validated_data['qr_code_str'],
+        )
+
+        user.save()
+
+        return user
+        # return TentSerializer.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """
@@ -72,4 +74,3 @@ class TentSerializer(serializers.ModelSerializer):
         instance.qr_code_str = validated_data.get('qr_code_str', instance.qr_code_str)
         instance.save()
         return instance
-
