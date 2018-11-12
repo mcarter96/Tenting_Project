@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements';
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Entypo from "react-native-vector-icons/Entypo";
 import AntDesign from "react-native-vector-icons/AntDesign"
+import {createStackNavigator} from 'react-navigation';
 
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
@@ -15,6 +16,38 @@ import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
 import SearchForTent from '../screens/SearchForTent'
+import adminFeed from '../screens/adminFeed'
+import adminManageUsers from '../screens/adminManageUsers'
+import adminMenu from '../screens/adminMenu'
+import adminTentChecks from '../screens/adminTentCheck'
+import adminTentReg from '../screens/adminTentReg'
+
+// export const AdminStack = StackNavigator({
+//   adminTentReg: {
+//     screen: adminTentReg,
+//     navigationOptions: {
+//       title: 'Tent Registration'
+//     },
+//   },
+//   adminTentChecks: {
+//     screen: adminTentChecks,
+//     navigationOptions: {
+//       title: 'Tent Checks'
+//     },
+//   },
+//   adminFeed: {
+//     screen: adminFeed,
+//     navigationOptions: {
+//       title: 'Admin Feed'
+//     },
+//   },
+//   adminManageUsers: {
+//     screen: adminManageUsers, 
+//     navigationOptions: {
+//       title: 'Manage Users'
+//     },
+//   },
+// });
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -88,6 +121,14 @@ export const Tabs = createBottomTabNavigator({
   
 });
 
+export const Buttons = createStackNavigator ({
+  adminMenu: {screen: adminMenu},
+  adminFeed: {screen: adminFeed},
+  adminManageUsers: {screen: adminManageUsers},
+  adminTentChecks: {screen: adminTentChecks},
+  adminTentReg: {screen: adminTentReg},
+});
+
 export const LoginStack = StackNavigator({
   Login: {
     screen: Login,
@@ -95,6 +136,12 @@ export const LoginStack = StackNavigator({
       title: '',
     },
   },
+  // adminMenu: {
+  //   screen: adminMenu,
+  //   navigationOptions: {
+  //     title: "Admin Menu"
+  //   },
+  // },
 });
 
 export const Root = StackNavigator({
@@ -103,6 +150,9 @@ export const Root = StackNavigator({
   },
   Tabs: {
     screen: Tabs,
+  },
+  Buttons: {
+    screen: Buttons,
   },
 }, {
   mode: 'modal',

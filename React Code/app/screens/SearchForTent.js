@@ -28,16 +28,13 @@ class SearchForTent extends Component {
     }
     else{
       console.log('tentName: ' + tentName + 'Pin:' + pin)
-      Alert.alert(
-        'JoinStatusMessage',
-        'Join Tent Status',
-        [
-          {text: 'You Joined!', onPress: () => console.log('You Joined!')},
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        { cancelable: false }
-      )
+      //this.props.navigation.navigate('addMembers', {creatorName: fullName});
+      // need to verify that the tent
+      if (true/*tent name and pin match in database and there is room in the tent*/) {
+        alert("You have joined this tent!")
+      } else {
+        alert("This tent does not exist or you have entered")
+      }
     }
  }
   render() {
