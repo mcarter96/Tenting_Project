@@ -67,6 +67,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, validators=[email_regex])
     name = models.CharField(max_length=255)
     student_id = models.IntegerField(default=-1, unique=True)
+    graduation_year = models.IntegerField(max_length=4)
 
     # Make sure the phone number entered follows the format of a phone number
     phone_regex = RegexValidator(regex=r'^\+?1?\d{3,3}?-?\d{3,3}?-?\d{4,4}$',

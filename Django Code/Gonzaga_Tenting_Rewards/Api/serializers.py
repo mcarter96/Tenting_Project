@@ -13,7 +13,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.UserProfile
-        fields = ('email', 'name', 'password', 'student_id', 'phone_number', 'is_staff')
+        fields = ('id', 'email', 'name', 'password', 'student_id', 'phone_number', 'is_staff', 'graduation_year')
         # Defines extra parameters on the certain fields
         extra_kwargs = {'password': {'write_only': True}, 'is_staff': {'read_only': True}}
 
@@ -25,6 +25,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             name=validated_data['name'],
             student_id = validated_data['student_id'],
             phone_number = validated_data['phone_number'],
+            graduation_year = validated_data['graduation_year'],
         )
 
         user.set_password(validated_data['password'])
