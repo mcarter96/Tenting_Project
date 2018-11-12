@@ -22,32 +22,32 @@ import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminTentReg from '../screens/adminTentReg'
 
-// export const AdminStack = StackNavigator({
-//   adminTentReg: {
-//     screen: adminTentReg,
-//     navigationOptions: {
-//       title: 'Tent Registration'
-//     },
-//   },
-//   adminTentChecks: {
-//     screen: adminTentChecks,
-//     navigationOptions: {
-//       title: 'Tent Checks'
-//     },
-//   },
-//   adminFeed: {
-//     screen: adminFeed,
-//     navigationOptions: {
-//       title: 'Admin Feed'
-//     },
-//   },
-//   adminManageUsers: {
-//     screen: adminManageUsers, 
-//     navigationOptions: {
-//       title: 'Manage Users'
-//     },
-//   },
-// });
+export const AdminStack = StackNavigator({
+  adminTentReg: {
+    screen: adminTentReg,
+    navigationOptions: {
+      title: 'Tent Registration'
+    },
+  },
+  adminTentChecks: {
+    screen: adminTentChecks,
+    navigationOptions: {
+      title: 'Tent Checks'
+    },
+  },
+  adminFeed: {
+    screen: adminFeed,
+    navigationOptions: {
+      title: 'Admin Feed'
+    },
+  },
+  adminManageUsers: {
+    screen: adminManageUsers, 
+    navigationOptions: {
+      title: 'Manage Users'
+    },
+  },
+});
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -136,12 +136,6 @@ export const LoginStack = StackNavigator({
       title: '',
     },
   },
-  // adminMenu: {
-  //   screen: adminMenu,
-  //   navigationOptions: {
-  //     title: "Admin Menu"
-  //   },
-  // },
 });
 
 export const Root = StackNavigator({
