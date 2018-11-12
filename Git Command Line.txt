@@ -1,6 +1,0 @@
-git add .
-git commit -m "<comment>"
-git push
-
-git config --global user.name "mcarter96"
-git config --global user.email "m6carter@comcast.net"

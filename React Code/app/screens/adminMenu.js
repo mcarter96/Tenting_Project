@@ -27,12 +27,12 @@ class adminMenu extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
             <TouchableOpacity onPress={this.onPressJoinTent}>
-              <Text style = {styles.textJoin}>
+              <Text style = {styles.text}>
                 Tent Checks
               </Text>
             </TouchableOpacity>
