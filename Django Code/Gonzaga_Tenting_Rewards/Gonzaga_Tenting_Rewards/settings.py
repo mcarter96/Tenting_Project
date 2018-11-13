@@ -25,7 +25,7 @@ SECRET_KEY = 'cl0)lg(tw)hx7c-2f&@p8ykq3%kx3qt3hfjpm(%f52_llp$q_('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tenting-rewards.gonzaga.edu']
 
 
 # Application definition

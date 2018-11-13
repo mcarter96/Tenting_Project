@@ -61,7 +61,7 @@ class UserProfileManager(BaseUserManager):
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represents a user profile inside our system"""
 
-    # Makes sure the email that was passed in is a zagmail password
+    # Makes sure the email that was passed in is a zagmail email
     email_regex = RegexValidator(regex=r'^\w{3,15}@zagmail.gonzaga.edu',
                                  message="Email address must be a zagmail email address")
     email = models.EmailField(max_length=255, unique=True, validators=[email_regex])
