@@ -5,6 +5,7 @@ import {
   StyleSheet, 
   TouchableOpacity,
   TextInput,
+  AsyncStorage,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -21,24 +22,26 @@ class Login extends Component {
     refreshing: false,
     base_url: "http://tenting-rewards.gonzaga.edu/"
   }
-  fetchDataFromApi = ()  => {
-    const url = "http://tenting-rewards.gonzaga.edu/users/";
+  fetchDataFromApi = (userName, passWord)  => {
+    const url = "http://tenting-rewards.gonzaga.edu/api/login/";
 
-    this.setState({ loading: true });
-
-    fetch(url)
+     return fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: userName,
+        password: passWord,
+      }),
+    })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
-        this.setState({
-          data: res,
-          error: null,
-          loading: false,
-          refreshing: false
-        });
+        return res
       })
       .catch(error => {
-        this.setState({ error, loading : false });
+        console.error(error);
       })
   };
 
@@ -48,8 +51,7 @@ class Login extends Component {
   username = (text) => {
     this.setState({username: text});
    }
-  login = (username, password) => {
-    this.fetchDataFromApi()
+  login = async(username, password) => {
     if(username == '' && password == ''){
         alert("Username and Password fields are required.")
     }
@@ -60,8 +62,14 @@ class Login extends Component {
         alert("Password field is required.")
     }
     else{
-        alert("Check if " + username + " and " + password + " are correct!")
-        this.props.navigation.navigate('Tabs');
+        var result = await this.fetchDataFromApi(username, password);
+        
+        if (result.token){
+          this.props.navigation.navigate('Tabs');
+        }
+        else{
+          alert("Bad Username or Password.")
+        }
     }
 
   }
