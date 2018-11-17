@@ -14,7 +14,7 @@ path = BASE_DIR + "/db.sqlite3"
 
 
 def getUserID(email):
-    """Get the user id of the passed in email"""
+    """Get the user id of the passed in email (this is the unique identifier)"""
 
     # Establish a connection with the database
     connection = sqlite3.connect(path)

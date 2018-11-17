@@ -14,6 +14,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.UserProfile
+        # This id field (first field) relates to the unique identifier, not the student id
         fields = ('id', 'email', 'name', 'password', 'student_id', 'phone_number', 'is_staff', 'graduation_year')
 
         # Defines extra parameters on the certain fields
