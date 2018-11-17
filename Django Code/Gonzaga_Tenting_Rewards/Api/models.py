@@ -16,7 +16,7 @@ from django.core.validators import RegexValidator
 class UserProfileManager(BaseUserManager):
     """Helps Django work with our custom user model."""
 
-    def create_user(self, email, name, phone_number, student_id, password=None, superUser=False):
+    def create_user(self, email, name, phone_number, student_id, graduation_year, password=None, superUser=False):
         """Creates a new user profile object."""
 
         # Make sure a phone number was entered
@@ -35,7 +35,7 @@ class UserProfileManager(BaseUserManager):
 
         # If the request was not a super user
         if not superUser:
-            user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id)
+            user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id, graduation_year=graduation_year)
         else: # If the request is a super user, leave out phone_number and student_id
             user = self.model(email=email, name=name)
 
@@ -49,7 +49,8 @@ class UserProfileManager(BaseUserManager):
     def create_superuser(self, email, name, password):
         """Creates and saves a new superuser with given details."""
 
-        user = self.create_user(email, name, -1, -1, password=password, superUser=True)
+        user = self.create_user(email=email, name=name, phone_number="-1",
+                                student_id=-1, graduation_year=-1, password=password, superUser=True)
 
         user.is_superuser = True
         user.is_staff = True
@@ -67,7 +68,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, validators=[email_regex])
     name = models.CharField(max_length=255)
     student_id = models.IntegerField(default=-1, unique=True)
-    graduation_year = models.IntegerField(max_length=4)
+    graduation_year = models.IntegerField(default=-1)
 
     # Make sure the phone number entered follows the format of a phone number
     phone_regex = RegexValidator(regex=r'^\+?1?\d{3,3}?-?\d{3,3}?-?\d{4,4}$',
