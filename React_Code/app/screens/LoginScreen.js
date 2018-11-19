@@ -65,10 +65,14 @@ class Login extends Component {
         var result = await this.fetchDataFromApi(username, password);
         
         if (result.token){
-          this.props.navigation.navigate('Tabs');
+          this.setState({password:''});
+          this.setState({username:''});
+          this._textInput.setNativeProps({ text: '' });
+          this._textInput2.setNativeProps({text: ''});
+          this.props.navigation.navigate('Tabs', {userEmail: username});
         }
         else{
-          alert("Bad Username or Password.")
+          alert("Invalid Username or Password.")
         }
     }
 
@@ -81,11 +85,12 @@ class Login extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
-                  placeholder = "Username"
+                  placeholder = "Email"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
                   autoCorrect = {false}
                   onChangeText = {this.username}
+                  ref={component => this._textInput2 = component}
                   />
           </Col>
           <Col size={10}></Col>
@@ -94,6 +99,7 @@ class Login extends Component {
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
+          <View style = {styles.container}>
             <TextInput style = {styles.input}
                   placeholder = "Password"
                   placeholderTextColor = "black"
@@ -101,12 +107,14 @@ class Login extends Component {
                   autoCorrect = {false}
                   secureTextEntry = {true}
                   onChangeText = {this.password}
+                  ref={component => this._textInput = component}
                   />
+            </View>
           </Col>
           <Col size={10}></Col>
         </Row>
         <Row size={5}></Row>
-        <Row size={20}>
+        <Row size={15}>
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
@@ -119,7 +127,19 @@ class Login extends Component {
             </Col>
             <Col size={20}></Col>
         </Row>
-        <Row size={20}></Row>
+        <Row size={25}>
+        <Col size={20}></Col>
+            <Col size={60}>
+              <View style = {styles.container}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
+                  <Text style = {styles.text2}>
+                    Create Account
+                  </Text>
+              </TouchableOpacity>
+              </View>
+            </Col>
+            <Col size={20}></Col>
+        </Row>
       </Grid>
       
     );
@@ -129,22 +149,34 @@ class Login extends Component {
 export default Login;
 
 const styles = StyleSheet.create({
-    input: {
-       textAlign: 'center',
-       height: 40,
-       borderColor: 'black',
-       borderWidth: 1,
-       width: '100%'
-    },
-    container: {
-      alignItems: 'center',
-      width: '100%'
-   },
-   text: {
-      fontSize: 20
-   },
-   numberText: {
-      padding: 5,
-      fontSize: 30
-   },
-  })
+  input: {
+     textAlign: 'center',
+     height: 40,
+     borderColor: 'black',
+     borderWidth: 1,
+     width: '100%'
+  },
+  container: {
+    alignItems: 'center',
+    width: '100%'
+ },
+ text: {
+    borderWidth: 1,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft:60,
+    paddingRight: 60,
+    borderColor: 'black',
+    fontSize: 20
+ },
+ text2: {
+  borderWidth: 1,
+  padding: 15,
+  borderColor: 'black',
+  fontSize: 20
+},
+ numberText: {
+    padding: 5,
+    fontSize: 30
+ },
+})

@@ -1,5 +1,4 @@
 from django.test import TestCase, Client
-from rest_framework.test import APIRequestFactory
 from . import models
 
 # Create your tests here.
@@ -8,8 +7,12 @@ class TestCreateSingleUser(TestCase):
 
     def setUp(self):
         """Any setup that is required for this test"""
-        models.UserProfile.objects.create_user("test@zagmail.gonzaga.edu",
-                                              "test case", "555-555-5555", 123, "somePassword")
+        models.UserProfile.objects.create_user(email="test@zagmail.gonzaga.edu",
+                                               name="test case",
+                                               phone_number="555-555-5555",
+                                               student_id=123,
+                                               password="somePassword",
+                                               graduation_year=2018)
 
     def test_object_was_created(self):
         """Object was successfully created in database"""
@@ -27,9 +30,7 @@ class TestCreateSingleUser(TestCase):
         results = request.data['results'][0]
         assert(results['email'] == "test@zagmail.gonzaga.edu")
         assert(results['name'] == 'test case')
-        assert(results['student_id'] == 123)
-        assert(results['phone_number'] == '555-555-5555')
-        assert(results['is_staff'] == False)
+        assert(results['url'] == "http://testserver/api/profile/1")
 
 class TestCreateAdminUser(TestCase):
     """Test that an admin user was successfully created"""
@@ -39,7 +40,8 @@ class TestCreateAdminUser(TestCase):
 
         models.UserProfile.objects.create_superuser("admin@zagmail.gonzaga.edu",
                                                     "admin admin",
-                                                    "somePassword")
+                                                    "somePassword",
+                                                    )
 
     def test_object_was_created(self):
         """Super user was successfully created"""
@@ -65,7 +67,12 @@ class TestLoginFeature(TestCase):
     def setUp(self):
         """Setup a user that will be able to login"""
 
-        models.UserProfile.objects.create_user("test@zagmail.gonzaga.edu", "test", "111-111-1111", 123, "testPassword1")
+        models.UserProfile.objects.create_user(email="test@zagmail.gonzaga.edu",
+                                               name="test",
+                                               phone_number="111-111-1111",
+                                               student_id=123,
+                                               password="testPassword1",
+                                               graduation_year=2018)
 
     def test_login(self):
         """See if the user can login with proper credentials"""
