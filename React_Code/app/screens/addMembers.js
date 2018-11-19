@@ -4,17 +4,41 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 class addMembers extends Component {
   state = {
-    members: [],
+    memberOne: '',
+    memberTwo: '',
+    memberThree: '',
+    memberFour: '',
+    memberFive: '',
+
   }
-  newMember = (text) => {
-    this.setState({members:[...this.state.members, text]});
+  newMemberOne = (text) => {
+    this.setState({memberOne: text});
+    
   }
-  submit = (members) => {
-    console.log(members);
+  newMemberTwo = (text) => {
+    this.setState({memberTwo: text});
+    
+  }
+  newMemberThree = (text) => {
+    this.setState({memberThree: text});
+    
+  }
+  newMemberFour = (text) => {
+    this.setState({memberFour: text});
+    
+  }
+  newMemberFive = (text) => {
+    this.setState({memberFive: text});
+   
+  }
+  submit = (thisUser,memberone, membertwo, memberthree, memberfour, memberfive) => {
+    let members = [thisUser,memberone, membertwo, memberthree, memberfour, memberfive];
     this.props.navigation.navigate('TentRegInitial');
-    this.props.navigation.navigate('QRCode');
+    this.props.navigation.navigate('QRCode', {tentMembers: members});
  }
   render() {
+    const { navigation } = this.props;
+    const userName = navigation.getParam('creatorName', 'No Name');
     return (
       <Grid>
         <Row size={2}></Row>
@@ -23,7 +47,7 @@ class addMembers extends Component {
           <Col size={80}>
             <TextInput style = {styles.input}
                   editable = {false}
-                  placeholder = "User Name"
+                  placeholder = {userName}
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
                   />
@@ -39,7 +63,7 @@ class addMembers extends Component {
                   placeholder = "New Member"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
-                  onChangeText = {this.newMember}/>
+                  onChangeText = {this.newMemberOne}/>
           </Col>
           <Col size={10}></Col>
         </Row>
@@ -51,7 +75,7 @@ class addMembers extends Component {
                     placeholder = "New Member"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
-                    onChangeText = {this.newMember}/>
+                    onChangeText = {this.newMemberTwo}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -63,7 +87,7 @@ class addMembers extends Component {
                     placeholder = "New Member"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
-                    onChangeText = {this.newMember}/>
+                    onChangeText = {this.newMemberThree}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -75,7 +99,7 @@ class addMembers extends Component {
                     placeholder = "New Member"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
-                    onChangeText = {this.newMember}/>
+                    onChangeText = {this.newMemberFour}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -87,7 +111,7 @@ class addMembers extends Component {
                     placeholder = "New Member"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
-                    onChangeText = {this.newMember}/>
+                    onChangeText = {this.newMemberFive}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -96,7 +120,8 @@ class addMembers extends Component {
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submit(this.state.members)}>
+              <TouchableOpacity onPress={() => this.submit(userName,this.state.memberOne, this.state.memberTwo, 
+                this.state.memberThree, this.state.memberFour, this.state.memberFive)}>
                   <Text style = {styles.text}>
                     Submit
                   </Text>
