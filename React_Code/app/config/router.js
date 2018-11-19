@@ -14,6 +14,7 @@ import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
+import userRegistration from '../screens/userRegistration';
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -96,6 +97,9 @@ export const Root = StackNavigator({
   },
   Tabs: {
     screen: Tabs,
+  },
+  Registration: {
+    screen: userRegistration
   },
 }, {
   mode: 'modal',

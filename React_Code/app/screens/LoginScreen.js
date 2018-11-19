@@ -85,7 +85,7 @@ class Login extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
-                  placeholder = "Username"
+                  placeholder = "Email"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
                   autoCorrect = {false}
@@ -114,7 +114,7 @@ class Login extends Component {
           <Col size={10}></Col>
         </Row>
         <Row size={5}></Row>
-        <Row size={20}>
+        <Row size={15}>
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
@@ -127,7 +127,19 @@ class Login extends Component {
             </Col>
             <Col size={20}></Col>
         </Row>
-        <Row size={20}></Row>
+        <Row size={25}>
+        <Col size={20}></Col>
+            <Col size={60}>
+              <View style = {styles.container}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
+                  <Text style = {styles.text2}>
+                    Create Account
+                  </Text>
+              </TouchableOpacity>
+              </View>
+            </Col>
+            <Col size={20}></Col>
+        </Row>
       </Grid>
       
     );
@@ -150,10 +162,19 @@ const styles = StyleSheet.create({
  },
  text: {
     borderWidth: 1,
-    padding: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft:60,
+    paddingRight: 60,
     borderColor: 'black',
     fontSize: 20
  },
+ text2: {
+  borderWidth: 1,
+  padding: 15,
+  borderColor: 'black',
+  fontSize: 20
+},
  numberText: {
     padding: 5,
     fontSize: 30
