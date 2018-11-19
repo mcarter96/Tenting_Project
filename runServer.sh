@@ -17,8 +17,8 @@ else
     
 fi
 # Go to the source code and make sure the requirements are installed
-cd /home/source_code/Gonzaga-Tenting-Rewards/Django\ Code/Gonzaga_Tenting_Rewards
-pip3 install requirements.txt
+cd /home/source_code/Gonzaga-Tenting-Rewards/Django_Code/Gonzaga_Tenting_Rewards
+pip3 install -r requirements.txt
 
 # If the requirements werented installed, display a warning to the user
 if [ $1 -eq 0 ]; then
@@ -31,7 +31,7 @@ else
 fi
 
 # Go to the source code to run the server
-cd /home/source_code/Gonzaga-Tenting-Rewards/Django\ Code/Gonzaga_Tenting_Rewards
+cd /home/source_code/Gonzaga-Tenting-Rewards/Django_Code/Gonzaga_Tenting_Rewards
 
 # Run the server as an administrator so you can see it on port 80
 sudo python3 manage.py runserver 0.0.0.0:80
