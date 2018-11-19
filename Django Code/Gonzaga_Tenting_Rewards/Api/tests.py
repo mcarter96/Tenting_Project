@@ -92,3 +92,20 @@ class TestLoginFeature(TestCase):
                               content_type="application/json")
 
         assert(request.data['non_field_errors'] != None)
+
+class TestCreateTentGroup(TestCase):
+    def setUp(self):
+        """Setup a tenting group of 6 users"""
+        models.TentGroup.create_tent_group("cvillagomez@zagmail.gonzaga.edu", "azenoni@zagmail.gonzaga.edu", "skopczynski@zagmail.gonzaga.edu", "mcarter@zagmail.gonzaga.edu", "bowers@zagmail.gonzaga.edu", "schroeder@zagmail.gonzaga.edu", "depalma@zagmail.gonzaga.edu", 1111, "ONE")
+
+    def test_object_was_created(self):
+        """Object was successfully created in database"""
+
+        tmp = models.TentGroup.objects.get(tenter_1 = "cvillagomez@zagmail.gonzaga.edu")
+        self.assertEqual(tmp.tenter_2, "azenoni@zagmail.gonzaga.edu")
+        self.assertEqual(tmp.tenter_3,  "skopczynski@zagmail.gonzaga.edu")
+        self.assertEqual(tmp.tenter_4, "mcarter@zagmail.gonzaga.edu")
+        self.assertEqual(tmp.tenter_5, "bowers@zagmail.gonzaga.edu")
+        self.assertEqual(tmp.tenter_6, "schroeder@zagmail.gonzaga.edu")
+        self.assertEqual(tmp.tent_pin, 1111)
+        self.assertEqual(tmp.qr_code_str, "ONE")
