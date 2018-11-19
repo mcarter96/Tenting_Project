@@ -18,5 +18,3 @@ router.register('tent', views.TentViewSet, base_name='tent')
 urlpatterns = [
     url(r'', include(router.urls)),
 ]
-
-# TODO: Register tentview with the router

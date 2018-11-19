@@ -2,6 +2,7 @@
 
 # Imports
 from rest_framework import serializers
+
 from django.core.validators import RegexValidator
 from Helper_Functions import remove_data
 
@@ -44,13 +45,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         # Return the user
         return user
 
-# TODO: Create class TentSerializer
 class TentSerializer(serializers.ModelSerializer):
     """A serializer for our tent objects."""
 
     class Meta:
         model = models.TentGroup
-        fields = ('tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str')
+        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str')
+
         # Defines extra parameters on the certain fields
 
     def create(self, validated_data):
