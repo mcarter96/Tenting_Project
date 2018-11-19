@@ -13,6 +13,7 @@ import TentRuleConfirmation from '../screens/TentRuleConfirmation';
 import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
+import Login from '../screens/LoginScreen'
 
 export const CreateTentStack = StackNavigator({
   TentRegInitial: {
@@ -80,21 +81,21 @@ export const Tabs = createBottomTabNavigator({
   
 });
 
-export const SettingsStack = StackNavigator({
-  Settings: {
-    screen: Settings,
+export const LoginStack = StackNavigator({
+  Login: {
+    screen: Login,
     navigationOptions: {
-      title: 'Settings',
+      title: '',
     },
   },
 });
 
 export const Root = StackNavigator({
+  Login: {
+    screen: LoginStack,
+  },
   Tabs: {
     screen: Tabs,
-  },
-  Settings: {
-    screen: SettingsStack,
   },
 }, {
   mode: 'modal',
