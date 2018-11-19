@@ -25,7 +25,7 @@ SECRET_KEY = 'cl0)lg(tw)hx7c-2f&@p8ykq3%kx3qt3hfjpm(%f52_llp$q_('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tenting-rewards.gonzaga.edu']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'Api',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+# Overrides the current user to use our own custom user
+AUTH_USER_MODEL = 'Api.UserProfile'
