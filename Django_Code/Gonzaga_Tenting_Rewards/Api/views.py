@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.reverse import reverse_lazy
 from Helper_Functions import user_functions
+from rest_framework import status
+from django.core.mail import send_mail
 
 from . import serializers
 from . import models
@@ -37,6 +39,20 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     search_fields = ('name', 'email',)
 
     generic_fields = ('name', 'email', 'url')
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+
+        # The following will fail because no email is setup in the project (does not show it fails)
+        send_mail("Authenticate Email", # Subject
+                  "Please click the following link to authenticate your email", # Message
+                  'andrew@zenoni.com', # From
+                  ['azenoni@zagmail.gonzaga.edu'], # To
+                  fail_silently=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def list(self, request, *args, **kwargs):
         """Query that runs when listing all of the objects (most is taken from actual list function of ModelViewSet)"""
@@ -95,9 +111,11 @@ class LoginViewSet(viewsets.ViewSet):
         # Find out specific data about the user
         user_id = user_functions.getUserID(serializer.validated_data['username'])
         is_admin = user_functions.getIfAdmin(user_id)
+        tent_id = user_functions.getTentID(user_id)
+
 
         # Return the response with necessary fields
-        return Response({'token': token.key, 'is_admin': is_admin})
+        return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id})
 
 class TentViewSet(viewsets.ModelViewSet):
     """Handles creating and updating of tent groups"""

@@ -31,6 +31,9 @@ class UserProfileManager(BaseUserManager):
         if not email:
             raise ValueError('Api must have an email address.')
 
+        if not graduation_year and not superUser:
+            raise ValueError('Api must have a graduation year.')
+
         email = self.normalize_email(email)
 
         # If the request was not a super user
@@ -80,7 +83,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'student_id', 'phone_number']
+    REQUIRED_FIELDS = ['name', 'student_id', 'phone_number', 'graduation_year']
 
     def get_full_name(self):
         """Used to get a users full name."""

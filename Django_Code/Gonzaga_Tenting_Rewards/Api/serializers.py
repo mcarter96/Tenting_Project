@@ -19,7 +19,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'name', 'password', 'student_id', 'phone_number', 'is_staff', 'graduation_year')
 
         # Defines extra parameters on the certain fields
-        extra_kwargs = {'password': {'write_only': True}, 'is_staff': {'read_only': True}}
+        extra_kwargs = {'password': {'write_only': True},
+                        'is_staff': {'read_only': True},
+                        'graduation_year': {'required': True,
+                                            },
+                        'phone_number': {'required': True,
+                                         'allow_blank': False
+                                         },
+                        'student_id': {'required': True,
+                                       },
+                        }
 
     def create(self, validated_data):
         """Create and return a new user"""
