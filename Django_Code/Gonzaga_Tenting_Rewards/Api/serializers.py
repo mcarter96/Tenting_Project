@@ -78,12 +78,12 @@ class TentSerializer(serializers.ModelSerializer):
 
 
         user = models.TentGroup(
-            tenter_1=tenter1,
-            tenter_2=tenter2,
-            tenter_3=tenter3,
-            tenter_4=tenter4,
-            tenter_5=tenter5,
-            tenter_6=tenter6,
+            tenter_1=validated_data['tenter_1'],
+            tenter_2=validated_data['tenter_2'],
+            tenter_3=validated_data['tenter_3'],
+            tenter_4=validated_data['tenter_4'],
+            tenter_5=validated_data['tenter_5'],
+            tenter_6=validated_data['tenter_6'],
             tent_pin=validated_data['tent_pin'],
             qr_code_str=validated_data['qr_code_str'],
         )
