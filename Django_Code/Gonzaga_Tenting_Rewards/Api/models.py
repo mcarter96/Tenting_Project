@@ -105,15 +105,18 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
         return self.email
 
+def limit_tenter_choices():
+    return {'is_staff': False, 'is_active': True}
+
 class TentGroup(models.Model):
     """Creates a new instance of a tenting group object and assigns up to 6 users to the group"""
 
-    tenter_1 = models.ForeignKey(UserProfile, related_name='tenter_1', on_delete=models.CASCADE,)
-    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.CASCADE,)
-    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.CASCADE,)
-    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.CASCADE,)
-    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.CASCADE,)
-    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.CASCADE,)
+    tenter_1 = models.ForeignKey(UserProfile, related_name='tenter_1', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
+    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
+    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
+    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
+    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
+    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
     tent_pin = models.IntegerField()
     qr_code_str = models.CharField(max_length=100)
 
@@ -122,6 +125,8 @@ class TentGroup(models.Model):
         tent_group = self.model(tenter_1=tenter_1, tenter_2=tenter_2, tenter_3=tenter_3, tenter_4=tenter_4, tenter_5=tenter_5, tenter_6=tenter_6, tent_pin=tent_pin, qr_code_str=qr_code_str)
 
         return tent_group
+
+
 
     def get_tenter_1(self):
         """Used to get tenter 1's email."""

@@ -4,7 +4,7 @@
 from rest_framework import serializers
 
 from django.core.validators import RegexValidator
-from Helper_Functions import remove_data
+from Helper_Functions import remove_data, user_functions
 
 from . import models
 
@@ -67,13 +67,23 @@ class TentSerializer(serializers.ModelSerializer):
         """
         Create and return a new `TentSerializer` instance, given the validated data.
         """
+
+        tenter1 = user_functions.getUserID(validated_data['tenter_1'])
+        tenter2 = user_functions.getUserID(validated_data['tenter_2'])
+        tenter3 = user_functions.getUserID(validated_data['tenter_3'])
+        tenter4 = user_functions.getUserID(validated_data['tenter_4'])
+        tenter5 = user_functions.getUserID(validated_data['tenter_5'])
+        tenter6 = user_functions.getUserID(validated_data['tenter_6'])
+
+
+
         user = models.TentGroup(
-            tenter_1=validated_data['tenter_1'],
-            tenter_2=validated_data['tenter_2'],
-            tenter_3=validated_data['tenter_3'],
-            tenter_4=validated_data['tenter_4'],
-            tenter_5=validated_data['tenter_5'],
-            tenter_6=validated_data['tenter_6'],
+            tenter_1=tenter1,
+            tenter_2=tenter2,
+            tenter_3=tenter3,
+            tenter_4=tenter4,
+            tenter_5=tenter5,
+            tenter_6=tenter6,
             tent_pin=validated_data['tent_pin'],
             qr_code_str=validated_data['qr_code_str'],
         )
