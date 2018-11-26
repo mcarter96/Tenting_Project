@@ -38,9 +38,12 @@ class TestCreateAdminUser(TestCase):
     def setUp(self):
         """Perfrom any setup regarding this test"""
 
-        models.UserProfile.objects.create_superuser("admin@zagmail.gonzaga.edu",
-                                                    "admin admin",
-                                                    "somePassword",
+        models.UserProfile.objects.create_superuser(email="admin@zagmail.gonzaga.edu",
+                                                    name="admin admin",
+                                                    phone_number="5555555555",
+                                                    student_id=1,
+                                                    graduation_year=2020,
+                                                    password="adminPassword"
                                                     )
 
     def test_object_was_created(self):
