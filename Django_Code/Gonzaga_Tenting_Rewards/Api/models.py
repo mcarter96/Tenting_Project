@@ -49,7 +49,7 @@ class UserProfileManager(BaseUserManager):
         return user
 
     # Creates a super user
-    def create_superuser(self, email, name, password):
+    def create_superuser(self, email, name, student_id, phone_number, graduation_year, password):
         """Creates and saves a new superuser with given details."""
 
         user = self.create_user(email=email, name=name, phone_number="-1",
