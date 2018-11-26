@@ -68,12 +68,12 @@ class TentSerializer(serializers.ModelSerializer):
         Create and return a new `TentSerializer` instance, given the validated data.
         """
 
-        tenter1 = user_functions.getUserID(validated_data['tenter_1'])
-        tenter2 = user_functions.getUserID(validated_data['tenter_2'])
-        tenter3 = user_functions.getUserID(validated_data['tenter_3'])
-        tenter4 = user_functions.getUserID(validated_data['tenter_4'])
-        tenter5 = user_functions.getUserID(validated_data['tenter_5'])
-        tenter6 = user_functions.getUserID(validated_data['tenter_6'])
+        # tenter1 = user_functions.getUserID(validated_data['tenter_1'])
+        # tenter2 = user_functions.getUserID(validated_data['tenter_2'])
+        # tenter3 = user_functions.getUserID(validated_data['tenter_3'])
+        # tenter4 = user_functions.getUserID(validated_data['tenter_4'])
+        # tenter5 = user_functions.getUserID(validated_data['tenter_5'])
+        # tenter6 = user_functions.getUserID(validated_data['tenter_6'])
 
 
 

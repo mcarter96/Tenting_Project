@@ -112,11 +112,11 @@ class TentGroup(models.Model):
     """Creates a new instance of a tenting group object and assigns up to 6 users to the group"""
 
     tenter_1 = models.ForeignKey(UserProfile, related_name='tenter_1', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
-    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
-    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
-    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
-    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
-    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
+    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
+    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
+    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
+    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
+    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
     tent_pin = models.IntegerField()
     qr_code_str = models.CharField(max_length=100)
 

@@ -38,7 +38,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
 
-    generic_fields = ('name', 'email', 'url')
+    generic_fields = ('id','name', 'email', 'url')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
