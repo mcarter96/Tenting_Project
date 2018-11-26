@@ -38,7 +38,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
 
-    generic_fields = ('id','name', 'email', 'url')
+    generic_fields = ('id','name', 'email', 'url', 'tent_id')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -69,6 +69,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             # Only return the generic fields when listing all user profiles
             for dicts in serializer.data:
                 dicts['url'] = tmp + "profile/" + str(dicts['id'])
+                dicts['tent_id'] = user_functions.getTentID(dicts['id'])
                 for i in dicts:
                     if i not in self.generic_fields:
                         del dicts[i]
@@ -82,6 +83,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         # Only return the generic fields when listing all user profiles
         for dicts in serializer.data:
             dicts['url'] = tmp + "profile/" + str(dicts['id'])
+            dicts['tent_id'] = user_functions.getTentID(dicts['id'])
             for i in dicts:
                 if i not in self.generic_fields:
                     del dicts[i]
