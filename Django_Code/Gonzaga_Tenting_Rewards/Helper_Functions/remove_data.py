@@ -24,7 +24,7 @@ def removeAllTents():
     # sql_command = "SELECT id FROM Api_userprofile WHERE email=\"" + email + "\";"
     # crsr.execute(sql_command)
 
-
+# TODO: Becomes a little more compicated becuase does not remove from tent table either, need to figure this out
 def removeExtraneousUsers():
     """Remove all users who had a graduation date over a year ago"""
 
@@ -36,10 +36,10 @@ def removeExtraneousUsers():
     year = datetime.datetime.now().year - 1
 
     # Delete all user who graduated two years ago (before last year)
-    sql_command = "DELETE FROM Api_userprofile WHERE graduation_year < " + str(year) + ";"
+    # sql_command = "DELETE FROM Api_userprofile WHERE graduation_year < " + str(year) + ";"
 
     # Execute the command
-    crsr.execute(sql_command)
+    # crsr.execute(sql_command)
 
     # Commit and close the changes
     connection.commit()

@@ -4,7 +4,7 @@
 from rest_framework import serializers
 
 from django.core.validators import RegexValidator
-from Helper_Functions import remove_data
+from Helper_Functions import remove_data, user_functions
 
 from . import models
 
@@ -19,7 +19,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'name', 'password', 'student_id', 'phone_number', 'is_staff', 'graduation_year')
 
         # Defines extra parameters on the certain fields
-        extra_kwargs = {'password': {'write_only': True}, 'is_staff': {'read_only': True}}
+        extra_kwargs = {'password': {'write_only': True},
+                        'is_staff': {'read_only': True},
+                        'graduation_year': {'required': True,
+                                            },
+                        'phone_number': {'required': True,
+                                         'allow_blank': False
+                                         },
+                        'student_id': {'required': True,
+                                       },
+                        }
 
     def create(self, validated_data):
         """Create and return a new user"""
@@ -58,6 +67,16 @@ class TentSerializer(serializers.ModelSerializer):
         """
         Create and return a new `TentSerializer` instance, given the validated data.
         """
+
+        # tenter1 = user_functions.getUserID(validated_data['tenter_1'])
+        # tenter2 = user_functions.getUserID(validated_data['tenter_2'])
+        # tenter3 = user_functions.getUserID(validated_data['tenter_3'])
+        # tenter4 = user_functions.getUserID(validated_data['tenter_4'])
+        # tenter5 = user_functions.getUserID(validated_data['tenter_5'])
+        # tenter6 = user_functions.getUserID(validated_data['tenter_6'])
+
+
+
         user = models.TentGroup(
             tenter_1=validated_data['tenter_1'],
             tenter_2=validated_data['tenter_2'],
