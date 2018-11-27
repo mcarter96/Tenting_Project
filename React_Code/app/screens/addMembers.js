@@ -4,6 +4,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 class addMembers extends Component {
   state = {
+    data: '',
     memberOne: '',
     memberTwo: '',
     memberThree: '',
@@ -12,6 +13,8 @@ class addMembers extends Component {
 
   }
   newMemberOne = (text) => {
+    console.log("Json data");
+    console.log(this.data);
     this.setState({memberOne: text});
     
   }
@@ -33,8 +36,38 @@ class addMembers extends Component {
   }
   submit = (thisUser,memberone, membertwo, memberthree, memberfour, memberfive) => {
     let members = [thisUser,memberone, membertwo, memberthree, memberfour, memberfive];
-    this.props.navigation.navigate('TentRegInitial');
-    this.props.navigation.navigate('QRCode', {tentMembers: members});
+    let filter = /^([a-zA-Z0-9_\.\-])+\@((zagmail)+\.)+((gonzaga)+\.)+((edu))$/;
+    var alertString = "You must enter a zagmail address for the following members: \n";
+    var mustAlert = false;
+    for (var i = 0; i < members.length; i++){
+      if(members[i] != ''){
+        if(!filter.test(members[i])){
+          mustAlert = true;
+          alertString = alertString.concat(String(i+1));
+          alertString = alertString.concat("\n");
+        }
+      }
+    }
+    if(mustAlert){
+      alert(alertString);
+    }
+    else{
+      this.props.navigation.navigate('TentRegInitial');
+      this.props.navigation.navigate('QRCode', {tentMembers: members});
+    }
+ }
+ async componentDidMount(){
+  var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    method: 'GET'
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    return responseJson.results;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+  this.setState({data: result});
  }
   render() {
     const { navigation } = this.props;

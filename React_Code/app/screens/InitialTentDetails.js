@@ -22,26 +22,31 @@ class InitialTentDetails extends Component {
       alert("You left all of the fields empty.")
     }
     else if (tentName == '' && fullName == ''){
-      alert("You left tent name and last name empty.")
+      alert("You left tent name and email empty.")
     }
     else if (tentName == '' && pin == ''){
       alert("You left tent name and pin empty.")
     }
     else if (pin == '' && fullName == ''){
-      alert("You left pin and last name empty.")
+      alert("You left pin and email empty.")
     }
     else if (tentName == ''){
       alert("You left tent name empty.")
     }
     else if (fullName == ''){
-      alert("You left last name empty.")
+      alert("You left email empty.")
     }
     else if (pin == ''){
       alert("You left pin empty.")
     }
     else{
-      console.log('tentName: ' + tentName + ' fullName: ' + fullName + 'Pin:' + pin)
-      this.props.navigation.navigate('addMembers', {creatorName: fullName});
+      let filter = /^([a-zA-Z0-9_\.\-])+\@((zagmail)+\.)+((gonzaga)+\.)+((edu))$/;
+      if(!filter.test(this.state.fullName)){
+        alert("Must input zagmail address!")
+      }
+      else{
+        this.props.navigation.navigate('addMembers', {creatorName: fullName});
+      }
     }
  }
   render() {
@@ -65,7 +70,7 @@ class InitialTentDetails extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
-                  placeholder = "Full Name"
+                  placeholder = "Email"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
                   onChangeText = {this.handleFullName}/>

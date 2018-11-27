@@ -9,6 +9,7 @@ class userRegistration extends Component {
     password: '',
     id: '',
     phoneNumber: '',
+    gradYear: '',
 
   }
   userEmail = (text) => {
@@ -33,7 +34,10 @@ class userRegistration extends Component {
   password = (text) => {
       this.setState({password: text});
   }
-  fetchDataFromApi = (userName, passWord, Name, id, phone)  => {
+  gradYear = (text) => {
+      this.setState({gradYear: text});
+  }
+  fetchDataFromApi = (userName, passWord, Name, id, phone, gradyear)  => {
     const url = "http://tenting-rewards.gonzaga.edu/api/profile/";
      return fetch(url, {
         method: 'POST',
@@ -47,6 +51,7 @@ class userRegistration extends Component {
         password: passWord,
         student_id: parseInt(id),
         phone_number: phone,
+        graduation_year: parseInt(gradyear),
       }),
     })
       .then(res => res.json())
@@ -58,7 +63,7 @@ class userRegistration extends Component {
         console.error(error);
       })
     };
-  submit = async(userEmail, name, passWord, id, phoneNumber) => {
+  submit = async(userEmail, name, passWord, id, phoneNumber, gradYear) => {
     
     var alertString = "Missing field(s):\n";
     var displayAlert = false;
@@ -78,11 +83,15 @@ class userRegistration extends Component {
         alertString = alertString.concat("Student id\n");
         displayAlert = true;
     }
+    if (gradYear == ""){
+        alertString = alertString.concat("Graduation Year\n");
+        displayAlert = true;
+    }
     if(displayAlert){
         alert(alertString);
     }
     else{
-        var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber)
+        var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber, gradYear)
         var success = true;
         console.log(result);
         if(result.email){
@@ -185,17 +194,29 @@ class userRegistration extends Component {
                     placeholder = "Phone Number"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
+                    keyboardType = 'number-pad'
                     onChangeText = {this.userPhoneNumber}/>
             </Col>
             <Col size={10}></Col>
         </Row>
         <Row size={2}></Row>
-        <Row size={7}></Row>
+        <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+                <TextInput style = {styles.input}
+                    placeholder = "Graduation Year"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    keyboardType = 'number-pad'
+                    onChangeText = {this.gradYear}/>
+            </Col>
+            <Col size={10}></Col>
+        </Row>
         <Row size={20}>
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber)}>
+              <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber, this.state.gradYear)}>
                   <Text style = {styles.text}>
                     Create Account
                   </Text>
