@@ -21,8 +21,15 @@ import adminManageUsers from '../screens/adminManageUsers'
 import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminTentReg from '../screens/adminTentReg'
+import userRegistration from '../screens/userRegistration'
 
-export const AdminStack = StackNavigator({
+export const AdminStack = createStackNavigator({
+  adminMenu: {
+    screen: adminMenu,
+    navigationOptions: {
+      title: "Menu"
+    },
+  },
   adminTentReg: {
     screen: adminTentReg,
     navigationOptions: {
@@ -49,7 +56,7 @@ export const AdminStack = StackNavigator({
   },
 });
 
-export const CreateTentStack = StackNavigator({
+export const CreateTentStack = createStackNavigator({
   TentRegInitial: {
     screen: TentRegInitial,
     navigationOptions: {
@@ -121,15 +128,7 @@ export const Tabs = createBottomTabNavigator({
   
 });
 
-export const Buttons = createStackNavigator ({
-  adminMenu: {screen: adminMenu},
-  adminFeed: {screen: adminFeed},
-  adminManageUsers: {screen: adminManageUsers},
-  adminTentChecks: {screen: adminTentChecks},
-  adminTentReg: {screen: adminTentReg},
-});
-
-export const LoginStack = StackNavigator({
+export const LoginStack = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
@@ -138,15 +137,18 @@ export const LoginStack = StackNavigator({
   },
 });
 
-export const Root = StackNavigator({
+export const Root = createStackNavigator({
   Login: {
     screen: LoginStack,
   },
   Tabs: {
     screen: Tabs,
   },
-  Buttons: {
-    screen: Buttons,
+  Admin: {
+    screen: AdminStack,
+  },
+  Registration: {
+    screen: userRegistration,
   },
 }, {
   mode: 'modal',

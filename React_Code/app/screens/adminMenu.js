@@ -10,6 +10,22 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class adminMenu extends Component {
+  onPressTentReg = () => {
+    this.props.navigation.navigate('adminTentReg');
+  }
+
+  onPressTentChecks = () => {
+    this.props.navigation.navigate('adminTentChecks');
+  }
+
+  onPressManageUsers = () => {
+    this.props.navigation.navigate('adminManageUsers');
+  }
+
+  onPressUpdateFeed = () => {
+    this.props.navigation.navigate('adminFeed');
+  }
+
   render() {
     return (
       <Grid>
@@ -18,7 +34,7 @@ class adminMenu extends Component {
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressCreateTent}>
+            <TouchableOpacity onPress={this.onPressTentReg}>
                 <Text style = {styles.text}>
                   Tent Registration
                 </Text>
@@ -27,11 +43,13 @@ class adminMenu extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={10}>
+
+        <Row size={10}></Row>
+        <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressJoinTent}>
+            <TouchableOpacity onPress={this.onPressTentChecks}>
               <Text style = {styles.text}>
                 Tent Checks
               </Text>
@@ -40,12 +58,13 @@ class adminMenu extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={30}></Row>
+
+        <Row size={10}></Row>
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressCreateTent}>
+            <TouchableOpacity onPress={this.onPressManageUsers}>
                 <Text style = {styles.text}>
                   Manage Users
                 </Text>
@@ -54,12 +73,13 @@ class adminMenu extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={40}></Row>
+        
+        <Row size={10}></Row>
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressCreateTent}>
+            <TouchableOpacity onPress={this.onPressUpdateFeed}>
                 <Text style = {styles.text}>
                   Update Feed
                 </Text>
