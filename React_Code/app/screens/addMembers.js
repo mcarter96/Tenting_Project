@@ -149,7 +149,8 @@ class addMembers extends Component {
   })
   .then((response) => response.json())
   .then((responseJson) => {
-    return responseJson.results;
+    return responseJson;
+    //return responseJson.results;
   })
   .catch((error) => {
     console.error(error);
