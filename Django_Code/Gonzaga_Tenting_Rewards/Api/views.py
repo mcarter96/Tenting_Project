@@ -139,6 +139,5 @@ class TentViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
