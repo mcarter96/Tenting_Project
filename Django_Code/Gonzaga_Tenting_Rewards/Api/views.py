@@ -70,7 +70,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             for dicts in serializer.data:
                 dicts['url'] = tmp + "profile/" + str(dicts['id'])
                 dicts['tent_id'] = user_functions.getTentID(dicts['id'])
-                for i in dicts:
+                dicts_copy = dicts.copy()
+                for i in dicts_copy:
                     if i not in self.generic_fields:
                         del dicts[i]
 
@@ -84,7 +85,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         for dicts in serializer.data:
             dicts['url'] = tmp + "profile/" + str(dicts['id'])
             dicts['tent_id'] = user_functions.getTentID(dicts['id'])
-            for i in dicts:
+            dicts_copy = dicts.copy()
+            for i in dicts_copy:
                 if i not in self.generic_fields:
                     del dicts[i]
 
@@ -138,6 +140,5 @@ class TentViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
