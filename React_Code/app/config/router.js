@@ -44,6 +44,7 @@ export const CreateTentStack = StackNavigator({
 });
 
 export const Tabs = createBottomTabNavigator({
+  
   Home: {
     screen: Home,
     navigationOptions: {

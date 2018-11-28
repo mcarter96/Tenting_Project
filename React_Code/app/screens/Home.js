@@ -9,6 +9,7 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class Home extends Component {
+  
   logout = () => {
     this.props.navigation.navigate('Login');
  }

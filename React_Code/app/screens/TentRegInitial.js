@@ -7,7 +7,7 @@ import { me } from '../config/data';
 
 class TentRegInitial extends Component {
   onPressCreateTent = () => {
-    this.props.navigation.navigate('TentRuleConfirmation');
+    this.props.navigation.navigate('InitialTentDetails');
   }
 
   render() {

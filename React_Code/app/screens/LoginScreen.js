@@ -69,7 +69,7 @@ class Login extends Component {
           this.setState({username:''});
           this._textInput.setNativeProps({ text: '' });
           this._textInput2.setNativeProps({text: ''});
-          this.props.navigation.navigate('Tabs', {userEmail: username});
+          this.props.navigation.navigate('Tabs',{tentId: result.tent_id});
         }
         else{
           alert("Invalid Username or Password.")
@@ -141,7 +141,6 @@ class Login extends Component {
             <Col size={20}></Col>
         </Row>
       </Grid>
-      
     );
   }
 }

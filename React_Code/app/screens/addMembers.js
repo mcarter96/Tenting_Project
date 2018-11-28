@@ -5,16 +5,15 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 class addMembers extends Component {
   state = {
     data: '',
+    tentData: '',
     memberOne: '',
     memberTwo: '',
     memberThree: '',
     memberFour: '',
     memberFive: '',
-
+    tentPin: '',
   }
   newMemberOne = (text) => {
-    console.log("Json data");
-    console.log(this.data);
     this.setState({memberOne: text});
     
   }
@@ -34,7 +33,59 @@ class addMembers extends Component {
     this.setState({memberFive: text});
    
   }
-  submit = (thisUser,memberone, membertwo, memberthree, memberfour, memberfive) => {
+  genQrCodeStr = () => {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 10; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
+  fetchDataFromApi = (members, tentPin)  => {
+    var qrStr = this.genQrCodeStr();
+    const url = "http://tenting-rewards.gonzaga.edu/api/tent/";
+
+     return fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tenter_1: members[0],
+        tenter_2: members[1],
+        tenter_3: members[2],
+        tenter_4: members[3],
+        tenter_5: members[4],
+        tenter_6: members[5],
+        tent_pin: parseInt(tentPin),
+        qr_code_str: qrStr,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        return res
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  };
+
+  email2id = (members) => {
+    var regIds = [];
+    for(var i = 0; i < members.length; i++){
+      if(members[i] == ''){
+        regIds.push(null);
+      }
+      else{
+        regIds.push(this.state.data.get(members[i]));
+      }
+    }
+    return regIds;
+  }
+
+  submit = (thisUser,memberone, membertwo, memberthree, memberfour, memberfive, tentPin) => {
     let members = [thisUser,memberone, membertwo, memberthree, memberfour, memberfive];
     let filter = /^([a-zA-Z0-9_\.\-])+\@((zagmail)+\.)+((gonzaga)+\.)+((edu))$/;
     var alertString = "You must enter a zagmail address for the following members: \n";
@@ -52,8 +103,44 @@ class addMembers extends Component {
       alert(alertString);
     }
     else{
-      this.props.navigation.navigate('TentRegInitial');
-      this.props.navigation.navigate('QRCode', {tentMembers: members});
+      var allValidUsers = true;
+      var allNotInTent = true;
+      var alertString1 = "The following users have unregistered emails: \n";
+      var alertString2 = "The following members are already in a tent: \n";
+      for(var i = 0; i < members.length; i++){
+        if(members[i] == ''){
+        }
+        else{
+          
+          if(typeof this.state.data.get(members[i]) == 'undefined'){
+            alertString1 = alertString1.concat(members[i]);
+            alertString1 = alertString1.concat("\n");
+            allValidUsers = false;
+          }
+          
+          
+          if(this.state.tentData.get(members[i]) != null){
+            alertString2 = alertString2.concat(members[i]);
+            alertString2 = alertString2.concat("\n");
+            allNotInTent = false;
+          }
+          
+        }
+      }
+      if(!allValidUsers){
+        alert(alertString1);
+      }
+      else if(!allNotInTent){
+        alert(alertString2);
+      }
+      
+      
+      if(allValidUsers && allNotInTent){
+        var idArray = this.email2id(members);
+        this.fetchDataFromApi(idArray, tentPin);
+        this.props.navigation.navigate('TentRegInitial');
+        this.props.navigation.navigate('QRCode', {tentMembers: members});
+      }
     }
  }
  async componentDidMount(){
@@ -67,11 +154,22 @@ class addMembers extends Component {
   .catch((error) => {
     console.error(error);
   });
-  this.setState({data: result});
+  var userMap = new Map();
+  for(var i = 0; i < result.length; i++){
+    userMap.set(result[i].email,result[i].id)
+  }
+
+  this.setState({data: userMap});
+  var userMap2 = new Map();
+  for(var i = 0; i < result.length; i++){
+    userMap2.set(result[i].email, result[i].tent_id);
+  }
+  this.setState({tentData:userMap2});
  }
   render() {
     const { navigation } = this.props;
     const userName = navigation.getParam('creatorName', 'No Name');
+    const tentPin = navigation.getParam('tentPin', 'noPin');
     return (
       <Grid>
         <Row size={2}></Row>
@@ -154,7 +252,7 @@ class addMembers extends Component {
             <Col size={60}>
               <View style = {styles.container}>
               <TouchableOpacity onPress={() => this.submit(userName,this.state.memberOne, this.state.memberTwo, 
-                this.state.memberThree, this.state.memberFour, this.state.memberFive)}>
+                this.state.memberThree, this.state.memberFour, this.state.memberFive, tentPin)}>
                   <Text style = {styles.text}>
                     Submit
                   </Text>
