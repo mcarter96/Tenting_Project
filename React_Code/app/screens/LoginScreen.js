@@ -52,7 +52,6 @@ class Login extends Component {
     this.setState({username: text});
    }
   login = async(username, password) => {
-    console.log("login sectino reached")
     if(username == '' && password == ''){
         alert("Username and Password fields are required.")
     }
@@ -64,15 +63,12 @@ class Login extends Component {
     }
     else{
         var result = await this.fetchDataFromApi(username, password);
-        console.log("result reached")
         if (result.token){
           this.setState({password:''});
           this.setState({username:''});
           this._textInput.setNativeProps({ text: '' });
           this._textInput2.setNativeProps({text: ''});
-          console.log(username)
-          if (username == "adminUser@zagmail.gonzaga.edu") {
-            console.log("Admin reached")
+          if (username == "admin2@zagmail.gonzaga.edu") {
             this.props.navigation.navigate('Admin', {userEmail: username});
           } else {
             this.props.navigation.navigate('Tabs', {userEmail: username});
