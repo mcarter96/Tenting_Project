@@ -85,7 +85,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         for dicts in serializer.data:
             dicts['url'] = tmp + "profile/" + str(dicts['id'])
             dicts['tent_id'] = user_functions.getTentID(dicts['id'])
-            for i in dicts:
+            dicts_copy = dicts.copy()
+            for i in dicts_copy:
                 if i not in self.generic_fields:
                     del dicts[i]
 
