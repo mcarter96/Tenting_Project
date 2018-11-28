@@ -9,7 +9,10 @@ class userRegistration extends Component {
     password: '',
     id: '',
     phoneNumber: '',
+<<<<<<< HEAD
     gradYear: '',
+=======
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
 
   }
   userEmail = (text) => {
@@ -34,10 +37,14 @@ class userRegistration extends Component {
   password = (text) => {
       this.setState({password: text});
   }
+<<<<<<< HEAD
   gradYear = (text) => {
       this.setState({gradYear: text});
   }
   fetchDataFromApi = (userName, passWord, Name, id, phone, gradyear)  => {
+=======
+  fetchDataFromApi = (userName, passWord, Name, id, phone)  => {
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
     const url = "http://tenting-rewards.gonzaga.edu/api/profile/";
      return fetch(url, {
         method: 'POST',
@@ -51,7 +58,10 @@ class userRegistration extends Component {
         password: passWord,
         student_id: parseInt(id),
         phone_number: phone,
+<<<<<<< HEAD
         graduation_year: parseInt(gradyear),
+=======
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
       }),
     })
       .then(res => res.json())
@@ -63,7 +73,11 @@ class userRegistration extends Component {
         console.error(error);
       })
     };
+<<<<<<< HEAD
   submit = async(userEmail, name, passWord, id, phoneNumber, gradYear) => {
+=======
+  submit = async(userEmail, name, passWord, id, phoneNumber) => {
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
     
     var alertString = "Missing field(s):\n";
     var displayAlert = false;
@@ -83,15 +97,22 @@ class userRegistration extends Component {
         alertString = alertString.concat("Student id\n");
         displayAlert = true;
     }
+<<<<<<< HEAD
     if (gradYear == ""){
         alertString = alertString.concat("Graduation Year\n");
         displayAlert = true;
     }
+=======
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
     if(displayAlert){
         alert(alertString);
     }
     else{
+<<<<<<< HEAD
         var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber, gradYear)
+=======
+        var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber)
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
         var success = true;
         console.log(result);
         if(result.email){
@@ -194,12 +215,16 @@ class userRegistration extends Component {
                     placeholder = "Phone Number"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
+<<<<<<< HEAD
                     keyboardType = 'number-pad'
+=======
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
                     onChangeText = {this.userPhoneNumber}/>
             </Col>
             <Col size={10}></Col>
         </Row>
         <Row size={2}></Row>
+<<<<<<< HEAD
         <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
@@ -212,11 +237,18 @@ class userRegistration extends Component {
             </Col>
             <Col size={10}></Col>
         </Row>
+=======
+        <Row size={7}></Row>
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
         <Row size={20}>
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
+<<<<<<< HEAD
               <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber, this.state.gradYear)}>
+=======
+              <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber)}>
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
                   <Text style = {styles.text}>
                     Create Account
                   </Text>

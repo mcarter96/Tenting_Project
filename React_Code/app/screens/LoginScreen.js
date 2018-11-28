@@ -68,11 +68,15 @@ class Login extends Component {
           this.setState({username:''});
           this._textInput.setNativeProps({ text: '' });
           this._textInput2.setNativeProps({text: ''});
+<<<<<<< HEAD
           if (username == "admin2@zagmail.gonzaga.edu") {
             this.props.navigation.navigate('Admin', {userEmail: username});
           } else {
             this.props.navigation.navigate('Tabs', {userEmail: username});
           }
+=======
+          this.props.navigation.navigate('Tabs', {userEmail: username});
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
         }
         else{
           alert("Invalid Username or Password.")
