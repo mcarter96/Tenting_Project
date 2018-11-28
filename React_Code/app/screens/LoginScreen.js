@@ -70,10 +70,8 @@ class Login extends Component {
           this.setState({username:''});
           this._textInput.setNativeProps({ text: '' });
           this._textInput2.setNativeProps({text: ''});
-          console.log(this._textInput)
-          console.log(this._textInput2)
-          console.log(this.setState)
-          if (username == "admin") {
+          console.log(username)
+          if (username == "adminUser@zagmail.gonzaga.edu") {
             console.log("Admin reached")
             this.props.navigation.navigate('Admin', {userEmail: username});
           } else {

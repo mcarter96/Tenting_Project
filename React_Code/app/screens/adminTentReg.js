@@ -13,7 +13,7 @@ class adminTentReg extends Component {
         <Row size={30}></Row>
         <Row size={40}>
           <Col size={30}></Col>
-          <Col size={40}><Text style={{fontSize: 50}}>Admin Menu</Text></Col>
+          <Col size={40}><Text style={{fontSize: 50}}>Admin Tent Registration</Text></Col>
           <Col size={30}></Col>
         </Row>
         <Row size={30}></Row>
