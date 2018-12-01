@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements';
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Entypo from "react-native-vector-icons/Entypo";
 import AntDesign from "react-native-vector-icons/AntDesign"
+import {createStackNavigator} from 'react-navigation';
 
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
@@ -14,9 +15,52 @@ import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
+<<<<<<< HEAD
+import SearchForTent from '../screens/SearchForTent'
+import adminFeed from '../screens/adminFeed'
+import adminManageUsers from '../screens/adminManageUsers'
+import adminMenu from '../screens/adminMenu'
+import adminTentChecks from '../screens/adminTentCheck'
+import adminTentReg from '../screens/adminTentReg'
+import userRegistration from '../screens/userRegistration'
+=======
 import userRegistration from '../screens/userRegistration';
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
 
-export const CreateTentStack = StackNavigator({
+export const AdminStack = createStackNavigator({
+  adminMenu: {
+    screen: adminMenu,
+    navigationOptions: {
+      title: "Menu"
+    },
+  },
+  adminTentReg: {
+    screen: adminTentReg,
+    navigationOptions: {
+      title: 'Tent Registration'
+    },
+  },
+  adminTentChecks: {
+    screen: adminTentChecks,
+    navigationOptions: {
+      title: 'Tent Checks'
+    },
+  },
+  adminFeed: {
+    screen: adminFeed,
+    navigationOptions: {
+      title: 'Admin Feed'
+    },
+  },
+  adminManageUsers: {
+    screen: adminManageUsers, 
+    navigationOptions: {
+      title: 'Manage Users'
+    },
+  },
+});
+
+export const CreateTentStack = createStackNavigator({
   TentRegInitial: {
     screen: TentRegInitial,
     navigationOptions: {
@@ -39,6 +83,12 @@ export const CreateTentStack = StackNavigator({
     screen: addMembers,
     navigationOptions: {
       title: 'Add Members',
+    },
+  },
+  SearchForTent: {
+    screen: SearchForTent, 
+    navigationOptions: {
+      title: 'Search for Tents',
     },
   },
 });
@@ -82,7 +132,7 @@ export const Tabs = createBottomTabNavigator({
   
 });
 
-export const LoginStack = StackNavigator({
+export const LoginStack = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
@@ -91,15 +141,23 @@ export const LoginStack = StackNavigator({
   },
 });
 
-export const Root = StackNavigator({
+export const Root = createStackNavigator({
   Login: {
     screen: LoginStack,
   },
   Tabs: {
     screen: Tabs,
   },
+<<<<<<< HEAD
+  Admin: {
+    screen: AdminStack,
+  },
+  Registration: {
+    screen: userRegistration,
+=======
   Registration: {
     screen: userRegistration
+>>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
   },
 }, {
   mode: 'modal',
