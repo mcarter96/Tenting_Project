@@ -9,11 +9,18 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class Home extends Component {
+
+  state = {
+    data: '',
+  }
   
   logout = () => {
+    console.log(this.state.data);
     this.props.navigation.navigate('Login');
- }
+  }
+
   render() {
+    
     return (
       <Grid>
         <Row size={30}></Row>

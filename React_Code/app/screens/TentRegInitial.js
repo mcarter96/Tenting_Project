@@ -6,10 +6,25 @@ import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { me } from '../config/data';
 
 class TentRegInitial extends Component {
-  onPressCreateTent = () => {
-    this.props.navigation.navigate('InitialTentDetails');
+  state = {
+    tentData: '',
+    email: '',
   }
-
+  onPressCreateTent = () => {
+    if(this.state.tentData != null){
+      this.props.navigation.navigate('QRCode');
+    }else{
+      this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email});
+    }
+    
+  }
+  componentDidMount(){
+    const { navigation } = this.props;
+    const tentId = navigation.getParam('tentId', 'No Name');
+    const userEmail = navigation.getParam('userEmail', 'No email');
+    this.setState({tentData: tentId});
+    this.setState({email: userEmail});
+  }
   render() {
     return (
       <Grid>

@@ -49,6 +49,11 @@ class InitialTentDetails extends Component {
       }
     }
  }
+ componentDidMount(){
+  const { navigation } = this.props;
+  const userEmail = navigation.getParam('userEmail', 'No Name');
+  this.setState({fullName: userEmail});
+  }
   render() {
     return (
       <Grid>
@@ -70,10 +75,12 @@ class InitialTentDetails extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
-                  placeholder = "Email"
+                  placeholder = {String(this.state.fullName)}
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
+                  editable = {false}
                   onChangeText = {this.handleFullName}/>
+                  
           </Col>
           <Col size={10}></Col>
         </Row>

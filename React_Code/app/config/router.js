@@ -17,18 +17,6 @@ import Login from '../screens/LoginScreen'
 import userRegistration from '../screens/userRegistration';
 
 export const CreateTentStack = StackNavigator({
-  TentRegInitial: {
-    screen: TentRegInitial,
-    navigationOptions: {
-      title: 'Tent Registration',
-    },
-  },
-  TentRuleConfirmation: {
-    screen: TentRuleConfirmation,
-    navigationOptions: {
-      title: 'Tent Rule Confirmation',
-    },
-  },
   InitialTentDetails: {
     screen: InitialTentDetails,
     navigationOptions: {
@@ -44,7 +32,6 @@ export const CreateTentStack = StackNavigator({
 });
 
 export const Tabs = createBottomTabNavigator({
-  
   Home: {
     screen: Home,
     navigationOptions: {
@@ -52,18 +39,18 @@ export const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />,
     },
   },
-  TentRegInitial: {
-    screen: CreateTentStack,
-    navigationOptions: {
-      tabBarLabel: 'Tent',
-      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
-    },
-  },
   Feed: {
     screen: Feed,
     navigationOptions: {
       tabBarLabel: 'Feed',
       tabBarIcon: ({ tintColor }) => <Entypo name="news" size={35} color={tintColor} />
+    },
+  },
+  TentRegInitial: {
+    screen: TentRegInitial,
+    navigationOptions: {
+      tabBarLabel: 'Tent',
+      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
     },
   },
   QRCode: {
@@ -96,6 +83,9 @@ export const Root = StackNavigator({
   Login: {
     screen: LoginStack,
   },
+  TentingStack: {
+    screen: CreateTentStack,
+  },
   Tabs: {
     screen: Tabs,
   },
@@ -106,3 +96,4 @@ export const Root = StackNavigator({
   mode: 'modal',
   headerMode: 'none',
 });
+

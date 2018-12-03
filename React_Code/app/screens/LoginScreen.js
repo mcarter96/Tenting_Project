@@ -69,7 +69,7 @@ class Login extends Component {
           this.setState({username:''});
           this._textInput.setNativeProps({ text: '' });
           this._textInput2.setNativeProps({text: ''});
-          this.props.navigation.navigate('Tabs',{tentId: result.tent_id});
+          this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
         }
         else{
           alert("Invalid Username or Password.")

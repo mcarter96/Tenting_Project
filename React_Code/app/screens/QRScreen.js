@@ -6,10 +6,35 @@ import QRCode from 'react-native-qrcode';
 class QRScreen extends Component {
   state = {
     tentNumber: '_____',
+    tentId: '',
+    tentQr:'',
+  }
+  async componentDidMount(){
+    const { navigation } = this.props;
+    const tentIdentifier = navigation.getParam('tentId', 'bad');
+    this.setState({tentId: tentIdentifier});
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+      //return responseJson.results;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    for(var i = 0; i < result.length; i++){
+      if(result[i].id == this.state.tentId){
+        this.setState({tentQr: result[i].qr_code_str});
+      }
+    }
+    
   }
   render() {
-    const { navigation } = this.props;
-    const tentMembers = navigation.getParam('tentMembers', 'bad');
+    console.log("hi")
+    console.log(this.state.data);
     return (
       <Grid>
         <Row size={10}></Row>
@@ -26,14 +51,20 @@ class QRScreen extends Component {
           <Col size={24}></Col>
           <Col size={52}>
           <QRCode
-            value={tentMembers[0]}
+            value={this.state.tentQr}
             size={200}
             bgColor='black'
             fgColor='white'/></Col>
           <Col size={24}></Col>
         </Row>
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={10}>
+          <Col size={10}></Col>
+          <Col size={80}>
+          <View style = {styles.container}><Text style={{fontSize: 15}}>{this.state.tentQr}</Text></View>
+          </Col>
+          <Col size={10}></Col>
+        </Row>
+        <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
