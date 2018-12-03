@@ -63,13 +63,16 @@ class Login extends Component {
     }
     else{
         var result = await this.fetchDataFromApi(username, password);
-        
         if (result.token){
           this.setState({password:''});
           this.setState({username:''});
           this._textInput.setNativeProps({ text: '' });
           this._textInput2.setNativeProps({text: ''});
-          this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
+          if (username == "admin2@zagmail.gonzaga.edu") {
+            this.props.navigation.navigate('Admin', {userEmail: username});
+          } else {
+            this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
+          }
         }
         else{
           alert("Invalid Username or Password.")

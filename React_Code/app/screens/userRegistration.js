@@ -212,6 +212,8 @@ class userRegistration extends Component {
             </Col>
             <Col size={10}></Col>
         </Row>
+        <Row size={7}></Row>
+
         <Row size={20}>
           <Col size={20}></Col>
             <Col size={60}>
