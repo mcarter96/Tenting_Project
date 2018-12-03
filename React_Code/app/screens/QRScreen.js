@@ -12,25 +12,31 @@ class QRScreen extends Component {
   async componentDidMount(){
     const { navigation } = this.props;
     const tentIdentifier = navigation.getParam('tentId', 'bad');
+    const tentString = navigation.getParam('qrString', 'No QR');
     this.setState({tentId: tentIdentifier});
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
-    method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      return responseJson;
-      //return responseJson.results;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-    for(var i = 0; i < result.length; i++){
-      if(result[i].id == this.state.tentId){
-        this.setState({tentQr: result[i].qr_code_str});
-      }
+    if(tentString != "No QR"){
+      this.setState({tentQr: tentString})
     }
-    
+    else{
+      var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+      method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        return responseJson;
+        //return responseJson.results;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      for(var i = 0; i < result.length; i++){
+        if(result[i].id == this.state.tentId){
+          this.setState({tentQr: result[i].qr_code_str});
+        }
+      }
+      
+    }
   }
   render() {
     console.log("hi")

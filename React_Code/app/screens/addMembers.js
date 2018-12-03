@@ -12,6 +12,7 @@ class addMembers extends Component {
     memberFour: '',
     memberFive: '',
     tentPin: '',
+    qrString: '',
   }
   newMemberOne = (text) => {
     this.setState({memberOne: text});
@@ -42,8 +43,9 @@ class addMembers extends Component {
 
     return text;
   }
-  fetchDataFromApi = (members, tentPin)  => {
-    var qrStr = this.genQrCodeStr();
+  fetchDataFromApi = (members, tentPin, qrString)  => {
+    var qrStr = qrString
+    this.setState({qrString: qrStr})
     const url = "http://tenting-rewards.gonzaga.edu/api/tent/";
 
      return fetch(url, {
@@ -85,7 +87,7 @@ class addMembers extends Component {
     return regIds;
   }
 
-  submit = (thisUser,memberone, membertwo, memberthree, memberfour, memberfive, tentPin) => {
+  submit = (thisUser,memberone, membertwo, memberthree, memberfour, memberfive, tentPin, qrString) => {
     let members = [thisUser,memberone, membertwo, memberthree, memberfour, memberfive];
     let filter = /^([a-zA-Z0-9_\.\-])+\@((zagmail)+\.)+((gonzaga)+\.)+((edu))$/;
     var alertString = "You must enter a zagmail address for the following members: \n";
@@ -137,9 +139,10 @@ class addMembers extends Component {
       
       if(allValidUsers && allNotInTent){
         var idArray = this.email2id(members);
-        this.fetchDataFromApi(idArray, tentPin);
+        var qrStr = this.genQrCodeStr();
+        this.fetchDataFromApi(idArray, tentPin, qrStr);
         this.props.navigation.navigate('TentRegInitial');
-        this.props.navigation.navigate('QRCode', {tentMembers: members});
+        this.props.navigation.navigate('QRCode', {tentMembers: members, qrString: qrStr});
       }
     }
  }
@@ -253,7 +256,7 @@ class addMembers extends Component {
             <Col size={60}>
               <View style = {styles.container}>
               <TouchableOpacity onPress={() => this.submit(userName,this.state.memberOne, this.state.memberTwo, 
-                this.state.memberThree, this.state.memberFour, this.state.memberFive, tentPin)}>
+                this.state.memberThree, this.state.memberFour, this.state.memberFive, tentPin, this.state.qrString)}>
                   <Text style = {styles.text}>
                     Submit
                   </Text>
