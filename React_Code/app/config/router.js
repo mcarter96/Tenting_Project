@@ -15,7 +15,6 @@ import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
-<<<<<<< HEAD
 import SearchForTent from '../screens/SearchForTent'
 import adminFeed from '../screens/adminFeed'
 import adminManageUsers from '../screens/adminManageUsers'
@@ -23,9 +22,6 @@ import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminTentReg from '../screens/adminTentReg'
 import userRegistration from '../screens/userRegistration'
-=======
-import userRegistration from '../screens/userRegistration';
->>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -148,16 +144,11 @@ export const Root = createStackNavigator({
   Tabs: {
     screen: Tabs,
   },
-<<<<<<< HEAD
   Admin: {
     screen: AdminStack,
   },
   Registration: {
     screen: userRegistration,
-=======
-  Registration: {
-    screen: userRegistration
->>>>>>> 78a020ad2ad738699277b92b02c2bf8f4a0a420a
   },
 }, {
   mode: 'modal',
