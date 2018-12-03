@@ -6,8 +6,28 @@ import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { me } from '../config/data';
 
 class TentRegInitial extends Component {
+  state = {
+    tentData: '',
+    email: '',
+  }
   onPressCreateTent = () => {
-    this.props.navigation.navigate('TentRuleConfirmation');
+    if(this.state.tentData != null){
+      this.props.navigation.navigate('QRCode');
+    }else{
+      this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email});
+    }
+    
+  }
+  componentDidMount(){
+    const { navigation } = this.props;
+    const tentId = navigation.getParam('tentId', 'No Name');
+    const userEmail = navigation.getParam('userEmail', 'No email');
+    this.setState({tentData: tentId});
+    this.setState({email: userEmail});
+  }
+
+  onPressJoinTent = () => {
+    this.props.navigation.navigate('SearchForTent');
   }
 
   render() {
@@ -31,7 +51,7 @@ class TentRegInitial extends Component {
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.onPressJoinTent}>
               <Text style = {styles.textJoin}>
                 Join Tent
               </Text>

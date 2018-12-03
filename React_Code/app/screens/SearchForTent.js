@@ -2,58 +2,41 @@ import React, { Component } from 'react';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-class InitialTentDetails extends Component {
+class SearchForTent extends Component {
   state = {
     tentName: '',
-    fullName: '',
     pin: ''
   }
   handleTentName = (text) => {
     this.setState({ tentName: text })
   }
-  handleFullName = (text) => {
-    this.setState({ fullName: text })
-  }
   handlePin = (text) => {
     this.setState({ pin: text })
   }
   submit = (tentName, fullName, pin) => {
-    if(tentName == '' && fullName == '' && pin == ''){
+    if(tentName == '' && pin == ''){
       alert("You left all of the fields empty.")
-    }
-    else if (tentName == '' && fullName == ''){
-      alert("You left tent name and email empty.")
-    }
-    else if (tentName == '' && pin == ''){
-      alert("You left tent name and pin empty.")
-    }
-    else if (pin == '' && fullName == ''){
-      alert("You left pin and email empty.")
     }
     else if (tentName == ''){
       alert("You left tent name empty.")
     }
-    else if (fullName == ''){
-      alert("You left email empty.")
+    else if (tentName == '' && pin == ''){
+      alert("You left tent name and pin empty.")
     }
     else if (pin == ''){
       alert("You left pin empty.")
     }
     else{
-      let filter = /^([a-zA-Z0-9_\.\-])+\@((zagmail)+\.)+((gonzaga)+\.)+((edu))$/;
-      if(!filter.test(this.state.fullName)){
-        alert("Must input zagmail address!")
-      }
-      else{
-        this.props.navigation.navigate('addMembers', {creatorName: fullName, tentPin: pin});
+      console.log('tentName: ' + tentName + 'Pin:' + pin)
+      //this.props.navigation.navigate('addMembers', {creatorName: fullName});
+      // need to verify that the tent
+      if (true/*tent name and pin match in database and there is room in the tent*/) {
+        alert("You have joined this tent!")
+      } else {
+        alert("This tent does not exist or you have entered")
       }
     }
  }
- componentDidMount(){
-  const { navigation } = this.props;
-  const userEmail = navigation.getParam('userEmail', 'No Name');
-  this.setState({fullName: userEmail});
-  }
   render() {
     return (
       <Grid>
@@ -75,20 +58,6 @@ class InitialTentDetails extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
-                  placeholder = {String(this.state.fullName)}
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  editable = {false}
-                  onChangeText = {this.handleFullName}/>
-                  
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={10}>
-        <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
                   placeholder = "Pin"
                   placeholderTextColor = "black"
                   keyboardType = 'number-pad'
@@ -104,9 +73,9 @@ class InitialTentDetails extends Component {
           <Col size={20}></Col>
             <Col size={60}>
               <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.fullName, this.state.pin)}>
+              <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.pin)}>
                   <Text style = {styles.text}>
-                    Next
+                    Join
                   </Text>
               </TouchableOpacity>
               </View>
@@ -119,7 +88,7 @@ class InitialTentDetails extends Component {
   }
 }
 
-export default InitialTentDetails;
+export default SearchForTent;
 
 const styles = StyleSheet.create({
   input: {
