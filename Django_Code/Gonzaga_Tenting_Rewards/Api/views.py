@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.views import APIView
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -133,12 +134,36 @@ class TentViewSet(viewsets.ModelViewSet):
     # What to use for authentication
     authentication_classes = (TokenAuthentication,)
 
+    # Removed to test provided create and update functions, may not for the future but not for current commit
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    #
+    # def update(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_update(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED, headers=headers)
+
+class GamesViewSet(viewsets.ModelViewSet):
+    """Logic to assign tents to a game"""
+
+    serializer_class = serializers.GameSerializer
+
+    queryset = models.Game.objects.all()
 
     def create(self, request, *args, **kwargs):
+        """Create a game"""
+
         serializer = self.get_serializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-

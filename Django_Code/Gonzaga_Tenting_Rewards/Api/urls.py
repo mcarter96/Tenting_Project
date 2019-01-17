@@ -13,6 +13,7 @@ router = DefaultRouter()
 router.register('profile', views.UserProfileViewSet)
 router.register('login', views.LoginViewSet, base_name='login')
 router.register('tent', views.TentViewSet, base_name='tent')
+router.register('games', views.GamesViewSet, base_name='games')
 
 # Define the different urls that can be accessed
 urlpatterns = [
