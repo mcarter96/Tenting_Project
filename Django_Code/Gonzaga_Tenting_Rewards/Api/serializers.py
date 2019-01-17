@@ -102,7 +102,7 @@ class TentSerializer(serializers.ModelSerializer):
         instance.qr_code_str = validated_data.get('qr_code_str', instance.qr_code_str)
         instance.game_id = validated_data.get('game_id', instance.game_id)
         if validated_data.get('game_id', instance.game_id) is not None and instance.tent_number is None:
-            current_game_id = models.Game.objects.all().last().id
+            current_game_id = validated_data.get('game_id', instance.game_id)
             instance.tent_number = models.TentGroup.objects.all().filter(game_id=current_game_id).count() + 1
         instance.save()
         return instance
