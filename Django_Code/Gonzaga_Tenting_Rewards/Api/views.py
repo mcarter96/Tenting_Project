@@ -13,6 +13,7 @@ from rest_framework.reverse import reverse_lazy
 from Helper_Functions import user_functions
 from rest_framework import status
 from django.core.mail import send_mail
+from Gonzaga_Tenting_Rewards import settings
 
 from . import serializers
 from . import models
@@ -54,11 +55,20 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         url = reverse_lazy('api-root', request=request)
         url += 'confirm-email/?id=' + str(user.id) + '&confirmation_id=' + str(user.confirmation_id)
 
+        # determine who to send the email to, depending on deployement state
+        if settings.DEBUG:
+            to_email = "tenting.rewards@gmail.com"
+        else:
+            to_email = user.email
+
         # The following will fail because no email is setup in the project (does not show it fails)
         send_mail("Authenticate Email", # Subject
-                  "Please click the following link to authenticate your email \n" + url, # Message
-                  'tenting.rewards@gmail.com', # From
-                  ['azenoni@zagmail.gonzaga.edu'], # To
+                  "Below is a unique identifier for your account in order to finish confirming your account and to" +
+                  " have access to the Tenting Rewards application. Please attempt to login to the application via " +
+                  "the app then paste the token in the provided text box to confirm your account.\n\n\n\n" +
+                  str(user.confirmation_id), # Message
+                  'Gonzaga Tenting Rewards', # From
+                  [to_email], # To
                   fail_silently=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
