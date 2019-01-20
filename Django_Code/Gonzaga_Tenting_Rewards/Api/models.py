@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.core.validators import RegexValidator
+import uuid
 
 # Create your models here.
 
@@ -80,6 +81,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, unique=True, default=-1)  # validators should be a list
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    confirmation_id = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False, unique=True)
 
     objects = UserProfileManager()
 
