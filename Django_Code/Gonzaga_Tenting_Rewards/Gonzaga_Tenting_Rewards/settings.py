@@ -137,3 +137,11 @@ else:
 
 # Overrides the current user to use our own custom user
 AUTH_USER_MODEL = 'Api.UserProfile'
+
+# Configures an SMTP Email Backend
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tenting.rewards@gmail.com'
+EMAIL_HOST_PASSWORD = 'tentingRewards'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'

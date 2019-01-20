@@ -17,4 +17,5 @@ router.register('tent', views.TentViewSet, base_name='tent')
 # Define the different urls that can be accessed
 urlpatterns = [
     url(r'', include(router.urls)),
+    url('^', include('django.contrib.auth.urls')),
 ]
