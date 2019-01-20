@@ -48,8 +48,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         # Set the password for the user
         user.set_password(validated_data['password'])
 
-        user.is_active = False
-
         # Save the user in the database
         user.save()
 

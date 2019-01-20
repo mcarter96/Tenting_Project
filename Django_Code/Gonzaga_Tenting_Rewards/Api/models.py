@@ -45,7 +45,6 @@ class UserProfileManager(BaseUserManager):
 
         # allow django to set and store the password securely
         user.set_password(password)
-        user.is_active = False
         user.save(using=self._db)
 
         return user
@@ -82,6 +81,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     confirmation_id = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False, unique=True)
+    is_confirmed = models.BooleanField(default=False)
 
     objects = UserProfileManager()
 
