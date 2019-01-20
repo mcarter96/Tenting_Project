@@ -49,10 +49,11 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         print(serializer.data)
 
+        # grab the user that is signing up
         user = models.UserProfile.objects.get(id=serializer.data['id'])
 
+        # generate the url required for them to complete the registration process
         url = reverse_lazy('api-root', request=request)
-        print(url)
         url += 'confirm-email/?id=' + str(user.id) + '&confirmation_id=' + str(user.confirmation_id)
 
         # The following will fail because no email is setup in the project (does not show it fails)
@@ -82,9 +83,11 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         if name is not None:
             queryset = queryset.filter(name=name)
 
-        tent_id = self.request.query_params.get('tent_id', None)
-        if tent_id is not None:
-            queryset = queryset.filter(tent_id=tent_id)
+        # the following is broken but should be added, will need to be fixed
+        # TODO: Fix the following code to allow filtering on tent_ids
+        # tent_id = self.request.query_params.get('tent_id', None)
+        # if tent_id is not None:
+        #     queryset = queryset.filter(tent_id=tent_id)
 
         # Determines if django is using paginations
         page = self.paginate_queryset(queryset)
@@ -119,8 +122,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 class ConfirmEmail(APIView):
+    """Class to allow email confirmations"""
 
     def get(self, request, format=None):
+        """Get request for the email confirmation"""
         try:
             id = self.request.query_params.get('id', None)
             confirmation_id = self.request.query_params.get('confirmation_id', None)
@@ -138,6 +143,7 @@ class ConfirmEmail(APIView):
             return Response({'message': 'Hello! An exception was thrown'})
 
     def post(self, request):
+        """Post request for email confirmation, might use depending on design choices"""
         try:
             id = self.request.query_params.get('id', None)
             confirmation_id = self.request.query_params.get('confirmation_id', None)
@@ -147,11 +153,9 @@ class ConfirmEmail(APIView):
                 user.is_active = True
                 user.save()
             else:
-                #return something that shows there was an error
-                return Response({'message': 'Hello! There was an error with id or confirmation id being None'})
+                return Response({'message': 'There was an error with id or confirmation id being None', 'success': False})
         except:
-            #return something that shows there was an error
-            return Response({'message': 'Hello! An exception was thrown'})
+            return Response({'message': 'An exception was thrown', 'success': False})
 
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token"""
