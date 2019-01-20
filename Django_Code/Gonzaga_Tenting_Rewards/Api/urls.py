@@ -19,4 +19,5 @@ router.register('games', views.GamesViewSet, base_name='games')
 urlpatterns = [
     url(r'', include(router.urls)),
     url(r'^confirm-email/', views.ConfirmEmail.as_view()),
+    url('^', include('django.contrib.auth.urls')),
 ]
