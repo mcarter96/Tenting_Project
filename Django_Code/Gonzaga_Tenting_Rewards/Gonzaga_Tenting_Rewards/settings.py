@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     'Api',
 ]
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
