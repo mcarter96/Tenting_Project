@@ -50,9 +50,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         # The following will fail because no email is setup in the project (does not show it fails)
         send_mail("Authenticate Email", # Subject
                   "Please click the following link to authenticate your email", # Message
-                  'andrew@zenoni.com', # From
+                  'tenting.rewards@gmail.com', # From
                   ['azenoni@zagmail.gonzaga.edu'], # To
-                  fail_silently=True)
+                  fail_silently=False)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def list(self, request, *args, **kwargs):
@@ -60,6 +60,23 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         # What objects to query on
         queryset = self.filter_queryset(self.get_queryset())
+
+        # Determine if there are any query parameters in the URL to filter responses with
+        id = self.request.query_params.get('id', None)
+        if id is not None:
+            queryset = queryset.filter(id=id)
+
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+
+        name = self.request.query_params.get('name', None)
+        if name is not None:
+            queryset = queryset.filter(name=name)
+
+        tent_id = self.request.query_params.get('tent_id', None)
+        if tent_id is not None:
+            queryset = queryset.filter(tent_id=tent_id)
 
         # Determines if django is using paginations
         page = self.paginate_queryset(queryset)
@@ -117,10 +134,10 @@ class LoginViewSet(viewsets.ViewSet):
         user_id = user_functions.getUserID(serializer.validated_data['username'])
         is_admin = user_functions.getIfAdmin(user_id)
         tent_id = user_functions.getTentID(user_id)
-
+        is_active = models.UserProfile.objects.get(id=user_id).is_active
 
         # Return the response with necessary fields
-        return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id})
+        return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id, 'is_active': is_active})
 
 class TentViewSet(viewsets.ModelViewSet):
     """Handles creating and updating of tent groups"""

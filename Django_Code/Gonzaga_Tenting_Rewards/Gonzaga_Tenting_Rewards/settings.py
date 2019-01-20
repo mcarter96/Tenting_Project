@@ -135,5 +135,11 @@ else:
         )
     }
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tenting.rewards@gmail.com'
+EMAIL_HOST_PASSWORD = 'tentingRewards'
+EMAIL_PORT = 587
+
 # Overrides the current user to use our own custom user
 AUTH_USER_MODEL = 'Api.UserProfile'
