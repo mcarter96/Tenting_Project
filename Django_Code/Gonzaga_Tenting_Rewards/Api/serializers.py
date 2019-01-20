@@ -59,7 +59,7 @@ class TentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.TentGroup
-        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str', 'game_id', 'tent_number')
+        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str')
 
         # Defines extra parameters on the certain fields
 
@@ -67,6 +67,14 @@ class TentSerializer(serializers.ModelSerializer):
         """
         Create and return a new `TentSerializer` instance, given the validated data.
         """
+
+        # tenter1 = user_functions.getUserID(validated_data['tenter_1'])
+        # tenter2 = user_functions.getUserID(validated_data['tenter_2'])
+        # tenter3 = user_functions.getUserID(validated_data['tenter_3'])
+        # tenter4 = user_functions.getUserID(validated_data['tenter_4'])
+        # tenter5 = user_functions.getUserID(validated_data['tenter_5'])
+        # tenter6 = user_functions.getUserID(validated_data['tenter_6'])
+
 
 
         user = models.TentGroup(
@@ -78,8 +86,6 @@ class TentSerializer(serializers.ModelSerializer):
             tenter_6=validated_data['tenter_6'],
             tent_pin=validated_data['tent_pin'],
             qr_code_str=validated_data['qr_code_str'],
-            game_id=validated_data['game_id'],
-            tent_number=None,
         )
 
         user.save()
@@ -89,9 +95,8 @@ class TentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        Update and return an existing `TentingGroup` instance, given the validated data.
+        Update and return an existing `Snippet` instance, given the validated data.
         """
-        instance.id = validated_data.get('id', instance.id)
         instance.tenter_1 = validated_data.get('tenter_1', instance.tenter_1)
         instance.tenter_2 = validated_data.get('tenter_2', instance.tenter_2)
         instance.tenter_3 = validated_data.get('tenter_3', instance.tenter_3)
@@ -100,24 +105,5 @@ class TentSerializer(serializers.ModelSerializer):
         instance.tenter_6 = validated_data.get('tenter_6', instance.tenter_6)
         instance.tent_pin = validated_data.get('tent_pin', instance.tent_pin)
         instance.qr_code_str = validated_data.get('qr_code_str', instance.qr_code_str)
-        instance.game_id = validated_data.get('game_id', instance.game_id)
-        if validated_data.get('game_id', instance.game_id) is not None and instance.tent_number is None:
-            current_game_id = validated_data.get('game_id', instance.game_id)
-            instance.tent_number = models.TentGroup.objects.all().filter(game_id=current_game_id).count() + 1
         instance.save()
         return instance
-
-class GameSerializer(serializers.ModelSerializer):
-    """Serializes a response for adding tents to games"""
-
-    class Meta:
-        model = models.Game
-        fields = ('id','game_start', 'tenting_start', 'game_name')
-
-    def create(self, validated_data):
-        game = models.Game(game_name=validated_data['game_name'],
-                           game_start=validated_data['game_start'],
-                           tenting_start=validated_data['tenting_start'])
-        game.save()
-
-        return game
