@@ -18,4 +18,5 @@ router.register('games', views.GamesViewSet, base_name='games')
 # Define the different urls that can be accessed
 urlpatterns = [
     url(r'', include(router.urls)),
+    url(r'^confirm-email/', views.ConfirmEmail.as_view()),
 ]

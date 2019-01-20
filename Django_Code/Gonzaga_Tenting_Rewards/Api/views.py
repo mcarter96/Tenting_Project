@@ -47,9 +47,17 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
 
+        print(serializer.data)
+
+        user = models.UserProfile.objects.get(id=serializer.data['id'])
+
+        url = reverse_lazy('api-root', request=request)
+        print(url)
+        url += 'confirm-email/?id=' + str(user.id) + '&confirmation_id=' + str(user.confirmation_id)
+
         # The following will fail because no email is setup in the project (does not show it fails)
         send_mail("Authenticate Email", # Subject
-                  "Please click the following link to authenticate your email", # Message
+                  "Please click the following link to authenticate your email \n" + url, # Message
                   'tenting.rewards@gmail.com', # From
                   ['azenoni@zagmail.gonzaga.edu'], # To
                   fail_silently=False)
@@ -110,6 +118,40 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+class ConfirmEmail(APIView):
+
+    def get(self, request, format=None):
+        try:
+            id = self.request.query_params.get('id', None)
+            confirmation_id = self.request.query_params.get('confirmation_id', None)
+            print(id, confirmation_id)
+            if id is not None and confirmation_id is not None:
+                user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
+                user.is_active = True
+                user.save()
+                return Response({'message': 'Email is now confirmed, thank you', 'success': True})
+            else:
+                #return something that shows there was an error
+                return Response({'message': 'Hello! There was an error with id or confirmation id being None'})
+        except:
+            #return something that shows there was an error
+            return Response({'message': 'Hello! An exception was thrown'})
+
+    def post(self, request):
+        try:
+            id = self.request.query_params.get('id', None)
+            confirmation_id = self.request.query_params.get('confirmation_id', None)
+            print(id, confirmation_id)
+            if id is not None and confirmation_id is not None:
+                user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
+                user.is_active = True
+                user.save()
+            else:
+                #return something that shows there was an error
+                return Response({'message': 'Hello! There was an error with id or confirmation id being None'})
+        except:
+            #return something that shows there was an error
+            return Response({'message': 'Hello! An exception was thrown'})
 
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token"""
