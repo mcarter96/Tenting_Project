@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { InputAutoSuggest } from 'react-native-autocomplete-search';
+
+import Autocomplete from 'react-native-autocomplete-input';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -13,8 +16,24 @@ class addMembers extends Component {
     memberFive: '',
     tentPin: '',
     qrString: '',
+    emails: [],
+    query: '',
   }
+
+  findEmail(query) {
+    if (query === '') {
+      return [];
+    }
+
+    const { emails } = this.state;
+    const regex = new RegExp(`${query.trim()}`, 'i');
+    return emails.filter(email => email.name.search(regex) >= 0);
+  }
+
   newMemberOne = (text) => {
+    if (text != null){
+      console.log(text.name);
+    }
     this.setState({memberOne: text});
     
   }
@@ -162,55 +181,67 @@ class addMembers extends Component {
   for(var i = 0; i < result.length; i++){
     userMap.set(result[i].email,result[i].id)
   }
-
   this.setState({data: userMap});
   var userMap2 = new Map();
+  var emailArr = [];
   for(var i = 0; i < result.length; i++){
     userMap2.set(result[i].email, result[i].tent_id);
+    emailArr.push({id: String(i+1), name: result[i].email})
   }
+  this.setState({emails:emailArr})
   this.setState({tentData:userMap2});
  }
   render() {
     const { navigation } = this.props;
     const userName = navigation.getParam('creatorName', 'No Name');
     const tentPin = navigation.getParam('tentPin', 'noPin');
+    const { query } = this.state;
+    const emails = this.findEmail(query);
+    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
       <Grid>
         <Row size={2}></Row>
         <Row size={10}>
-          <Col size={10}><Text style = {styles.numberText}>1.</Text></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  editable = {false}
-                  placeholder = {userName}
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  />
+          <Col size={100}>
+          <Autocomplete
+            autoCapitalize="none"
+            autoCorrect={false}
+            containerStyle={styles.autocompleteContainer}
+            data={emails.length === 1 && comp(query, emails[0].name) ? [] : emails}
+            defaultValue={query}
+            listStyle={{maxHeight: 20}}
+            onChangeText={text => this.setState({ query: text })}
+            placeholder="Search for a user"
+            renderItem={({ name }) => (
+            <TouchableOpacity onPress={() => this.setState({ memberOne: name })}>
+              <Text style = {styles.autoFillText}>
+                {name} 
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+            
           </Col>
-          <Col size={10}></Col>
         </Row>
         <Row size={2}>
         </Row>
         <Row size={10}>
-          <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
+          <Col size={10}><Text style = {styles.numberText}>1.</Text></Col>
           <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = "New Member"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  onChangeText = {this.newMemberOne}/>
           </Col>
           <Col size={10}></Col>
+        </Row>
+        <Row size={2}></Row>
+        <Row size={10}>
+            <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
+            <Col size={80}><Text style = {styles.numberText}>{this.state.memberOne}</Text>
+            </Col>
+            <Col size={10}></Col>
         </Row>
         <Row size={2}></Row>
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>3.</Text></Col>
             <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "New Member"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    onChangeText = {this.newMemberTwo}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -218,11 +249,6 @@ class addMembers extends Component {
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>4.</Text></Col>
             <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "New Member"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    onChangeText = {this.newMemberThree}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -230,23 +256,6 @@ class addMembers extends Component {
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>5.</Text></Col>
             <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "New Member"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    onChangeText = {this.newMemberFour}/>
-            </Col>
-            <Col size={10}></Col>
-        </Row>
-        <Row size={2}></Row>
-        <Row size={10}>
-            <Col size={10}><Text style = {styles.numberText}>6.</Text></Col>
-            <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "New Member"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    onChangeText = {this.newMemberFive}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -293,6 +302,16 @@ const styles = StyleSheet.create({
  },
  numberText: {
     padding: 5,
-    fontSize: 30
+    fontSize: 30,
+    color: 'black',
  },
+ autoFillText: {
+  padding: 0,
+  fontSize: 14,
+  color: 'black',
+},
+autocompleteContainer: {
+  marginLeft: 10,
+  marginRight: 10
+},
 })
