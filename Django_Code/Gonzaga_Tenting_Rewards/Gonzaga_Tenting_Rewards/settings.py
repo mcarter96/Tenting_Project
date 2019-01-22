@@ -57,8 +57,7 @@ ROOT_URLCONF = 'Gonzaga_Tenting_Rewards.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,3 +136,11 @@ else:
 
 # Overrides the current user to use our own custom user
 AUTH_USER_MODEL = 'Api.UserProfile'
+
+# Configures an SMTP Email Backend
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tenting.rewards@gmail.com'
+EMAIL_HOST_PASSWORD = 'tentingRewards'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Gonzaga Tenting Rewards Team <tenting.rewards@gmail.com>'
