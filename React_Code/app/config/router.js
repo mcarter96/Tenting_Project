@@ -22,6 +22,7 @@ import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminTentReg from '../screens/adminTentReg'
 import userRegistration from '../screens/userRegistration'
+import confirmAccount from '../screens/confirmAccount'
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -141,6 +142,9 @@ export const Root = createStackNavigator({
   Registration: {
     screen: userRegistration,
   },
+  Confirmation: {
+    screen: confirmAccount,
+  }
 }, {
   mode: 'modal',
   headerMode: 'none',
