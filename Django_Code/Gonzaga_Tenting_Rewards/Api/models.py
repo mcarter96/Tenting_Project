@@ -41,7 +41,7 @@ class UserProfileManager(BaseUserManager):
         if not superUser:
             user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id, graduation_year=graduation_year)
         else: # If the request is a super user, leave out phone_number and student_id
-            user = self.model(email=email, name=name)
+            user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id, graduation_year=graduation_year)
 
         # allow django to set and store the password securely
         user.set_password(password)
@@ -54,10 +54,11 @@ class UserProfileManager(BaseUserManager):
         """Creates and saves a new superuser with given details."""
 
         user = self.create_user(email=email, name=name, phone_number=phone_number,
-                                student_id=-student_id, graduation_year=graduation_year, password=password, superUser=True)
+                                student_id=student_id, graduation_year=graduation_year, password=password, superUser=True)
 
         user.is_superuser = True
         user.is_staff = True
+        user.is_confirmed = True
         user.save(using=self._db)
 
         return user

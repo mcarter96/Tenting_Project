@@ -28,7 +28,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
 
     # What to bounce queries against
-    queryset = models.UserProfile.objects.all()
+    queryset = models.UserProfile.objects.all().filter(is_staff=False)
 
     # What to use for authentication
     authentication_classes = (TokenAuthentication,)
@@ -77,6 +77,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         # What objects to query on
         queryset = self.filter_queryset(self.get_queryset())
+        # queryset.filter(is_staff=True)
 
         # Determine if there are any query parameters in the URL to filter responses with
         id = self.request.query_params.get('id', None)
@@ -231,6 +232,8 @@ class GamesViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.GameSerializer
 
     queryset = models.Game.objects.all()
+
+    permission_classes = (permissions.InteractWithGameData,)
 
     def create(self, request, *args, **kwargs):
         """Create a game"""
