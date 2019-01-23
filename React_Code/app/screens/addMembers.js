@@ -36,6 +36,7 @@ class addMembers extends Component {
   }
   fetchDataFromApi = (members, tentPin, qrString)  => {
     var qrStr = qrString
+    console.log(members);
     this.setState({qrString: qrStr})
     const url = "http://tenting-rewards.gonzaga.edu/api/tent/";
 
@@ -54,6 +55,8 @@ class addMembers extends Component {
         tenter_6: members[5],
         tent_pin: parseInt(tentPin),
         qr_code_str: qrStr,
+        game_id: null,
+        tent_number: null,
       }),
     })
       .then(res => res.json())
