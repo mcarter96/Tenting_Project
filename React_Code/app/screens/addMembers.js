@@ -37,6 +37,12 @@ class addMembers extends Component {
   fetchDataFromApi = (members, tentPin, qrString)  => {
     var qrStr = qrString
     console.log(members);
+    members = [...new Set(members)]
+    var i;
+    for(i = members.length; i < 6; i++){
+      members.push(null);
+    }
+    console.log(members);
     this.setState({qrString: qrStr})
     const url = "http://tenting-rewards.gonzaga.edu/api/tent/";
 
@@ -80,7 +86,9 @@ class addMembers extends Component {
     }
     return regIds;
   }
-
+  updateTentMembers = (name) =>{
+    this.setState({ tentMembers: this.state.tentMembers.concat([name])})
+  }
   submit = (thisUser,tentMember, tentPin, qrString) => {
     let members = [thisUser,tentMember[0], tentMember[1], tentMember[2], tentMember[3], tentMember[4]];
     var allNotInTent = true;
@@ -112,7 +120,6 @@ class addMembers extends Component {
   .then((response) => response.json())
   .then((responseJson) => {
     return responseJson;
-    //return responseJson.results;
   })
   .catch((error) => {
     console.error(error);
@@ -126,7 +133,9 @@ class addMembers extends Component {
   var emailArr = [];
   for(var i = 0; i < result.length; i++){
     userMap2.set(result[i].email, result[i].tent_id);
-    emailArr.push({id: String(i+1), name: result[i].email})
+    if(result[i].tent_id == null){
+      emailArr.push({id: String(i+1), name: result[i].email})
+    }
   }
   this.setState({emails:emailArr})
   this.setState({tentData:userMap2});
