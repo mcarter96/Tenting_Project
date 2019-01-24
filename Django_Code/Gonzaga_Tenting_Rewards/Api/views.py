@@ -1,6 +1,12 @@
 # This file defines different views that can be accessed from the API
 
 # Imports
+from django.contrib.auth.forms import PasswordResetForm as password_reset_form
+from django.contrib.auth.tokens import default_token_generator as token_generator
+from django.http import HttpResponseRedirect
+from django.contrib.auth import get_user_model as UserModel
+from django.template import loader
+from django.urls import reverse
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
@@ -12,12 +18,13 @@ from rest_framework.authtoken.models import Token
 from rest_framework.reverse import reverse_lazy
 from Helper_Functions import user_functions
 from rest_framework import status
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from Gonzaga_Tenting_Rewards import settings
 
 from . import serializers
 from . import models
 from . import permissions
+from django.contrib.auth.forms import PasswordResetForm
 
 # Create your views here.
 
@@ -241,3 +248,39 @@ class GamesViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+class PasswordReset(APIView):
+    """Password reset feature for user profile"""
+
+    cleaned_data = {"email":"tenting.rewards@gmail.com"}
+    def post(self, request):
+        PasswordResetForm.save(self, domain_override=None, use_https=False, from_email="Gonzaga Tenting Rewards", request=request)
+
+    def send_mail(self, subject_template_name, email_template_name,
+                  context, from_email, to_email, html_email_template_name=None):
+        """
+        Send a django.core.mail.EmailMultiAlternatives to `to_email`.
+        """
+        subject = loader.render_to_string(subject_template_name, context)
+        # Email subject *must not* contain newlines
+        subject = ''.join(subject.splitlines())
+        body = loader.render_to_string(email_template_name, context)
+
+        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        if html_email_template_name is not None:
+            html_email = loader.render_to_string(html_email_template_name, context)
+            email_message.attach_alternative(html_email, 'text/html')
+
+        email_message.send()
+
+    def get_users(self, email):
+        """Given an email, return matching user(s) who should receive a reset.
+
+        This allows subclasses to more easily customize the default policies
+        that prevent inactive users and users with unusable passwords from
+        resetting their password.
+        """
+        active_users = models.UserProfile.objects.all()
+        print(active_users)
+        return (u for u in active_users if u.has_usable_password())
+
