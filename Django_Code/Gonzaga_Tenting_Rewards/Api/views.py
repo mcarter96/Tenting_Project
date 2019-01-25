@@ -43,6 +43,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     generic_fields = ('id','name', 'email', 'url', 'tent_id')
 
     def create(self, request, *args, **kwargs):
+        """Creates a new UserProfile"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -91,12 +92,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         name = self.request.query_params.get('name', None)
         if name is not None:
             queryset = queryset.filter(name=name)
-
-        # the following is broken but should be added, will need to be fixed
-        # TODO: Fix the following code to allow filtering on tent_ids
-        tent_id = self.request.query_params.get('tent_id', None)
-        # if tent_id is not None:
-        #     queryset = queryset.filter(tent_id=tent_id)
 
         # Determines if django is using paginations
         page = self.paginate_queryset(queryset)
@@ -209,22 +204,6 @@ class TentViewSet(viewsets.ModelViewSet):
     # What to use for authentication
     authentication_classes = (TokenAuthentication,)
 
-    # Removed to test provided create and update functions, may not for the future but not for current commit
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    #
-    # def update(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_update(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED, headers=headers)
 
 class GamesViewSet(viewsets.ModelViewSet):
     """Logic to assign tents to a game"""
