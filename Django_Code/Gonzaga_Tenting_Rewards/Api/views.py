@@ -141,7 +141,8 @@ class ConfirmEmail(APIView):
                 return Response({'message': 'Email is now confirmed', 'success': True})
             else:
                 #return something that shows there was an error
-                return Response({'message': 'Invalid id or confirmation id', 'success': False, 'status': status.HTTP_400_BAD_REQUEST})
+                return Response({'message': 'Invalid id or confirmation id', 'success': False,
+                                 'status': status.HTTP_400_BAD_REQUEST})
         except:
             #return something that shows there was an error
             return Response({'message': 'User was not found', 'success': False, 'status': status.HTTP_404_NOT_FOUND})
@@ -157,7 +158,8 @@ class ConfirmEmail(APIView):
                 user.is_confirmed = True
                 user.save()
             else:
-                return Response({'message': 'There was an error with id or confirmation id being None', 'success': False})
+                return Response({'message': 'There was an error with id or confirmation id being None',
+                                 'success': False})
         except:
             return Response({'message': 'An exception was thrown', 'success': False})
 
@@ -188,9 +190,11 @@ class LoginViewSet(viewsets.ViewSet):
 
         # Return the response with necessary fields based on confirmation
         if is_confirmed:
-            return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id, 'is_confirmed': is_confirmed, 'status': status.HTTP_202_ACCEPTED})
+            return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id,
+                             'is_confirmed': is_confirmed, 'status': status.HTTP_202_ACCEPTED})
         else:
-            return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet', 'status': status.HTTP_401_UNAUTHORIZED})
+            return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet',
+                             'status': status.HTTP_401_UNAUTHORIZED})
 
 class TentViewSet(viewsets.ModelViewSet):
     """Handles creating and updating of tent groups"""

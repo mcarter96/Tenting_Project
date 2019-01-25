@@ -59,7 +59,8 @@ class TentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.TentGroup
-        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str', 'game_id', 'tent_number')
+        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin',
+                  'qr_code_str', 'game_id', 'tent_number')
 
         # Defines extra parameters on the certain fields
 
