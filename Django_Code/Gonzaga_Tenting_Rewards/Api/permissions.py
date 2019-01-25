@@ -10,6 +10,10 @@ class UpdateOwnProfile(permissions.BasePermission):
     """Allow users to edit their own profile."""
 
     def has_permission(self, request, view):
+
+        if request.method == 'POST':
+            return True
+
         if request.user.id == None:
             return False
 

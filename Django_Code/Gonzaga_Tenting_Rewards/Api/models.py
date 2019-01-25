@@ -189,8 +189,8 @@ class TentGroup(models.Model):
 
         return self.qr_code_str
 
-    def __str__(self):
-        """Django uses this when it needs to convert the object to a string"""
-
-        return self.tent_pin
+    # def __str__(self):
+    #     """Django uses this when it needs to convert the object to a string"""
+    #
+    #     return self.tent_pin
 

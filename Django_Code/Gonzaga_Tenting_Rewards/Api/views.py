@@ -94,7 +94,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         # the following is broken but should be added, will need to be fixed
         # TODO: Fix the following code to allow filtering on tent_ids
-        # tent_id = self.request.query_params.get('tent_id', None)
+        tent_id = self.request.query_params.get('tent_id', None)
         # if tent_id is not None:
         #     queryset = queryset.filter(tent_id=tent_id)
 
