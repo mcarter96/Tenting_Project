@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
-export default class App extends Component {
+
+class TentAssignment extends Component {
   onSuccess(e) {
     console.log(e.data)
   }
@@ -33,6 +34,8 @@ export default class App extends Component {
     );
   }
 }
+
+export default TentAssignment;
 
 const styles = StyleSheet.create({
   centerText: {
@@ -62,4 +65,3 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('default', () => ScanScreen);

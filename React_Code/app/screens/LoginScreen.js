@@ -90,13 +90,14 @@ class Login extends Component {
             this.setState({username:''});
             this._textInput.setNativeProps({ text: '' });
             this._textInput2.setNativeProps({text: ''});
-            if (username == "admin2@zagmail.gonzaga.edu") {
+            console.log(result.is_admin);
+            if (result.is_admin) {
               this.props.navigation.navigate('Admin', {userEmail: username});
             } else {
               this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
             }
           }
-          else if(!result.is_confirmed){
+          else if(!result.is_confirmed && !result.is_admin){
             this.setState({password:''});
             this.setState({username:''});
             this._textInput.setNativeProps({ text: '' });
