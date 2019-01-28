@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import KeyboardShift from './KeyboardShift';
 
 class TentAssignment extends Component {
   state = {
@@ -107,49 +108,51 @@ class TentAssignment extends Component {
 
   render() {
     return (
-      <Grid>
-        <Row size ={20}></Row>
-        <Row size={40}>
-          <Col size={10}></Col>
-          <Col size={80}>
-          
-          <QRCodeScanner
-            onRead={this.onSuccess.bind(this)}
-            cameraStyle = {styles.camera}
-            />
+      <KeyboardShift>
+        <Grid>
+          <Row size ={20}></Row>
+          <Row size={40}>
+            <Col size={10}></Col>
+            <Col size={80}>
+            
+            <QRCodeScanner
+              onRead={this.onSuccess.bind(this)}
+              cameraStyle = {styles.camera}
+              />
+              </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={30}></Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+              <TextInput style = {styles.input}
+                    editable = {true}
+                    placeholder = "Code"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    returnKeyType={ "done" }
+                    onChangeText = {this.updateQrString}
+                    />
             </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={30}></Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  editable = {true}
-                  placeholder = "Code"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  returnKeyType={ "done" }
-                  onChangeText = {this.updateQrString}
-                  />
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={15}>
-          <Col size={20}></Col>
-            <Col size={60}>
-              <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submitQr(this.state.qrString)}>
-                  <Text style = {styles.text}>
-                    Submit
-                  </Text>
-              </TouchableOpacity>
-              </View>
-            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}></Row>
+          <Row size={15}>
             <Col size={20}></Col>
-        </Row>
-      </Grid>
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.submitQr(this.state.qrString)}>
+                    <Text style = {styles.text}>
+                      Submit
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+        </Grid>
+      </KeyboardShift>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import KeyboardShift from './KeyboardShift';
 class InitialTentDetails extends Component {
   state = {
     tentName: '',
@@ -56,67 +56,68 @@ class InitialTentDetails extends Component {
   }
   render() {
     return (
-      <Grid>
-        <Row size={5}></Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = "Tent Name"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  returnKeyType={ "done" }
-                  onChangeText = {this.handleTentName}/>
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}>
-        </Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = {String(this.state.fullName)}
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  editable = {false}
-                  onChangeText = {this.handleFullName}/>
-                  
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={10}>
-        <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = "Pin"
-                  placeholderTextColor = "black"
-                  keyboardType = 'number-pad'
-                  maxLength={6} 
-                  secureTextEntry = {true}
-                  autoCapitalize = "none"
-                  returnKeyType={ "done" }
-                  onChangeText = {this.handlePin}/>
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={35}></Row>
-        <Row size={20}>
-          <Col size={20}></Col>
-            <Col size={60}>
-              <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.fullName, this.state.pin)}>
-                  <Text style = {styles.text}>
-                    Next
-                  </Text>
-              </TouchableOpacity>
-              </View>
+      <KeyboardShift>
+        <Grid>
+          <Row size={5}></Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+              <TextInput style = {styles.input}
+                    placeholder = "Tent Name"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    returnKeyType={ "done" }
+                    onChangeText = {this.handleTentName}/>
             </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}>
+          </Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+              <TextInput style = {styles.input}
+                    placeholder = {String(this.state.fullName)}
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    editable = {false}
+                    onChangeText = {this.handleFullName}/>
+                    
+            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}></Row>
+          <Row size={10}>
+          <Col size={10}></Col>
+            <Col size={80}>
+              <TextInput style = {styles.input}
+                    placeholder = "Pin"
+                    placeholderTextColor = "black"
+                    keyboardType = 'number-pad'
+                    maxLength={6} 
+                    secureTextEntry = {true}
+                    autoCapitalize = "none"
+                    returnKeyType={ "done" }
+                    onChangeText = {this.handlePin}/>
+            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={35}></Row>
+          <Row size={20}>
             <Col size={20}></Col>
-        </Row>
-      </Grid>
-      
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.fullName, this.state.pin)}>
+                    <Text style = {styles.text}>
+                      Next
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+        </Grid>
+      </KeyboardShift>
     );
   }
 }
