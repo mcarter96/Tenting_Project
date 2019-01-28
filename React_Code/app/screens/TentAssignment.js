@@ -129,6 +129,7 @@ class TentAssignment extends Component {
                   placeholder = "Code"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.updateQrString}
                   />
           </Col>

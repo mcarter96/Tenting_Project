@@ -13,6 +13,7 @@
     "react-native-autocomplete-search": "^1.0.8",
     "react-native-camera": "^1.9.2",
     "react-native-checkbox-group": "^1.0.3",
+    "react-native-dismissable-numeric-keyboard": "^0.1.0",
     "react-native-easy-grid": "^0.2.0",
     "react-native-elements": "^0.19.1",
     "react-native-ionicons": "^4.4.6",

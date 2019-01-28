@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class userRegistration extends Component {
@@ -141,6 +141,7 @@ class userRegistration extends Component {
                   placeholder = "Email"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.userEmail}
                   />
           </Col>
@@ -155,6 +156,7 @@ class userRegistration extends Component {
                   placeholder = "Name"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.userName}/>
           </Col>
           <Col size={10}></Col>
@@ -168,6 +170,7 @@ class userRegistration extends Component {
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
                     secureTextEntry = {true}
+                    returnKeyType={ "done" }
                     onChangeText = {this.password}/>
             </Col>
             <Col size={10}></Col>
@@ -176,13 +179,14 @@ class userRegistration extends Component {
         <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "Student ID"
-                    placeholderTextColor = "black"
-                    keyboardType = 'number-pad'
-                    maxLength={8} 
-                    autoCapitalize = "none"
-                    onChangeText = {this.studentID}/>
+            <TextInput style = {styles.input}
+                placeholder = "Student ID"
+                placeholderTextColor = "black"
+                keyboardType = 'numeric'
+                maxLength={8} 
+                autoCapitalize = "none"
+                returnKeyType={ "done" }
+                onChangeText = {this.studentID}/>
             </Col>
             <Col size={10}></Col>
         </Row>
@@ -195,6 +199,7 @@ class userRegistration extends Component {
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
                     keyboardType = 'number-pad'
+                    returnKeyType={ "done" }
                     onChangeText = {this.userPhoneNumber}/>
             </Col>
             <Col size={10}></Col>
@@ -208,6 +213,7 @@ class userRegistration extends Component {
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
                     keyboardType = 'number-pad'
+                    returnKeyType={ "done" }
                     onChangeText = {this.gradYear}/>
             </Col>
             <Col size={10}></Col>

@@ -61,6 +61,7 @@ class Confirmation extends Component {
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
                   autoCorrect = {false}
+                  returnKeyType={ "done" }
                   onChangeText = {this.confirmationCode}
                   />
           </Col>

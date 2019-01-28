@@ -128,6 +128,7 @@ class Login extends Component {
                   autoCapitalize = "none"
                   autoCorrect = {false}
                   onChangeText = {this.username}
+                  returnKeyType={ "done" }
                   ref={component => this._textInput2 = component}
                   />
           </Col>
@@ -145,6 +146,7 @@ class Login extends Component {
                   autoCorrect = {false}
                   secureTextEntry = {true}
                   onChangeText = {this.password}
+                  returnKeyType={ "done" }
                   ref={component => this._textInput = component}
                   />
             </View>

@@ -65,6 +65,7 @@ class InitialTentDetails extends Component {
                   placeholder = "Tent Name"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.handleTentName}/>
           </Col>
           <Col size={10}></Col>
@@ -95,6 +96,7 @@ class InitialTentDetails extends Component {
                   maxLength={6} 
                   secureTextEntry = {true}
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.handlePin}/>
           </Col>
           <Col size={10}></Col>
