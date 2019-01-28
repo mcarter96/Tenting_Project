@@ -10,7 +10,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 class adminGameManage extends Component {
   onPressCreateGame = () => {
-    
+    this.props.navigation.navigate('createGame')
   }
 
   onPressAssignTents = () => {

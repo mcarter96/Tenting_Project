@@ -23,8 +23,8 @@ import adminTentChecks from '../screens/adminTentCheck'
 import adminGameManage from '../screens/adminGameManage'
 import userRegistration from '../screens/userRegistration'
 import confirmAccount from '../screens/confirmAccount'
-import tentAssignment from '../screens/TentAssignment'
 import TentAssignment from '../screens/TentAssignment';
+import CreateGame from '../screens/createGame';
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -56,6 +56,12 @@ export const AdminStack = createStackNavigator({
     navigationOptions: {
       title: 'Manage Users'
     },
+  },
+  createGame: {
+    screen:CreateGame,
+    navigationOptions:{
+      title: "Create Game"
+    }
   },
   tentAssignment: {
     screen: TentAssignment,

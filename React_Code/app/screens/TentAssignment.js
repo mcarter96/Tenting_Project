@@ -21,6 +21,7 @@ class TentAssignment extends Component {
     tentData: '',
   }
   onSuccess(e) {
+    alert("Successfully Scanned, press submit to assign tent number.")
     this.setState({qrString: e.data});
   }
 
@@ -28,12 +29,12 @@ class TentAssignment extends Component {
     this.setState({qrString: text});
   }
 
-  submitQr = (qrString)=>{
+  submitQr = async(qrString)=>{
     var tentId = this.state.data.get(qrString);
     const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentId+"/";
      var members = this.state.tentData.get(qrString);
      
-     return fetch(url, {
+     var result = fetch(url, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -60,7 +61,25 @@ class TentAssignment extends Component {
       })
       .catch(error => {
         console.error(error);
-      })
+      });
+      var tentNum = await this.loadTentNumber(tentId);
+      console.log(tentNum);
+      alert("Successfully assigned tent number " + tentNum+".");
+  }
+
+  loadTentNumber = async(id) =>{
+    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var result = await fetch(url, {
+    method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    return result.tent_number;
   }
 
   async componentDidMount(){
