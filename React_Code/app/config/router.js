@@ -20,8 +20,11 @@ import adminFeed from '../screens/adminFeed'
 import adminManageUsers from '../screens/adminManageUsers'
 import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
-import adminTentReg from '../screens/adminTentReg'
+import adminGameManage from '../screens/adminGameManage'
 import userRegistration from '../screens/userRegistration'
+import confirmAccount from '../screens/confirmAccount'
+import TentAssignment from '../screens/TentAssignment';
+import CreateGame from '../screens/createGame';
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -30,10 +33,10 @@ export const AdminStack = createStackNavigator({
       title: "Menu"
     },
   },
-  adminTentReg: {
-    screen: adminTentReg,
+  adminGameManage: {
+    screen: adminGameManage,
     navigationOptions: {
-      title: 'Tent Registration'
+      title: 'Game Management'
     },
   },
   adminTentChecks: {
@@ -54,6 +57,19 @@ export const AdminStack = createStackNavigator({
       title: 'Manage Users'
     },
   },
+  createGame: {
+    screen:CreateGame,
+    navigationOptions:{
+      title: "Create Game"
+    }
+  },
+  tentAssignment: {
+    screen: TentAssignment,
+    navigationOptions:{
+      title: 'Assign Tents'
+    }
+  },
+
 });
 
 export const CreateTentStack = createStackNavigator({
@@ -141,6 +157,9 @@ export const Root = createStackNavigator({
   Registration: {
     screen: userRegistration,
   },
+  Confirmation: {
+    screen: confirmAccount,
+  }
 }, {
   mode: 'modal',
   headerMode: 'none',

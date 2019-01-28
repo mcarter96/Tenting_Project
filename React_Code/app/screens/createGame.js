@@ -8,31 +8,37 @@ import {
   Text,
   TouchableOpacity,
   Linking,
+  TextInput,
+  View,
 } from 'react-native';
 
-import QRCodeScanner from 'react-native-qrcode-scanner';
-export default class App extends Component {
-  onSuccess(e) {
-    console.log(e.data)
+
+class CreateGame extends Component {
+  state = {
+    qrString:'',
+    data:'',
+    tentData: '',
   }
+  
+
+ 
 
   render() {
     return (
       <Grid>
-        <Row size={10}></Row>
+        <Row size={30}></Row>
         <Row size={40}>
-        <Col size={10}></Col>
-        <Col size={80}><QRCodeScanner
-          onRead={this.onSuccess.bind(this)}
-          cameraStyle = {styles.camera}
-          /></Col>
-        <Col size={10}></Col>
+          <Col size={30}></Col>
+          <Col size={40}><Text style={{fontSize: 50}}>Admin Create Game</Text></Col>
+          <Col size={30}></Col>
         </Row>
-        <Row size={50}></Row>
+        <Row size={30}></Row>
       </Grid>
     );
   }
 }
+
+export default CreateGame;
 
 const styles = StyleSheet.create({
   centerText: {
@@ -53,13 +59,31 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   camera: {
-    flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
     height: '100%',
     width: '100%',
   },
+  input: {
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'black',
+    borderWidth: 1,
+    width: '100%'
+ },
+ container: {
+  alignItems: 'center',
+  width: '100%'
+},
+text: {
+  borderWidth: 1,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:60,
+  paddingRight: 60,
+  borderColor: 'black',
+  fontSize: 20
+},
 });
 
-AppRegistry.registerComponent('default', () => ScanScreen);

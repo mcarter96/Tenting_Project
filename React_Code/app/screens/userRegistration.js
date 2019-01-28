@@ -119,7 +119,7 @@ class userRegistration extends Component {
             
         }
         if(success){
-            alert("Registration successful!");
+            alert("Registration successful, check your email for a confirmation code!");
             this.props.navigation.navigate('Login');
         }
         

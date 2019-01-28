@@ -20,7 +20,7 @@ class Login extends Component {
     data: [],
     error: null,
     refreshing: false,
-    base_url: "http://tenting-rewards.gonzaga.edu/"
+    base_url: "http://tenting-rewards.gonzaga.edu/",
   }
   fetchDataFromApi = (userName, passWord)  => {
     const url = "http://tenting-rewards.gonzaga.edu/api/login/";
@@ -45,6 +45,25 @@ class Login extends Component {
       })
   };
 
+   getUserId = async(userName) =>{
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+      //return responseJson.results;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    for(var i = 0; i < result.length; i++){
+      if(result[i].email == userName){
+        return result[i].id;
+      }
+    }
+    return null;
+   }
   password = (text) => {
     this.setState({password: text});
   }
@@ -62,21 +81,37 @@ class Login extends Component {
         alert("Password field is required.")
     }
     else{
-        var result = await this.fetchDataFromApi(username, password);
-        if (result.token){
-          this.setState({password:''});
-          this.setState({username:''});
-          this._textInput.setNativeProps({ text: '' });
-          this._textInput2.setNativeProps({text: ''});
-          if (username == "admin2@zagmail.gonzaga.edu") {
-            this.props.navigation.navigate('Admin', {userEmail: username});
-          } else {
-            this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
+        var userId = await this.getUserId(username);
+        if (userId != null){
+          var result = await this.fetchDataFromApi(username, password);
+          console.log(result);
+          if (result.token){
+            this.setState({password:''});
+            this.setState({username:''});
+            this._textInput.setNativeProps({ text: '' });
+            this._textInput2.setNativeProps({text: ''});
+            console.log(result.is_admin);
+            if (result.is_admin) {
+              this.props.navigation.navigate('Admin', {userEmail: username});
+            } else {
+              this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
+            }
+          }
+          else if(!result.is_confirmed && !result.is_admin){
+            this.setState({password:''});
+            this.setState({username:''});
+            this._textInput.setNativeProps({ text: '' });
+            this._textInput2.setNativeProps({text: ''});
+            this.props.navigation.navigate('Confirmation', {id: userId});
+          }
+          else{
+            alert("Invalid Username or Password.")
           }
         }
         else{
-          alert("Invalid Username or Password.")
+          alert("Must create account to login.")
         }
+        
     }
 
   }
