@@ -118,6 +118,7 @@ class TentAssignment extends Component {
             <QRCodeScanner
               onRead={this.onSuccess.bind(this)}
               cameraStyle = {styles.camera}
+              reactivate = {true}
               />
               </Col>
             <Col size={10}></Col>
