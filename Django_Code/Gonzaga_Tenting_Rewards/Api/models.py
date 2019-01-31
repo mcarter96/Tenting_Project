@@ -39,9 +39,11 @@ class UserProfileManager(BaseUserManager):
 
         # If the request was not a super user
         if not superUser:
-            user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id, graduation_year=graduation_year)
+            user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id,
+                              graduation_year=graduation_year)
         else: # If the request is a super user, leave out phone_number and student_id
-            user = self.model(email=email, name=name)
+            user = self.model(email=email, name=name, phone_number=phone_number, student_id=student_id,
+                              graduation_year=graduation_year)
 
         # allow django to set and store the password securely
         user.set_password(password)
@@ -54,10 +56,12 @@ class UserProfileManager(BaseUserManager):
         """Creates and saves a new superuser with given details."""
 
         user = self.create_user(email=email, name=name, phone_number=phone_number,
-                                student_id=-student_id, graduation_year=graduation_year, password=password, superUser=True)
+                                student_id=student_id, graduation_year=graduation_year, password=password,
+                                superUser=True)
 
         user.is_superuser = True
         user.is_staff = True
+        user.is_confirmed = True
         user.save(using=self._db)
 
         return user
@@ -77,7 +81,8 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     # Make sure the phone number entered follows the format of a phone number
     phone_regex = RegexValidator(regex=r'^\+?1?\d{3,3}?-?\d{3,3}?-?\d{4,4}$',
                                  message="Phone number must be entered in the format: '+999-999-9999'")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, unique=True, default=-1)  # validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, unique=True,
+                                    default=-1)  # validators should be a list
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     confirmation_id = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False, unique=True)
@@ -134,12 +139,18 @@ def limit_tenter_choices():
 class TentGroup(models.Model):
     """Creates a new instance of a tenting group object and assigns up to 6 users to the group"""
 
-    tenter_1 = models.ForeignKey(UserProfile, related_name='tenter_1', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices)
-    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
-    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
-    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
-    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
-    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.CASCADE, limit_choices_to=limit_tenter_choices, null=True)
+    tenter_1 = models.ForeignKey(UserProfile, related_name='tenter_1', on_delete=models.PROTECT,
+                                 limit_choices_to=limit_tenter_choices)
+    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.SET_NULL,
+                                 limit_choices_to=limit_tenter_choices, null=True)
+    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.SET_NULL,
+                                 limit_choices_to=limit_tenter_choices, null=True)
+    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.SET_NULL,
+                                 limit_choices_to=limit_tenter_choices, null=True)
+    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.SET_NULL,
+                                 limit_choices_to=limit_tenter_choices, null=True)
+    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.SET_NULL,
+                                 limit_choices_to=limit_tenter_choices, null=True)
     tent_pin = models.IntegerField()
     qr_code_str = models.CharField(max_length=100)
     game_id = models.ForeignKey(Game, related_name='game_id', on_delete=models.CASCADE, null=True)
@@ -147,11 +158,10 @@ class TentGroup(models.Model):
 
     def create_tent_group(self, tenter_1, tenter_2, tenter_3, tenter_4, tenter_5, tenter_6, tent_pin, qr_code_str):
         """Creates a new tenting group object."""
-        tent_group = self.model(tenter_1=tenter_1, tenter_2=tenter_2, tenter_3=tenter_3, tenter_4=tenter_4, tenter_5=tenter_5, tenter_6=tenter_6, tent_pin=tent_pin, qr_code_str=qr_code_str)
+        tent_group = self.model(tenter_1=tenter_1, tenter_2=tenter_2, tenter_3=tenter_3, tenter_4=tenter_4,
+                                tenter_5=tenter_5, tenter_6=tenter_6, tent_pin=tent_pin, qr_code_str=qr_code_str)
 
         return tent_group
-
-
 
     def get_tenter_1(self):
         """Used to get tenter 1's email."""
@@ -187,9 +197,3 @@ class TentGroup(models.Model):
         """Used to get QR code of tent group."""
 
         return self.qr_code_str
-
-    def __str__(self):
-        """Django uses this when it needs to convert the object to a string"""
-
-        return self.tent_pin
-
