@@ -133,7 +133,6 @@ class ConfirmEmail(APIView):
         try:
             id = self.request.query_params.get('id', None)
             confirmation_id = self.request.query_params.get('confirmation_id', None)
-            print(id, confirmation_id)
             if id is not None and confirmation_id is not None:
                 user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
                 user.is_confirmed = True
@@ -152,7 +151,6 @@ class ConfirmEmail(APIView):
         try:
             id = self.request.query_params.get('id', None)
             confirmation_id = self.request.query_params.get('confirmation_id', None)
-            print(id, confirmation_id)
             if id is not None and confirmation_id is not None:
                 user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
                 user.is_confirmed = True
