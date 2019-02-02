@@ -155,6 +155,7 @@ class ConfirmEmail(APIView):
                 user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
                 user.is_confirmed = True
                 user.save()
+                return Response({'message': 'Email is now confirmed', 'success': True})
             else:
                 return Response({'message': 'There was an error with id or confirmation id being None',
                                  'success': False})
