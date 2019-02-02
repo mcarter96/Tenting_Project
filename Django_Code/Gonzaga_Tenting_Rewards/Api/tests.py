@@ -1,5 +1,5 @@
-from django.test import TestCase, Client
-from rest_framework.test import  force_authenticate, APIClient
+from django.test import TestCase
+from rest_framework.test import  APIClient
 from . import models
 import threading
 import json

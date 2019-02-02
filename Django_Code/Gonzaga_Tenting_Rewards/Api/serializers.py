@@ -82,6 +82,8 @@ class TentSerializer(serializers.ModelSerializer):
             tent_number=None,
         )
 
+        print("Hello there tester")
+
         tent.save()
         tent_check = Tent_Checks_Models.Tent_Check(tent_id=tent)
         tent_check.save()
