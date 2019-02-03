@@ -2,11 +2,14 @@
 
 # Imports
 from django.contrib.auth.forms import PasswordResetForm as password_reset_form
-from django.contrib.auth.tokens import default_token_generator as token_generator
+from django.contrib.auth.tokens import default_token_generator as token_generator, default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model as UserModel
 from django.template import loader
 from django.urls import reverse
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
@@ -254,7 +257,9 @@ class PasswordReset(APIView):
 
     cleaned_data = {"email":"tenting.rewards@gmail.com"}
     def post(self, request):
-        PasswordResetForm.save(self, domain_override=None, use_https=False, from_email="Gonzaga Tenting Rewards", request=request)
+        print(request.data)
+        self.cleaned_data = request.data
+        self.save(self, use_https=False, from_email="Gonzaga Tenting Rewards", request=request)
 
     def send_mail(self, subject_template_name, email_template_name,
                   context, from_email, to_email, html_email_template_name=None):
@@ -265,8 +270,11 @@ class PasswordReset(APIView):
         # Email subject *must not* contain newlines
         subject = ''.join(subject.splitlines())
         body = loader.render_to_string(email_template_name, context)
+        print("Body: ", body)
+
 
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        print("Email Message: ", email_message)
         if html_email_template_name is not None:
             html_email = loader.render_to_string(html_email_template_name, context)
             email_message.attach_alternative(html_email, 'text/html')
@@ -280,7 +288,47 @@ class PasswordReset(APIView):
         that prevent inactive users and users with unusable passwords from
         resetting their password.
         """
-        active_users = models.UserProfile.objects.all()
+        active_users = models.UserProfile.objects.get(email=email)
         print(active_users)
-        return (u for u in active_users if u.has_usable_password())
+        return [active_users]
 
+    def save(self, domain_override=None,
+             subject_template_name='registration/password_reset_subject.txt',
+             email_template_name='registration/password_reset_email.html',
+             use_https=False, token_generator=default_token_generator,
+             from_email=None, request=None, html_email_template_name=None,
+             extra_email_context=None):
+        """
+        Generate a one-use only link for resetting password and send it to the
+        user.
+        """
+        email = self.cleaned_data["email"]
+        for user in self.get_users(email):
+            if not domain_override:
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+            else:
+                site_name = domain = domain_override
+            context = {
+                'email': email,
+                'domain': domain,
+                'site_name': site_name,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'user': user,
+                'token': token_generator.make_token(user),
+                'protocol': 'https' if use_https else 'http',
+            }
+            print("Domain: ", domain)
+            print("site name: ", site_name)
+            print("email: ", email)
+            print("uid: ", urlsafe_base64_encode(force_bytes(user.pk)).decode())
+            print("user: ", user)
+            print("token: ", token_generator.make_token(user))
+
+            if extra_email_context is not None:
+                context.update(extra_email_context)
+            self.send_mail(
+                subject_template_name, email_template_name, context, from_email,
+                email, html_email_template_name=html_email_template_name,
+            )
