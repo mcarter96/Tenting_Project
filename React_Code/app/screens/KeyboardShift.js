@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     width: '100%'
   }
 });
-
+/*
 KeyboardShift.propTypes = {
   children: PropTypes.func.isRequired,
-};
+};*/
