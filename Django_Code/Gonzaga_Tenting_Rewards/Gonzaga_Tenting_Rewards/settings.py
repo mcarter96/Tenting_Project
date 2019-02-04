@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'rest_framework',
     'rest_framework.authtoken',
     'Api',
+    'Tent_Checks',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,14 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=Api,Tent_Checks',
+    '--nocapture',
 ]
 
 WSGI_APPLICATION = 'Gonzaga_Tenting_Rewards.wsgi.application'
@@ -124,11 +134,17 @@ STATIC_URL = '/static/'
 
 if DEBUG:
     REST_FRAMEWORK = {
-
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+        ),
     }
 else:
     REST_FRAMEWORK = {
-
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+        ),
         'DEFAULT_RENDERER_CLASSES': (
             'rest_framework.renderers.JSONRenderer',
         )

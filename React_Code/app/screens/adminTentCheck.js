@@ -5,18 +5,17 @@ import {
   ScrollView
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import CheckBox from 'react-native-check-box';
 
 class adminTentChecks extends Component {
+  state = {
+    isCheckedOne: true,
+    isCheckedTwo: true,
+  }
   render() {
     return (
       <Grid>
-        <Row size={30}></Row>
-        <Row size={40}>
-          <Col size={30}></Col>
-          <Col size={40}><Text style={{fontSize: 50}}>Admin Tent Checks</Text></Col>
-          <Col size={30}></Col>
-        </Row>
-        <Row size={30}></Row>
+        <Text>Admin Tent Check</Text>
       </Grid>
       
     );
