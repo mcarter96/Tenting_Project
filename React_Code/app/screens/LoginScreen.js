@@ -8,7 +8,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import KeyboardShift from './KeyboardShift';
 class Login extends Component {
   static navigationOptions = {
     header: null
@@ -117,68 +117,72 @@ class Login extends Component {
   }
   render() {
     return (
-      <Grid>
-        <Row size={30}></Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = "Email"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  autoCorrect = {false}
-                  onChangeText = {this.username}
-                  ref={component => this._textInput2 = component}
-                  />
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-          <View style = {styles.container}>
-            <TextInput style = {styles.input}
-                  placeholder = "Password"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  autoCorrect = {false}
-                  secureTextEntry = {true}
-                  onChangeText = {this.password}
-                  ref={component => this._textInput = component}
-                  />
-            </View>
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={15}>
+      <KeyboardShift>
+        <Grid>
+          <Row size={30}></Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+              <TextInput style = {styles.input}
+                    placeholder = "Email"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
+                    onChangeText = {this.username}
+                    returnKeyType={ "done" }
+                    ref={component => this._textInput2 = component}
+                    />
+            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}></Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+            <View style = {styles.container}>
+              <TextInput style = {styles.input}
+                    placeholder = "Password"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
+                    secureTextEntry = {true}
+                    onChangeText = {this.password}
+                    returnKeyType={ "done" }
+                    ref={component => this._textInput = component}
+                    />
+              </View>
+            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}></Row>
+          <Row size={15}>
+            <Col size={20}></Col>
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.login(this.state.username, this.state.password)}>
+                    <Text style = {styles.text}>
+                      Login
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+          <Row size={25}>
           <Col size={20}></Col>
-            <Col size={60}>
-              <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.login(this.state.username, this.state.password)}>
-                  <Text style = {styles.text}>
-                    Login
-                  </Text>
-              </TouchableOpacity>
-              </View>
-            </Col>
-            <Col size={20}></Col>
-        </Row>
-        <Row size={25}>
-        <Col size={20}></Col>
-            <Col size={60}>
-              <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
-                  <Text style = {styles.text2}>
-                    Create Account
-                  </Text>
-              </TouchableOpacity>
-              </View>
-            </Col>
-            <Col size={20}></Col>
-        </Row>
-      </Grid>
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
+                    <Text style = {styles.text2}>
+                      Create Account
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+        </Grid>
+      </KeyboardShift>
     );
   }
 }

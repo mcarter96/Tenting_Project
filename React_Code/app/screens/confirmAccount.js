@@ -8,6 +8,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import KeyboardShift from './KeyboardShift';
 
 class Confirmation extends Component {
   static navigationOptions = {
@@ -51,49 +52,52 @@ class Confirmation extends Component {
     const { navigation } = this.props;
     const userid = navigation.getParam('id', 'no id');
     return (
-      <Grid>
-        <Row size={30}></Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = "Confirmation Code"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  autoCorrect = {false}
-                  onChangeText = {this.confirmationCode}
-                  />
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={5}></Row>
-        <Row size={15}>
+      <KeyboardShift>
+        <Grid>
+          <Row size={30}></Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+              <TextInput style = {styles.input}
+                    placeholder = "Confirmation Code"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
+                    returnKeyType={ "done" }
+                    onChangeText = {this.confirmationCode}
+                    />
+            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}></Row>
+          <Row size={10}>
+            <Col size={10}></Col>
+            <Col size={80}>
+            </Col>
+            <Col size={10}></Col>
+          </Row>
+          <Row size={5}></Row>
+          <Row size={15}>
+            <Col size={20}></Col>
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.confirm(userid, this.state.confirmationCode)}>
+                    <Text style = {styles.text}>
+                      Confirm
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+          <Row size={25}>
           <Col size={20}></Col>
-            <Col size={60}>
-              <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.confirm(userid, this.state.confirmationCode)}>
-                  <Text style = {styles.text}>
-                    Confirm
-                  </Text>
-              </TouchableOpacity>
-              </View>
-            </Col>
-            <Col size={20}></Col>
-        </Row>
-        <Row size={25}>
-        <Col size={20}></Col>
-            <Col size={60}>
-            </Col>
-            <Col size={20}></Col>
-        </Row>
-      </Grid>
+              <Col size={60}>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+        </Grid>
+      </KeyboardShift>
     );
   }
 }

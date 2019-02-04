@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import KeyboardShift from './KeyboardShift';
 
 class userRegistration extends Component {
   state = {
@@ -129,106 +130,113 @@ class userRegistration extends Component {
  }
   render() {
     return (
-      <Grid>
-        <Row size={2}></Row>
-        <Row size={10}>
-        </Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  editable = {true}
-                  placeholder = "Email"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  onChangeText = {this.userEmail}
-                  />
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={2}>
-        </Row>
-        <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <TextInput style = {styles.input}
-                  placeholder = "Name"
-                  placeholderTextColor = "black"
-                  autoCapitalize = "none"
-                  onChangeText = {this.userName}/>
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        <Row size={2}></Row>
-        <Row size={10}>
+        <KeyboardShift>
+        <Grid>
+            <Row size={2}></Row>
+            <Row size={10}>
+            </Row>
+            <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
                 <TextInput style = {styles.input}
-                    placeholder = "Password"
+                    editable = {true}
+                    placeholder = "Email"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
-                    secureTextEntry = {true}
-                    onChangeText = {this.password}/>
+                    returnKeyType={ "done" }
+                    onChangeText = {this.userEmail}
+                    />
             </Col>
             <Col size={10}></Col>
-        </Row>
-        <Row size={2}></Row>
-        <Row size={10}>
+            </Row>
+            <Row size={2}>
+            </Row>
+            <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
+                <TextInput style = {styles.input}
+                    placeholder = "Name"
+                    placeholderTextColor = "black"
+                    autoCapitalize = "none"
+                    returnKeyType={ "done" }
+                    onChangeText = {this.userName}/>
+            </Col>
+            <Col size={10}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={10}>
+                <Col size={10}></Col>
+                <Col size={80}>
+                    <TextInput style = {styles.input}
+                        placeholder = "Password"
+                        placeholderTextColor = "black"
+                        autoCapitalize = "none"
+                        secureTextEntry = {true}
+                        returnKeyType={ "done" }
+                        onChangeText = {this.password}/>
+                </Col>
+                <Col size={10}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={10}>
+                <Col size={10}></Col>
+                <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Student ID"
                     placeholderTextColor = "black"
-                    keyboardType = 'number-pad'
+                    keyboardType = 'numeric'
                     maxLength={8} 
                     autoCapitalize = "none"
+                    returnKeyType={ "done" }
                     onChangeText = {this.studentID}/>
-            </Col>
-            <Col size={10}></Col>
-        </Row>
-        <Row size={2}></Row>
-        <Row size={10}>
-            <Col size={10}></Col>
-            <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "Phone Number"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    keyboardType = 'number-pad'
-                    onChangeText = {this.userPhoneNumber}/>
-            </Col>
-            <Col size={10}></Col>
-        </Row>
-        <Row size={2}></Row>
-        <Row size={10}>
-            <Col size={10}></Col>
-            <Col size={80}>
-                <TextInput style = {styles.input}
-                    placeholder = "Graduation Year"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    keyboardType = 'number-pad'
-                    onChangeText = {this.gradYear}/>
-            </Col>
-            <Col size={10}></Col>
-        </Row>
-        <Row size={7}></Row>
+                </Col>
+                <Col size={10}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={10}>
+                <Col size={10}></Col>
+                <Col size={80}>
+                    <TextInput style = {styles.input}
+                        placeholder = "Phone Number"
+                        placeholderTextColor = "black"
+                        autoCapitalize = "none"
+                        keyboardType = 'number-pad'
+                        returnKeyType={ "done" }
+                        onChangeText = {this.userPhoneNumber}/>
+                </Col>
+                <Col size={10}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={10}>
+                <Col size={10}></Col>
+                <Col size={80}>
+                    <TextInput style = {styles.input}
+                        placeholder = "Graduation Year"
+                        placeholderTextColor = "black"
+                        autoCapitalize = "none"
+                        keyboardType = 'number-pad'
+                        returnKeyType={ "done" }
+                        onChangeText = {this.gradYear}/>
+                </Col>
+                <Col size={10}></Col>
+            </Row>
+            <Row size={7}></Row>
 
-        <Row size={20}>
-          <Col size={20}></Col>
-            <Col size={60}>
-              <View style = {styles.container}>
-              <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber, this.state.gradYear)}>
-                  <Text style = {styles.text}>
-                    Create Account
-                  </Text>
-              </TouchableOpacity>
-              </View>
-            </Col>
+            <Row size={20}>
             <Col size={20}></Col>
-        </Row>
-      </Grid>
-      
+                <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber, this.state.gradYear)}>
+                    <Text style = {styles.text}>
+                        Create Account
+                    </Text>
+                </TouchableOpacity>
+                </View>
+                </Col>
+                <Col size={20}></Col>
+            </Row>
+        </Grid>
+        </KeyboardShift>
     );
   }
 }
