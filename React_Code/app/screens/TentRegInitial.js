@@ -25,6 +25,13 @@ class TentRegInitial extends Component {
     this.setState({tentData: tentId});
     this.setState({email: userEmail});
   }
+  componentDidUpdate(){
+    const { navigation } = this.props;
+    const tentId = navigation.getParam('tentId', 'No Name');
+    if(this.state.tentData !== tentId){
+      this.setState({tentData: tentId});
+    }
+  }
 
   onPressJoinTent = () => {
     if(this.state.tentData != null){
@@ -34,6 +41,116 @@ class TentRegInitial extends Component {
       this.props.navigation.navigate('SearchForTent', {tentId: this.state.tentData, userEmail: this.state.email});
     }
     
+  }
+  leaveTent = async(tentdata) => {
+    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
+    //console.log(tentdata);
+    var result = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: tentdata.id,
+        tenter_1: tentdata.tenter_1,
+        tenter_2: tentdata.tenter_2,
+        tenter_3: tentdata.tenter_3,
+        tenter_4: tentdata.tenter_4,
+        tenter_5: tentdata.tenter_5,
+        tenter_6: tentdata.tenter_6,
+        tent_pin: tentdata.tent_pin,
+        qr_code_str: tentdata.qr_code_str,
+        game_id: tentdata.game_id,
+        tent_number: null,
+      }),
+      
+    })
+      .then(res => res.text())
+      .then(res => {
+        return res
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      console.log(result);
+  }
+  loadTentData = async(id) =>{
+    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var result = await fetch(url, {
+    method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    return result
+  }
+  email2id = async(email) =>{
+    console.log(email);
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    var userId = 0
+    for(var i = 0; i < result.length; i++){
+      if(result[i].email == email)
+        userId = result[i].id;
+    }
+    return userId;
+  }
+  onPressLeaveTent = async() =>{
+    if(this.state.tentData != null){
+      var tentdata = await this.loadTentData(this.state.tentData);
+      var userid = await this.email2id(this.state.email);
+      if(tentdata.tenter_2 == userid){
+        tentdata.tenter_2 = null;
+        this.leaveTent(tentdata);
+        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
+        alert("Succesfully left tent!")
+      }
+      else if(tentdata.tenter_3 == userid){
+        tentdata.tenter_3 = null;
+        this.leaveTent(tentdata);
+        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
+        alert("Succesfully left tent!")
+      }
+      else if(tentdata.tenter_4 == userid){
+        tentdata.tenter_4 = null;
+        this.leaveTent(tentdata);
+        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
+        alert("Succesfully left tent!")
+      }
+      else if(tentdata.tenter_5 == userid){
+        tentdata.tenter_6 = null;
+        this.leaveTent(tentdata);
+        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
+        alert("Succesfully left tent!")
+      }
+      else{
+        tentdata.tenter_6 = null;
+        this.leaveTent(tentdata);
+        this.props.navigation.navigate('QRCode', {qrString: ""});
+        this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
+        alert("Succesfully left tent!")
+      }
+    }
+    else{
+      alert("Your not in a tent.")
+    }
   }
 
   render() {
@@ -66,14 +183,18 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={40}>
-          <Col size={10}></Col>
-          <Col size={80}>
+        <Row size={20}>
+          <Col size={20}></Col>
+          <Col size={60}>
             <View style = {styles.container}>
-              <Text style={{fontSize: 50}}>Countdown</Text>
+            <TouchableOpacity onPress={this.onPressLeaveTent}>
+              <Text style = {styles.textLeave}>
+                Leave Tent
+              </Text>
+            </TouchableOpacity>
             </View>
           </Col>
-          <Col size={10}></Col>
+          <Col size={20}></Col>
         </Row>
         <Row size={10}></Row>
       </Grid>
@@ -105,4 +226,13 @@ const styles = StyleSheet.create ({
     borderColor: 'black',
     fontSize: 30
  },
+ textLeave: {
+  borderWidth: 1,
+  paddingLeft: 30,
+  paddingRight: 30,
+  paddingTop: 25,
+  paddingBottom: 25,
+  borderColor: 'black',
+  fontSize: 30
+},
 })

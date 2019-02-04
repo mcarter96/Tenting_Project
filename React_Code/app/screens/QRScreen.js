@@ -7,7 +7,7 @@ class QRScreen extends Component {
   state = {
     tentNumber: '_____',
     tentId: '',
-    tentQr:'',
+    tentQr:'No Tent',
   }
   async componentDidMount(){
     const { navigation } = this.props;
@@ -38,9 +38,39 @@ class QRScreen extends Component {
       
     }
   }
+  async componentDidUpdate(){
+    const { navigation } = this.props;
+    const tentIdentifier = navigation.getParam('tentId', 'bad');
+    const tentString = navigation.getParam('qrString', 'No QR');
+    if(this.state.tentId !== tentIdentifier)
+      this.setState({tentId: tentIdentifier});
+    if(tentString != "No QR"){
+      if(this.state.tentQr !== tentString)
+        this.setState({tentQr: tentString})
+    }
+    else{
+      var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+      method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        return responseJson;
+        //return responseJson.results;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      for(var i = 0; i < result.length; i++){
+        if(result[i].id == this.state.tentId){
+          if(this.state.tentQr !== result[i].qr_code_str)
+            this.setState({tentQr: result[i].qr_code_str});
+        }
+      }
+      
+    }
+  }
   render() {
-    console.log("hi")
-    console.log(this.state.data);
     return (
       <Grid>
         <Row size={10}></Row>

@@ -86,26 +86,31 @@ class SearchForTent extends Component {
           if(tentData.tenter_2 == null){
             tentData.tenter_2 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
+            this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
             this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
           }
           else if(tentData.tenter_3 == null){
             tentData.tenter_3 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
+            this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
             this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
           }
           else if(tentData.tenter_4 == null){
             tentData.tenter_4 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
+            this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
             this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
           }
           else if(tentData.tenter_5 == null){
             tentData.tenter_5 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
+            this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
             this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
           }
           else{
             tentData.tenter_6 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
+            this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
             this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
           }
         }
