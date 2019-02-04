@@ -97,8 +97,16 @@ class TestTentCheckView(TestCase):
         tent = Api_models.TentGroup.objects.create(tenter_1=user, tent_pin=12333, qr_code_str="TWO")
 
         data = {
-            'tent_id': tent.id,
+            "tent_id": tent.id,
         }
         client.force_authenticate(user=user)
         response = client.post('/api/tent-checks/', data=data)
         print(response.content)
+
+
+    def test_model_creation(self):
+        """Test the creation of a tent check model"""
+        user = Api_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
+        tent = Api_models.TentGroup.objects.create(tenter_1=user, tent_pin=123123, qr_code_str="THREE")
+
+        tent_check = models.Tent_Check.objects.create(tent_id=tent.id)

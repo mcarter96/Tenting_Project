@@ -14,8 +14,8 @@ class Tent_Check(models.Model):
     tent_check_4 = models.BooleanField(default=False)
     final_check = models.BooleanField(default=False)
 
-    def create_tent(self):
-        tent_check = self.model()
+    def create_tent(self, tent_id):
+        tent_check = self.model(tent_id=tent_id)
         return tent_check
 
     def get_tent_id(self):
