@@ -4,7 +4,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
 class InitialTentDetails extends Component {
   state = {
-    tentName: '',
+    tentName: '.',
     fullName: '',
     pin: ''
   }
@@ -62,12 +62,7 @@ class InitialTentDetails extends Component {
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
-                    placeholder = "Tent Name"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    returnKeyType={ "done" }
-                    onChangeText = {this.handleTentName}/>
+              
             </Col>
             <Col size={10}></Col>
           </Row>
