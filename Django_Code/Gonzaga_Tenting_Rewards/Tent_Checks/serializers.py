@@ -14,7 +14,7 @@ class TentCheckSerializer(serializers.ModelSerializer):
                   'tent_check_4', 'final_check')
 
     def create(self, validated_data):
-        tent_check = models.Tent_Check()
+        tent_check = models.Tent_Check(tent_id=validated_data['tent_id'])
         tent_check.save()
 
         return tent_check
