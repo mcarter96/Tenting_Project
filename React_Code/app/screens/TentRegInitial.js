@@ -38,7 +38,7 @@ class TentRegInitial extends Component {
       this.props.navigation.navigate('QRCode');
     }
     else{
-      this.props.navigation.navigate('SearchForTent', {tentId: this.state.tentData, userEmail: this.state.email});
+      this.props.navigation.navigate('JoinTentStack', {tentId: this.state.tentData, userEmail: this.state.email});
     }
     
   }
