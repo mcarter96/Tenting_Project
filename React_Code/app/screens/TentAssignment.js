@@ -65,7 +65,7 @@ class TentAssignment extends Component {
       });
       var tentNum = await this.loadTentNumber(tentId);
       console.log(tentNum);
-      alert("Successfully assigned tent number " + tentNum+".");
+      alert("Successfully assigned tent number.");
   }
 
   loadTentNumber = async(id) =>{
