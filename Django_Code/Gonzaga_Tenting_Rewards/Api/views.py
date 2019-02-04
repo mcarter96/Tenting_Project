@@ -309,7 +309,10 @@ class PasswordReset(APIView):
                 site_name = current_site.name
                 domain = current_site.domain
             else:
-                site_name = domain = domain_override
+                # site_name = domain = domain_override
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
             context = {
                 'email': email,
                 'domain': domain,
