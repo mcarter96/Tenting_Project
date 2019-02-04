@@ -63,8 +63,7 @@ class TentAssignment extends Component {
       .catch(error => {
         console.error(error);
       });
-      var tentNum = await this.loadTentNumber(tentId);
-      console.log(tentNum);
+      this.scanner.reactivate()
       alert("Successfully assigned tent number.");
   }
 
@@ -118,7 +117,7 @@ class TentAssignment extends Component {
             <QRCodeScanner
               onRead={this.onSuccess.bind(this)}
               cameraStyle = {styles.camera}
-              reactivate = {true}
+              ref={(node) => { this.scanner = node }}
               />
               </Col>
             <Col size={10}></Col>
