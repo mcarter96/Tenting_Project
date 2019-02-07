@@ -101,7 +101,7 @@ class TestTentCheckView(TestCase):
         }
         client.force_authenticate(user=user)
         response = client.post('/api/tent-checks/', data=data)
-        print(response.content)
+        # print(response.content)
 
 
     def test_model_creation(self):

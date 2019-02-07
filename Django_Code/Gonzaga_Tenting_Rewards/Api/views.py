@@ -244,7 +244,15 @@ class PasswordReset(APIView):
     def post(self, request):
         print(request.data)
         self.cleaned_data = request.data
+
+        try:
+            models.UserProfile.objects.get(email = self.cleaned_data["email"])
+            self.save(self, use_https=False, from_email="Gonzaga Tenting Rewards", request=request)
+            return Response({"message": "Password Reset!"})
+        except:
+            return Response("User does not exist")
         self.save(self, use_https=False, from_email="Gonzaga Tenting Rewards", request=request)
+        return Response({"message":"Password Reset!"})
 
     def send_mail(self, subject_template_name, email_template_name,
                   context, from_email, to_email, html_email_template_name=None):
