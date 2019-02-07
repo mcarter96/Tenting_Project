@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'rest_framework',
     'rest_framework.authtoken',
     'Api',
@@ -69,6 +70,14 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=Api,Tent_Checks',
+    '--nocapture',
 ]
 
 WSGI_APPLICATION = 'Gonzaga_Tenting_Rewards.wsgi.application'
