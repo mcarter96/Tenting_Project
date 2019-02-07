@@ -85,6 +85,9 @@ export const CreateTentStack = createStackNavigator({
       title: 'Add Members',
     },
   },
+});
+
+export const CreateJoinStack = createStackNavigator({
   SearchForTent: {
     screen: SearchForTent, 
     navigationOptions: {
@@ -92,7 +95,6 @@ export const CreateTentStack = createStackNavigator({
     },
   },
 });
-
 export const Tabs = createBottomTabNavigator({
   Home: {
     screen: Home,
@@ -144,6 +146,9 @@ export const LoginStack = createStackNavigator({
 export const Root = createStackNavigator({
   Login: {
     screen: LoginStack,
+  },
+  JoinTentStack:{
+    screen: CreateJoinStack,
   },
   TentingStack: {
     screen: CreateTentStack,

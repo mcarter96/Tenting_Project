@@ -7,7 +7,7 @@ from django.core.validators import RegexValidator
 from Helper_Functions import remove_data, user_functions
 
 from . import models
-
+from Tent_Checks import models as Tent_Checks_Models
 # Define serializers here
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -59,7 +59,8 @@ class TentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.TentGroup
-        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin', 'qr_code_str', 'game_id', 'tent_number')
+        fields = ('id', 'tenter_1', 'tenter_2', 'tenter_3', 'tenter_4', 'tenter_5', 'tenter_6', 'tent_pin',
+                  'qr_code_str', 'game_id', 'tent_number')
 
         # Defines extra parameters on the certain fields
 
@@ -68,8 +69,7 @@ class TentSerializer(serializers.ModelSerializer):
         Create and return a new `TentSerializer` instance, given the validated data.
         """
 
-
-        user = models.TentGroup(
+        tent = models.TentGroup(
             tenter_1=validated_data['tenter_1'],
             tenter_2=validated_data['tenter_2'],
             tenter_3=validated_data['tenter_3'],
@@ -82,9 +82,13 @@ class TentSerializer(serializers.ModelSerializer):
             tent_number=None,
         )
 
-        user.save()
+        print("Hello there tester")
 
-        return user
+        tent.save()
+        tent_check = Tent_Checks_Models.Tent_Check(tent_id=tent)
+        tent_check.save()
+
+        return tent
         # return TentSerializer.objects.create(**validated_data)
 
     def update(self, instance, validated_data):

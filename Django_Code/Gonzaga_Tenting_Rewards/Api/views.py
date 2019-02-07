@@ -28,7 +28,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
 
     # What to bounce queries against
-    queryset = models.UserProfile.objects.all()
+    queryset = models.UserProfile.objects.all().filter(is_staff=False)
 
     # What to use for authentication
     authentication_classes = (TokenAuthentication,)
@@ -43,6 +43,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     generic_fields = ('id','name', 'email', 'url', 'tent_id')
 
     def create(self, request, *args, **kwargs):
+        """Creates a new UserProfile"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -77,6 +78,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         # What objects to query on
         queryset = self.filter_queryset(self.get_queryset())
+        # queryset.filter(is_staff=True)
 
         # Determine if there are any query parameters in the URL to filter responses with
         id = self.request.query_params.get('id', None)
@@ -90,12 +92,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         name = self.request.query_params.get('name', None)
         if name is not None:
             queryset = queryset.filter(name=name)
-
-        # the following is broken but should be added, will need to be fixed
-        # TODO: Fix the following code to allow filtering on tent_ids
-        # tent_id = self.request.query_params.get('tent_id', None)
-        # if tent_id is not None:
-        #     queryset = queryset.filter(tent_id=tent_id)
 
         # Determines if django is using paginations
         page = self.paginate_queryset(queryset)
@@ -137,7 +133,6 @@ class ConfirmEmail(APIView):
         try:
             id = self.request.query_params.get('id', None)
             confirmation_id = self.request.query_params.get('confirmation_id', None)
-            print(id, confirmation_id)
             if id is not None and confirmation_id is not None:
                 user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
                 user.is_confirmed = True
@@ -145,7 +140,8 @@ class ConfirmEmail(APIView):
                 return Response({'message': 'Email is now confirmed', 'success': True})
             else:
                 #return something that shows there was an error
-                return Response({'message': 'Invalid id or confirmation id', 'success': False, 'status': status.HTTP_400_BAD_REQUEST})
+                return Response({'message': 'Invalid id or confirmation id', 'success': False,
+                                 'status': status.HTTP_400_BAD_REQUEST})
         except:
             #return something that shows there was an error
             return Response({'message': 'User was not found', 'success': False, 'status': status.HTTP_404_NOT_FOUND})
@@ -155,13 +151,14 @@ class ConfirmEmail(APIView):
         try:
             id = self.request.query_params.get('id', None)
             confirmation_id = self.request.query_params.get('confirmation_id', None)
-            print(id, confirmation_id)
             if id is not None and confirmation_id is not None:
                 user = models.UserProfile.objects.get(id=id, confirmation_id=confirmation_id)
                 user.is_confirmed = True
                 user.save()
+                return Response({'message': 'Email is now confirmed', 'success': True})
             else:
-                return Response({'message': 'There was an error with id or confirmation id being None', 'success': False})
+                return Response({'message': 'There was an error with id or confirmation id being None',
+                                 'success': False})
         except:
             return Response({'message': 'An exception was thrown', 'success': False})
 
@@ -192,9 +189,11 @@ class LoginViewSet(viewsets.ViewSet):
 
         # Return the response with necessary fields based on confirmation
         if is_confirmed:
-            return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id, 'is_confirmed': is_confirmed, 'status': status.HTTP_202_ACCEPTED})
+            return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id,
+                             'is_confirmed': is_confirmed, 'status': status.HTTP_202_ACCEPTED})
         else:
-            return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet', 'status': status.HTTP_401_UNAUTHORIZED})
+            return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet',
+                             'status': status.HTTP_401_UNAUTHORIZED})
 
 class TentViewSet(viewsets.ModelViewSet):
     """Handles creating and updating of tent groups"""
@@ -208,22 +207,6 @@ class TentViewSet(viewsets.ModelViewSet):
     # What to use for authentication
     authentication_classes = (TokenAuthentication,)
 
-    # Removed to test provided create and update functions, may not for the future but not for current commit
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    #
-    # def update(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_update(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED, headers=headers)
 
 class GamesViewSet(viewsets.ModelViewSet):
     """Logic to assign tents to a game"""
@@ -231,6 +214,8 @@ class GamesViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.GameSerializer
 
     queryset = models.Game.objects.all()
+
+    permission_classes = (permissions.InteractWithGameData,)
 
     def create(self, request, *args, **kwargs):
         """Create a game"""
