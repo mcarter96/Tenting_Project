@@ -81,9 +81,9 @@ class Login extends Component {
         alert("Password field is required.")
     }
     else{
-        var userId = await this.getUserId(username);
-        if (userId != null){
-          var result = await this.fetchDataFromApi(username, password);
+        var result = await this.fetchDataFromApi(username, password);
+        if (!result.non_field_errors){
+          
           console.log(result);
           if (result.token){
             this.setState({password:''});
