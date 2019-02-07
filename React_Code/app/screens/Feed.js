@@ -5,14 +5,44 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import {CheckBox} from 'react-native-elements';
+import CheckboxFormX from 'react-native-checkbox-form';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+const mockData = [
+  {
+      label: 'label1',
+      value: 'one'
+  },
+  {
+      label: 'label2',
+      value: 'two'
+  },
+  {
+      label: 'label3',
+      value: 'three'
+  },
+];
 class Feed extends Component {
+  _onSelect = ( item ) => {
+    console.log(item);
+  };
   render() {
     return (
       <Grid>
         <Row size={30}>
+        <View style={styles.container}>
+          <View style={{ marginVertical: 10, backgroundColor: "#E7E7E7" }} >
+              <CheckboxFormX
+                  style={{ width: 350 - 30 }}
+                  dataSource={mockData}
+                  itemShowKey="label"
+                  itemCheckedKey="RNchecked"
+                  iconSize={16}
+                  formHorizontal={true}
+                  labelHorizontal={false}
+                  onChecked={(item) => this._onSelect(item)}
+              />
+          </View>
+     </View>
         </Row>
         <Row size={40}>
         </Row>
