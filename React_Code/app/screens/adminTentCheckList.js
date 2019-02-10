@@ -16,7 +16,7 @@ class CheckList extends Component {
       {
           label: 'Waiver Check',
           value: 'one',
-          RNchecked: true,
+          RNchecked: false,
       },
       {
           label: 'Tent Setup',
@@ -50,9 +50,9 @@ class CheckList extends Component {
      },
     ],
     tentCheckData:'',
+    tentCheckId:'',
   }
   _onSelect = ( item ) => {
-    alert(this.state.checkData[0].value);
     console.log(item);
   };
   loadTentChecks = async(token) => {
@@ -83,6 +83,49 @@ class CheckList extends Component {
     this.setState({adminToken:token});
     var tentcheckData = await this.loadTentChecks(token);
     this.setState({tentCheckData:tentcheckData});
+    for(var i = 0; i < tentcheckData.length; i++){
+      if(tentcheckData[i].tent_id == tentid){
+        this.setState({tentCheckId: tentcheckData[i].id});
+        var updatedData = [
+          {
+              label: 'Waiver Check',
+              value: 'one',
+              RNchecked: tentcheckData[i].waiver_check,
+          },
+          {
+              label: 'Tent Setup',
+              value: 'two',
+              RNchecked: tentcheckData[i].setup_check,
+          },
+          {
+              label: 'Tent Check 1',
+              value: 'three',
+              RNchecked: tentcheckData[i].tent_check_1,
+          },
+          {
+            label: 'Tent Check 2',
+            value: 'four',
+            RNchecked: tentcheckData[i].tent_check_2,
+          },
+          {
+            label: 'Tent Check 3',
+            value: 'five',
+            RNchecked: tentcheckData[i].tent_check_3,
+          },
+          {
+            label: 'Tent Check 4',
+            value: 'six',
+            RNchecked: tentcheckData[i].tent_check_4,
+          },
+          {
+            label: 'Final Check',
+            value: 'seven',
+            RNchecked: tentcheckData[i].final_check,
+         },
+        ]
+        this.setState({checkData: updatedData})
+      }
+    }
 };
   render() {
     return (
