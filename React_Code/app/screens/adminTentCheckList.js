@@ -7,23 +7,47 @@ import {
 } from 'react-native';
 import CheckboxFormX from 'react-native-checkbox-form';
 import { Col, Row, Grid } from "react-native-easy-grid";
-const mockData = [
-  {
-      label: 'label1',
-      value: 'one'
-  },
-  {
-      label: 'label2',
-      value: 'two'
-  },
-  {
-      label: 'label3',
-      value: 'three'
-  },
-];
 class CheckList extends Component {
   state = {
     tentId: '',
+    tentNum: '',
+    checkData: [
+      {
+          label: 'Waiver Check',
+          value: 'one',
+          RNchecked: true,
+      },
+      {
+          label: 'Tent Setup',
+          value: 'two',
+          RNchecked: false,
+      },
+      {
+          label: 'Tent Check 1',
+          value: 'three',
+          RNchecked: false,
+      },
+      {
+        label: 'Tent Check 2',
+        value: 'four',
+        RNchecked: false,
+      },
+      {
+        label: 'Tent Check 3',
+        value: 'five',
+        RNchecked: false,
+      },
+      {
+        label: 'Tent Check 4',
+        value: 'six',
+        RNchecked: false,
+      },
+      {
+        label: 'Final Check',
+        value: 'seven',
+        RNchecked: false,
+     },
+    ],
   }
   _onSelect = ( item ) => {
     console.log(item);
@@ -31,30 +55,42 @@ class CheckList extends Component {
   componentDidMount(){
     const { navigation } = this.props;
     const tentid = navigation.getParam('tentid', 'No ID');
+    const tentnum = navigation.getParam('tentnum', 'No number');
     this.setState({tentId: tentid});
+    this.setState({tentNum:tentnum});
 };
   render() {
     return (
       <Grid>
-        <Row size={30}>
+        <Row size ={2}></Row>
+        <Row size ={6}>
+          <Col size={10}></Col>
+            <Col size={80}>
+              <View style = {styles.container}>
+                <Text style={{fontSize: 30}}>Tent #{this.state.tentId}</Text>
+              </View>
+            </Col>
+            <Col size={10}></Col>
+        </Row>
+        <Row size ={2}></Row>
+        <Row size={65}>
         <View style={styles.container}>
-          <View style={{ marginVertical: 10, backgroundColor: "#E7E7E7" }} >
+          <View style={{ marginVertical:10}} >
               <CheckboxFormX
-                  style={{ width: 350 - 30 }}
-                  dataSource={mockData}
+                  style={{ width: '100%', marginLeft: 0}}
+                  dataSource={this.state.checkData}
                   itemShowKey="label"
                   itemCheckedKey="RNchecked"
-                  iconSize={16}
-                  formHorizontal={true}
+                  iconSize={30}
+                  formHorizontal={false}
                   labelHorizontal={false}
                   onChecked={(item) => this._onSelect(item)}
               />
           </View>
-     </View>
+        </View>
         </Row>
-        <Row size={40}>
+        <Row size={35}>
         </Row>
-        <Row size={30}></Row>
       </Grid>
       
     );
@@ -65,7 +101,7 @@ export default CheckList;
 
 const styles = StyleSheet.create ({
   container: {
-     //alignItems: 'center',
+     alignItems: 'center',
      width: '100%'
   },
   containerOne:{

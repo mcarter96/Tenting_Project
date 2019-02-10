@@ -28,8 +28,9 @@ class adminTentChecks extends Component {
     this.setState({qrString: text});
   }
   submitQr = async(qrString)=>{
-    var tentId = this.state.data.get(qrString);
-    this.props.navigation.navigate('checkList', {tentid: tentId});
+    var tentId = this.state.data.get(qrString)[0];
+    var tentNumber = this.state.data.get(qrString)[1];
+    this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber});
   }
   async componentDidMount(){
     var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
@@ -44,7 +45,7 @@ class adminTentChecks extends Component {
     });
     var userMap = new Map();
     for(var i = 0; i < result.length; i++){
-      userMap.set(result[i].qr_code_str,result[i].id)
+      userMap.set(result[i].qr_code_str,[result[i].id, result[i].tent_number])
     }
     this.setState({data: userMap});
   }
