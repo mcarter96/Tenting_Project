@@ -101,12 +101,27 @@ class TestTentCheckView(TestCase):
         }
         client.force_authenticate(user=user)
         response = client.post('/api/tent-checks/', data=data)
-        print(response.content)
+        print(response.data)
+        assert(response.data['setup_check'] == False)
+        assert(response.data['waiver_check'] == False)
+        assert(response.data['tent_check_1'] == False)
+        assert(response.data['tent_check_2'] == False)
+        assert(response.data['tent_check_3'] == False)
+        assert(response.data['tent_check_4'] == False)
+        assert(response.data['final_check'] == False)
 
 
     def test_model_creation(self):
         """Test the creation of a tent check model"""
         user = Api_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
         tent = Api_models.TentGroup.objects.create(tenter_1=user, tent_pin=123123, qr_code_str="THREE")
-
-        tent_check = models.Tent_Check.objects.create(tent_id=tent.id)
+        assert(tent)
+        tent_check = models.Tent_Check.objects.create(tent_id=tent)
+        assert(tent_check.get_tent_id() == tent)
+        assert(tent_check.get_waiver_check() == False)
+        assert(tent_check.get_setup_check() == False)
+        assert(tent_check.get_tent_check_1() == False)
+        assert(tent_check.get_tent_check_2() == False)
+        assert(tent_check.get_tent_check_3() == False)
+        assert(tent_check.get_tent_check_4() == False)
+        assert(tent_check.get_final_check() == False)
