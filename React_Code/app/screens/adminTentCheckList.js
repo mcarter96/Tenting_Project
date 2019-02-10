@@ -11,6 +11,7 @@ class CheckList extends Component {
   state = {
     tentId: '',
     tentNum: '',
+    adminToken: '',
     checkData: [
       {
           label: 'Waiver Check',
@@ -48,16 +49,40 @@ class CheckList extends Component {
         RNchecked: false,
      },
     ],
+    tentCheckData:'',
   }
   _onSelect = ( item ) => {
+    alert(this.state.checkData[0].value);
     console.log(item);
   };
-  componentDidMount(){
+  loadTentChecks = async(token) => {
+    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
+    var result = await fetch(url, {
+    method: 'GET',
+    headers: new Headers({
+      'Authorization': 'Token '+token,
+    }),
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    return result;
+  }
+  
+  async componentDidMount(){
     const { navigation } = this.props;
     const tentid = navigation.getParam('tentid', 'No ID');
     const tentnum = navigation.getParam('tentnum', 'No number');
+    const token = navigation.getParam('adminToken', 'No token');
     this.setState({tentId: tentid});
     this.setState({tentNum:tentnum});
+    this.setState({adminToken:token});
+    var tentcheckData = await this.loadTentChecks(token);
+    this.setState({tentCheckData:tentcheckData});
 };
   render() {
     return (

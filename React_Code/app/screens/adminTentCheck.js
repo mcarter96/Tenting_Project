@@ -18,6 +18,7 @@ class adminTentChecks extends Component {
     qrString:'',
     data:'',
     tentData: '',
+    token: '',
   }
   onSuccess(e) {
     alert("Successfully Scanned, press submit to assign tent number.")
@@ -30,9 +31,12 @@ class adminTentChecks extends Component {
   submitQr = async(qrString)=>{
     var tentId = this.state.data.get(qrString)[0];
     var tentNumber = this.state.data.get(qrString)[1];
-    this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber});
+    this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
   }
   async componentDidMount(){
+    const { navigation } = this.props;
+    const adminToken = navigation.getParam('adminToken', 'No ID');
+    this.setState({token: adminToken});
     var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })

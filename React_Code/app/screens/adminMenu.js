@@ -10,12 +10,15 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class adminMenu extends Component {
+  state = {
+    token: '',
+  }
   onPressTentReg = () => {
     this.props.navigation.navigate('adminGameManage');
   }
 
   onPressTentChecks = () => {
-    this.props.navigation.navigate('adminTentChecks');
+    this.props.navigation.navigate('adminTentChecks', {adminToken: this.state.token});
   }
 
   onPressManageUsers = () => {
@@ -25,6 +28,11 @@ class adminMenu extends Component {
   onPressUpdateFeed = () => {
     this.props.navigation.navigate('adminFeed');
   }
+  componentDidMount(){
+    const { navigation } = this.props;
+    const adminToken = navigation.getParam('token', 'No ID');
+    this.setState({token: adminToken});
+};
 
   render() {
     return (
