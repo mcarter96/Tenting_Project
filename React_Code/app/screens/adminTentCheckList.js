@@ -12,43 +12,7 @@ class CheckList extends Component {
     tentId: '',
     tentNum: '',
     adminToken: '',
-    checkData: [
-      {
-          label: 'Waiver Check',
-          value: 'one',
-          RNchecked: false,
-      },
-      {
-          label: 'Tent Setup',
-          value: 'two',
-          RNchecked: false,
-      },
-      {
-          label: 'Tent Check 1',
-          value: 'three',
-          RNchecked: false,
-      },
-      {
-        label: 'Tent Check 2',
-        value: 'four',
-        RNchecked: false,
-      },
-      {
-        label: 'Tent Check 3',
-        value: 'five',
-        RNchecked: false,
-      },
-      {
-        label: 'Tent Check 4',
-        value: 'six',
-        RNchecked: false,
-      },
-      {
-        label: 'Final Check',
-        value: 'seven',
-        RNchecked: false,
-     },
-    ],
+    checkData: [],
     tentCheckData:'',
     tentCheckId:'',
   }
@@ -61,7 +25,8 @@ class CheckList extends Component {
     method: 'GET',
     headers: new Headers({
       'Authorization': 'Token '+token,
-    }),
+    },
+    ),
     })
     .then((response) => response.json())
     .then((responseJson) => {
@@ -72,7 +37,35 @@ class CheckList extends Component {
     });
     return result;
   }
-  
+  createTentCheck = async(tentid) =>{
+    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
+    var result = fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Token '+this.state.adminToken,
+    },
+    body: JSON.stringify({
+      tent_id: tentid,
+      waiver_check: false,
+      setup_check: false,
+      tent_check_1: false,
+      tent_check_2: false,
+      tent_check_3: false,
+      tent_check_4: false,
+      final_check: false,
+    }),
+    
+  })
+    .then(res => res.text())
+    .then(res => {
+      return res
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
   async componentDidMount(){
     const { navigation } = this.props;
     const tentid = navigation.getParam('tentid', 'No ID');
@@ -83,8 +76,11 @@ class CheckList extends Component {
     this.setState({adminToken:token});
     var tentcheckData = await this.loadTentChecks(token);
     this.setState({tentCheckData:tentcheckData});
+    var noTentCheck = true;
+    
     for(var i = 0; i < tentcheckData.length; i++){
       if(tentcheckData[i].tent_id == tentid){
+        noTentCheck = false;
         this.setState({tentCheckId: tentcheckData[i].id});
         var updatedData = [
           {
@@ -122,9 +118,52 @@ class CheckList extends Component {
             value: 'seven',
             RNchecked: tentcheckData[i].final_check,
          },
-        ]
-        this.setState({checkData: updatedData})
+        ];
+        this.setState({checkData: updatedData});
       }
+      
+    }
+    if(noTentCheck){
+      this.createTentCheck(tentid)
+      var updatedData = [
+        {
+            label: 'Waiver Check',
+            value: 'one',
+            RNchecked: false,
+        },
+        {
+            label: 'Tent Setup',
+            value: 'two',
+            RNchecked: false,
+        },
+        {
+            label: 'Tent Check 1',
+            value: 'three',
+            RNchecked: false,
+        },
+        {
+          label: 'Tent Check 2',
+          value: 'four',
+          RNchecked: false,
+        },
+        {
+          label: 'Tent Check 3',
+          value: 'five',
+          RNchecked: false,
+        },
+        {
+          label: 'Tent Check 4',
+          value: 'six',
+          RNchecked: false,
+        },
+        {
+          label: 'Final Check',
+          value: 'seven',
+          RNchecked: false,
+       },
+      ];
+      this.setState({checkData: updatedData});
+      noTentCheck = false;
     }
 };
   render() {
