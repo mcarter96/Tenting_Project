@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import CheckboxFormX from 'react-native-checkbox-form';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -36,6 +37,36 @@ class CheckList extends Component {
       console.error(error);
     });
     return result;
+  }
+  updateTentCheck =(checkdata)=>{
+    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/"+this.state.tentCheckId+"/";
+    var result = fetch(url, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Token '+this.state.adminToken,
+    },
+    body: JSON.stringify({
+      tent_id: this.state.tentId,
+      waiver_check: checkdata[0].RNchecked,
+      setup_check: checkdata[1].RNchecked,
+      tent_check_1: checkdata[2].RNchecked,
+      tent_check_2: checkdata[3].RNchecked,
+      tent_check_3: checkdata[4].RNchecked,
+      tent_check_4: checkdata[5].RNchecked,
+      final_check: checkdata[6].RNchecked,
+    }),
+    
+  })
+    .then(res => res.text())
+    .then(res => {
+      return res
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    alert("Tent successfully checked!")
   }
   createTentCheck = async(tentid) =>{
     var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
@@ -196,8 +227,22 @@ class CheckList extends Component {
           </View>
         </View>
         </Row>
-        <Row size={35}>
+        <Row size={5}>
         </Row>
+        <Row size={15}>
+            <Col size={20}></Col>
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.updateTentCheck(this.state.checkData)}>
+                    <Text style = {styles.text}>
+                      Submit
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+        <Row size={15}></Row>
       </Grid>
       
     );
