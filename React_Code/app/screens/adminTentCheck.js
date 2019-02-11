@@ -21,7 +21,7 @@ class adminTentChecks extends Component {
     token: '',
   }
   onSuccess(e) {
-    alert("Successfully Scanned, press submit to assign tent number.")
+    alert("Successfully Scanned.")
     this.setState({qrString: e.data});
   }
 
@@ -31,6 +31,7 @@ class adminTentChecks extends Component {
   submitQr = async(qrString)=>{
     var tentId = this.state.data.get(qrString)[0];
     var tentNumber = this.state.data.get(qrString)[1];
+    this.scanner.reactivate()
     this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
   }
   async componentDidMount(){
