@@ -81,9 +81,9 @@ class Login extends Component {
         alert("Password field is required.")
     }
     else{
-        var userId = await this.getUserId(username);
-        if (userId != null){
-          var result = await this.fetchDataFromApi(username, password);
+        var result = await this.fetchDataFromApi(username, password);
+        if (!result.non_field_errors){
+          
           console.log(result);
           if (result.token){
             this.setState({password:''});
@@ -92,7 +92,7 @@ class Login extends Component {
             this._textInput2.setNativeProps({text: ''});
             console.log(result.is_admin);
             if (result.is_admin) {
-              this.props.navigation.navigate('Admin', {userEmail: username});
+              this.props.navigation.navigate('Admin', {token: result.token});
             } else {
               this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
             }

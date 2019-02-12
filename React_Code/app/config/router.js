@@ -25,6 +25,7 @@ import userRegistration from '../screens/userRegistration'
 import confirmAccount from '../screens/confirmAccount'
 import TentAssignment from '../screens/TentAssignment';
 import CreateGame from '../screens/createGame';
+import CheckList from '../screens/adminTentCheckList'
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -69,6 +70,12 @@ export const AdminStack = createStackNavigator({
       title: 'Assign Tents'
     }
   },
+  checkList: {
+    screen: CheckList,
+    navigationOptions:{
+      title: 'Tent Check List'
+    }
+  }
 
 });
 
