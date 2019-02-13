@@ -8,6 +8,7 @@ import {
   Linking,
   TextInput,
   View,
+  Button,
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -19,20 +20,28 @@ class adminTentChecks extends Component {
     data:'',
     tentData: '',
     token: '',
+    shouldUpdate:'',
   }
+  
   onSuccess(e) {
-    alert("Successfully Scanned.")
+    
     this.setState({qrString: e.data});
+    this.submitQr(e.data);
   }
 
   updateQrString = (text)=>{
+    alert("HI")
     this.setState({qrString: text});
   }
   submitQr = async(qrString)=>{
     var tentId = this.state.data.get(qrString)[0];
     var tentNumber = this.state.data.get(qrString)[1];
-    this.scanner.reactivate()
+    //this.scanner.reactivate()
     this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
+  }
+  
+  componentWillMount(){
+    this.props.navigation.addListener('willFocus', () => this.scanner.reactivate());
   }
   async componentDidMount(){
     const { navigation } = this.props;
@@ -54,6 +63,7 @@ class adminTentChecks extends Component {
     }
     this.setState({data: userMap});
   }
+  
   render() {
     return (
       <KeyboardShift>

@@ -66,6 +66,7 @@ class CheckList extends Component {
     .catch(error => {
       console.error(error);
     });
+    this.props.navigation.navigate('adminTentChecks');
     alert("Tent successfully checked!")
   }
   createTentCheck = async(tentid) =>{
@@ -115,37 +116,37 @@ class CheckList extends Component {
         this.setState({tentCheckId: tentcheckData[i].id});
         var updatedData = [
           {
-              label: 'Waiver Check',
+              label: 'Waiver Check ',
               value: 'one',
               RNchecked: tentcheckData[i].waiver_check,
           },
           {
-              label: 'Tent Setup',
+              label: 'Tent Setup      ',
               value: 'two',
               RNchecked: tentcheckData[i].setup_check,
           },
           {
-              label: 'Tent Check 1',
+              label: 'Tent Check 1  ',
               value: 'three',
               RNchecked: tentcheckData[i].tent_check_1,
           },
           {
-            label: 'Tent Check 2',
+            label: 'Tent Check 2  ',
             value: 'four',
             RNchecked: tentcheckData[i].tent_check_2,
           },
           {
-            label: 'Tent Check 3',
+            label: 'Tent Check 3  ',
             value: 'five',
             RNchecked: tentcheckData[i].tent_check_3,
           },
           {
-            label: 'Tent Check 4',
+            label: 'Tent Check 4  ',
             value: 'six',
             RNchecked: tentcheckData[i].tent_check_4,
           },
           {
-            label: 'Final Check',
+            label: 'Final  Check   ',
             value: 'seven',
             RNchecked: tentcheckData[i].final_check,
          },
@@ -158,37 +159,37 @@ class CheckList extends Component {
       this.createTentCheck(tentid)
       var updatedData = [
         {
-            label: 'Waiver Check',
+            label: 'Waiver Check ',
             value: 'one',
             RNchecked: false,
         },
         {
-            label: 'Tent Setup',
+            label: 'Tent Setup      ',
             value: 'two',
             RNchecked: false,
         },
         {
-            label: 'Tent Check 1',
+            label: 'Tent Check 1  ',
             value: 'three',
             RNchecked: false,
         },
         {
-          label: 'Tent Check 2',
+          label: 'Tent Check 2  ',
           value: 'four',
           RNchecked: false,
         },
         {
-          label: 'Tent Check 3',
+          label: 'Tent Check 3  ',
           value: 'five',
           RNchecked: false,
         },
         {
-          label: 'Tent Check 4',
+          label: 'Tent Check 4  ',
           value: 'six',
           RNchecked: false,
         },
         {
-          label: 'Final Check',
+          label: 'Final  Check   ',
           value: 'seven',
           RNchecked: false,
        },
@@ -221,7 +222,7 @@ class CheckList extends Component {
                   itemCheckedKey="RNchecked"
                   iconSize={30}
                   formHorizontal={false}
-                  labelHorizontal={false}
+                  labelHorizontal={true}
                   onChecked={(item) => this._onSelect(item)}
               />
           </View>
