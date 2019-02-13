@@ -129,7 +129,10 @@ class SearchForTent extends Component {
     const email = navigation.getParam('userEmail', 'No Name');
     this.setState({userEmail: email});
     var result2 = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
     })
     .then((response) => response.json())
     .then((responseJson) => {

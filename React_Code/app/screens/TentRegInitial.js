@@ -14,7 +14,7 @@ class TentRegInitial extends Component {
     if(this.state.tentData != null){
       this.props.navigation.navigate('QRCode');
     }else{
-      this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email});
+      this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email, token: this.props.navigation.getParam('token')});
     }
     
   }
@@ -38,7 +38,7 @@ class TentRegInitial extends Component {
       this.props.navigation.navigate('QRCode');
     }
     else{
-      this.props.navigation.navigate('JoinTentStack', {tentId: this.state.tentData, userEmail: this.state.email});
+      this.props.navigation.navigate('JoinTentStack', {tentId: this.state.tentData, userEmail: this.state.email, token: this.props.navigation.getParam('token')});
     }
     
   }
@@ -50,6 +50,7 @@ class TentRegInitial extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Authorization: 'Token '+this.props.navigation.getParam('token'),
       },
       body: JSON.stringify({
         id: tentdata.id,
@@ -78,7 +79,10 @@ class TentRegInitial extends Component {
   loadTentData = async(id) =>{
     var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
     })
     .then((response) => response.json())
     .then((responseJson) => {
@@ -92,7 +96,10 @@ class TentRegInitial extends Component {
   email2id = async(email) =>{
     console.log(email);
     var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
     })
     .then((response) => response.json())
     .then((responseJson) => {

@@ -94,7 +94,7 @@ class Login extends Component {
             if (result.is_admin) {
               this.props.navigation.navigate('Admin', {token: result.token});
             } else {
-              this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
+              this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username, token: result.token});
             }
           }
           else if(!result.is_confirmed && !result.is_admin){
@@ -109,7 +109,7 @@ class Login extends Component {
           }
         }
         else{
-          alert("Must create account to login.")
+          alert("Invalid Username or Password.")
         }
         
     }

@@ -51,6 +51,7 @@ class addMembers extends Component {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: 'Token '+this.props.navigation.getParam('token'),
       },
       body: JSON.stringify({
         tenter_1: members[0],
@@ -115,7 +116,10 @@ class addMembers extends Component {
  }
  async componentDidMount(){
   var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
   })
   .then((response) => response.json())
   .then((responseJson) => {

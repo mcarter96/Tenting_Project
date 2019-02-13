@@ -45,7 +45,7 @@ class InitialTentDetails extends Component {
         alert("Must input zagmail address!")
       }
       else{
-        this.props.navigation.navigate('addMembers', {creatorName: fullName, tentPin: pin});
+        this.props.navigation.navigate('addMembers', {creatorName: fullName, tentPin: pin, token: this.props.navigation.getParam('token')});
       }
     }
  }
