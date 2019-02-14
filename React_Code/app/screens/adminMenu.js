@@ -14,7 +14,7 @@ class adminMenu extends Component {
     token: '',
   }
   onPressTentReg = () => {
-    this.props.navigation.navigate('adminGameManage');
+    this.props.navigation.navigate('adminGameManage',{token: this.state.token});
   }
 
   onPressTentChecks = () => {

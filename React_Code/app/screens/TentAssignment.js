@@ -52,7 +52,7 @@ class TentAssignment extends Component {
         tenter_6: members[5],
         tent_pin: members[6],
         qr_code_str: qrString,
-        game_id: 1,
+        game_id: this.props.navigation.getParam('gameid'),
         tent_number: null,
       }),
       

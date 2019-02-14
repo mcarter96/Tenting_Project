@@ -4,17 +4,54 @@ import {
   View,
   ScrollView,
   StyleSheet, 
-  TouchableOpacity
+  TouchableOpacity, 
+  Picker,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class adminGameManage extends Component {
-  onPressCreateGame = () => {
-    this.props.navigation.navigate('createGame')
+  state = {
+    games: [{gameName: "BYU", gameId: 1}, {gameName: "GU", gameId:2}],
+    currentLabel: "Select Game.",
+    gameid: '',
   }
-
+  pickerChange(index){
+    this.state.games.map( (v,i)=>{
+     if( index === i ){
+       this.setState({
+       currentLabel: this.state.games[index].gameName,
+       gameid: this.state.games[index].gameId
+      })
+     }
+    })
+   }
+  onPressCreateGame = () => {
+    this.props.navigation.navigate('createGame', {token: this.props.navigation.getParam('token')})
+  }
   onPressAssignTents = () => {
-    this.props.navigation.navigate('tentAssignment');
+    console.log(this.state.gameid);
+    this.props.navigation.navigate('tentAssignment', {gameid: this.state.gameid});
+  }
+  async componentDidMount(){
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/games/", {
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    gameArray= []
+    for(var i = 0; i < result.length; i++){
+      gameArray.push({gameName: result[i].game_name, gameId: result[i].id});
+    }
+    this.setState({games: gameArray});
+    this.setState({gameid: result[0].id});
   }
   render() {
     return (
@@ -47,10 +84,22 @@ class adminGameManage extends Component {
           <Col size={20}></Col>
         </Row>
         <Row size={40}>
-          <Col size={10}></Col>
-          <Col size={80}>
+          <Col size={36}>
+            <Row size={35}></Row>
+            <Row size={65}><Text style={{fontSize: 20, padding: 10}}>Current Game:</Text></Row>
           </Col>
-          <Col size={10}></Col>
+          <Col size={20}>
+            <Picker
+              style={{width: 100}} 
+              selectedValue={this.state.gameid}
+              onValueChange={(itemValue, itemIndex) => this.pickerChange(itemIndex)}>{
+              this.state.games.map( (v)=>{
+              return <Picker.Item label={v.gameName} value={v.gameId} />
+              })
+              }
+            </Picker>
+          </Col>
+          <Col size={34}></Col>
         </Row>
         <Row size={10}></Row>
       </Grid>

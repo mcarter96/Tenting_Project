@@ -65,8 +65,11 @@ class QRScreen extends Component {
         if(result[i].id == this.state.tentId){
           if(this.state.tentQr !== result[i].qr_code_str)
             this.setState({tentQr: result[i].qr_code_str});
+            if(result[i].tent_number != null && this.state.tentNumber != result[i].tent_number)
+              this.setState({tentNumber: result[i].tent_number});
         }
       }
+      
       
     }
   }
@@ -111,7 +114,6 @@ class QRScreen extends Component {
         </Row>
         <Row size={10}></Row>
       </Grid>
-      
     );
   }
 }
