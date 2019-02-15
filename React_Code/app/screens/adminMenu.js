@@ -36,7 +36,7 @@ class adminMenu extends Component {
           <Col size={80}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressTentReg}>
-                <Text style = {styles.description}>
+                <Text style = {styles.description3}>
                   Game Management
                 </Text>
             </TouchableOpacity>
@@ -51,7 +51,7 @@ class adminMenu extends Component {
           <Col size={80}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressTentChecks}>
-              <Text style = {styles.description}>
+              <Text style = {styles.description6}>
                 Tent Checks
               </Text>
             </TouchableOpacity>
@@ -66,7 +66,7 @@ class adminMenu extends Component {
           <Col size={80}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressManageUsers}>
-                <Text style = {styles.description}>
+                <Text style = {styles.description7}>
                   Manage Users
                 </Text>
             </TouchableOpacity>
@@ -81,7 +81,7 @@ class adminMenu extends Component {
           <Col size={80}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressUpdateFeed}>
-                <Text style = {styles.description}>
+                <Text style = {styles.description6}>
                   Update Feed
                 </Text>
             </TouchableOpacity>

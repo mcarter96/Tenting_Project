@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   centerText: {
     flex: 1, 
     fontSize: 18,
-    pading: 32,
+    padding: 32,
     color: '#777'
   },
   textBold: {
@@ -63,6 +63,24 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     fontSize: 20,
   },
+  description6: {
+    borderWidth: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 80,
+    paddingRight: 80,
+    borderColor: 'black',
+    fontSize: 20
+  },
+  description7: {
+    borderWidth: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 70,
+    paddingRight: 70,
+    borderColor: 'black',
+    fontSize: 20
+  },
   numberInput: {
     padding: 5,
     fontSize: 30,
@@ -70,9 +88,9 @@ const styles = StyleSheet.create({
   keyboardTextBox: {
     height: '100%',
     left: 0,
-    top: 0,
     position: 'absolute',
-    width: '100%',
+    top: 0,
+    width: '100%'
   },
   title: {
     textAlign: 'left',

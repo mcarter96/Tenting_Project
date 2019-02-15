@@ -83,7 +83,7 @@ class Confirmation extends Component {
               <Col size={60}>
                 <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.confirm(userid, this.state.confirmationCode)}>
-                    <Text style = {styles.description}>
+                    <Text style = {styles.description2}>
                       Confirm
                     </Text>
                 </TouchableOpacity>
