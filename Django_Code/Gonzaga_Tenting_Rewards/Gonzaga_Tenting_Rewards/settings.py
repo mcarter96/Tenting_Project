@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'Api',
     'Tent_Checks',
+    'Admin_Maintenance',
 ]
 
 MIDDLEWARE = [

@@ -43,3 +43,17 @@ def getTentID(userId):
     except:
         return None
 
+def getTenterInformation(tentId):
+    try:
+        tent = models.TentGroup.objects.get(id=tentId)
+        users = {
+            'tenter_1': tent.get_tenter_1(),
+            'tenter_2': tent.get_tenter_2(),
+            'tenter_3': tent.get_tenter_3(),
+            'tenter_4': tent.get_tenter_4(),
+            'tenter_5': tent.get_tenter_5(),
+            'tenter_6': tent.get_tenter_6(),
+        }
+        return users
+    except:
+        return None
