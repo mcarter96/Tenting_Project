@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   AsyncStorage,
+  Image,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
@@ -118,14 +119,18 @@ class Login extends Component {
   render() {
     return (
       <KeyboardShift>
-        <Grid>
-          <Row size={30}></Row>
+        <Grid style={{backgroundColor: "#639aff"}}>
+          <Row size={30}>
+            <Col size={23}></Col>
+              <Col size={54}><Image source={require('../images/tenttwo.png')} /></Col>
+            <Col size={23}></Col>
+          </Row>
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Email"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.username}
@@ -142,7 +147,7 @@ class Login extends Component {
             <View style = {styles.container}>
               <TextInput style = {styles.input}
                     placeholder = "Password"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     secureTextEntry = {true}
@@ -186,8 +191,8 @@ class Login extends Component {
               <Col size={60}>
                 <View style = {styles.container}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('ResetPassword')}>
-                    <Text>
-                      Forgot Password
+                    <Text style={{color: 'white'}}>
+                      Forgot Password?
                     </Text>
                 </TouchableOpacity>
                 </View>
@@ -204,10 +209,13 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
+     color: 'white',
+     backgroundColor: '#639aff',
+     borderRadius: 10,
      textAlign: 'center',
      height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
+     borderColor: 'white',
+     borderWidth: 0.5,
      width: '100%'
   },
   container: {
@@ -215,7 +223,11 @@ const styles = StyleSheet.create({
     width: '100%'
  },
  text: {
-    borderWidth: 1,
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft:60,
@@ -224,7 +236,11 @@ const styles = StyleSheet.create({
     fontSize: 20
  },
  text2: {
-  borderWidth: 1,
+  color: 'white',
+  backgroundColor: '#9aadce',//'#4a86f7',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
   padding: 15,
   borderColor: 'black',
   fontSize: 20
