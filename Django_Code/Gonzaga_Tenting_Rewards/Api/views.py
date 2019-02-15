@@ -242,6 +242,7 @@ class PasswordReset(APIView):
 
     cleaned_data = {"email":"tenting.rewards@gmail.com"}
     def post(self, request):
+
         self.cleaned_data = request.data
 
         try:
@@ -301,6 +302,8 @@ class PasswordReset(APIView):
                 current_site = get_current_site(request)
                 site_name = current_site.name
                 domain = current_site.domain
+            if settings.DEBUG:
+                email = "tenting.rewards@gmail.com"
             context = {
                 'email': email,
                 'domain': domain,
