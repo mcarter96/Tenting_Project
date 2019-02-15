@@ -101,7 +101,6 @@ class TestTentCheckView(TestCase):
         }
         client.force_authenticate(user=user)
         response = client.post('/api/tent-checks/', data=data)
-        print(response.data)
         assert(response.data['setup_check'] == False)
         assert(response.data['waiver_check'] == False)
         assert(response.data['tent_check_1'] == False)
@@ -109,6 +108,7 @@ class TestTentCheckView(TestCase):
         assert(response.data['tent_check_3'] == False)
         assert(response.data['tent_check_4'] == False)
         assert(response.data['final_check'] == False)
+
 
 
     def test_model_creation(self):

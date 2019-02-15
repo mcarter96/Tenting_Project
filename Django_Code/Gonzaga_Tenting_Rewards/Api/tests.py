@@ -1,5 +1,5 @@
 from django.test import TestCase
-from rest_framework.test import APIClient
+from rest_framework.test import  APIClient
 from . import models
 import threading
 import json
@@ -343,6 +343,7 @@ class TestLoadOnProfile(TestCase):
 class TestConfirmEmail(TestCase):
     """Test the confirm email function of API"""
 
+    """Perform any setup for test cases"""
     def setUp(self):
         models.UserProfile.objects.create_user(email="test@zagmail.gonzaga.edu",
                                                name="test",
@@ -403,3 +404,37 @@ class TestGameObject(TestCase):
         assert(response.data['game_name'] == "Testing Game")
         assert(response.data['game_start'] == "2019-02-07T05:00:00Z")
         assert(response.data['tenting_start'] == "2019-02-09T07:08:00Z")
+
+class TestPasswordReset(TestCase):
+    """Test the password reset function of API"""
+
+    """Perform any setup for test cases"""
+    def setUp(self):
+        models.UserProfile.objects.create_user(email="test@zagmail.gonzaga.edu",
+                                               name="test",
+                                               phone_number="111-111-1111",
+                                               student_id=123,
+                                               password="testPassword1",
+                                               graduation_year=2019)
+        confirmUserOutsideOfAPI("test@zagmail.gonzaga.edu")
+
+    """Verify that password reset assigns new password to user account"""
+    def test_password_reset_form(self):
+        user = models.UserProfile.objects.get(email="test@zagmail.gonzaga.edu")
+        url = '/api/forgot_password/'
+        client.force_authenticate(user=user)
+        response = client.post(url, data={"email":"test@zagmail.gonzaga.edu"})
+        print(response.content)
+        print("Hello from password reset")
+        assert(response.data['message']=="Password Reset!")
+
+    """Alert user that password reset is invalid if account does not exist"""
+    def test_invalid_email(self):
+        user = models.UserProfile.objects.get(email="test@zagmail.gonzaga.edu")
+        url = '/api/forgot_password/'
+        client.force_authenticate(user=user)
+        response = client.post(url, data={"email": "invalid_test@zagmail.gonzaga.edu"})
+        print(response.content)
+        print("Hello from test invalid email")
+        print(response.data)
+        assert(response.data=="User does not exist")

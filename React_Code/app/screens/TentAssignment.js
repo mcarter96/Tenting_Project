@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {
@@ -13,31 +15,74 @@ import {
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import KeyboardShift from './KeyboardShift';
 
-class adminTentChecks extends Component {
+class TentAssignment extends Component {
   state = {
     qrString:'',
     data:'',
     tentData: '',
-    token: '',
   }
   onSuccess(e) {
-    alert("Successfully Scanned.")
+    alert("Successfully Scanned, press submit to assign tent number.")
     this.setState({qrString: e.data});
   }
 
   updateQrString = (text)=>{
     this.setState({qrString: text});
   }
+
   submitQr = async(qrString)=>{
-    var tentId = this.state.data.get(qrString)[0];
-    var tentNumber = this.state.data.get(qrString)[1];
-    this.scanner.reactivate()
-    this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
+    var tentId = this.state.data.get(qrString);
+    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentId+"/";
+     var members = this.state.tentData.get(qrString);
+     
+     var result = fetch(url, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: tentId,
+        tenter_1: members[0],
+        tenter_2: members[1],
+        tenter_3: members[2],
+        tenter_4: members[3],
+        tenter_5: members[4],
+        tenter_6: members[5],
+        tent_pin: members[6],
+        qr_code_str: qrString,
+        game_id: 1,
+        tent_number: null,
+      }),
+      
+    })
+      .then(res => res.text())
+      .then(res => {
+        return res
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      this.scanner.reactivate()
+      alert("Successfully assigned tent number.");
   }
+
+  loadTentNumber = async(id) =>{
+    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var result = await fetch(url, {
+    method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    return result.tent_number;
+  }
+
   async componentDidMount(){
-    const { navigation } = this.props;
-    const adminToken = navigation.getParam('adminToken', 'No ID');
-    this.setState({token: adminToken});
     var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
@@ -49,11 +94,17 @@ class adminTentChecks extends Component {
       console.error(error);
     });
     var userMap = new Map();
+    var userMap2 = new Map();
     for(var i = 0; i < result.length; i++){
-      userMap.set(result[i].qr_code_str,[result[i].id, result[i].tent_number])
+      userMap.set(result[i].qr_code_str,result[i].id)
+      userMap2.set(result[i].qr_code_str, [result[i].tenter_1, result[i].tenter_2, result[i].tenter_3,
+         result[i].tenter_4, result[i].tenter_5, result[i].tenter_6, result[i].tent_pin])
     }
+    console.log(userMap2);
     this.setState({data: userMap});
+    this.setState({tentData:userMap2});
   }
+
   render() {
     return (
       <KeyboardShift>
@@ -102,12 +153,11 @@ class adminTentChecks extends Component {
           </Row>
         </Grid>
       </KeyboardShift>
-      
     );
   }
 }
 
-export default adminTentChecks;
+export default TentAssignment;
 
 const styles = StyleSheet.create({
   centerText: {
@@ -155,3 +205,4 @@ text: {
   fontSize: 20
 },
 });
+
