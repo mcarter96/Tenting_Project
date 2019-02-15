@@ -23,7 +23,7 @@ export default class KeyboardShift extends Component {
     const { children: renderProp } = this.props;
     const { shift } = this.state;
     return (
-      <Animated.View style={[styles.container, { transform: [{translateY: shift}] }]}>
+      <Animated.View style={[stylesTest.container, { transform: [{translateY: shift}] }]}>
         {renderProp}
       </Animated.View>
     );
@@ -63,7 +63,7 @@ export default class KeyboardShift extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const stylesTest = StyleSheet.create({
   container: {
     height: '100%',
     left: 0,

@@ -8,6 +8,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import styles from '../screens/style.js'
 
 class adminMenu extends Component {
   onPressTentReg = () => {
@@ -33,9 +34,9 @@ class adminMenu extends Component {
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressTentReg}>
-                <Text style = {styles.text}>
+                <Text style = {styles.description}>
                   Game Management
                 </Text>
             </TouchableOpacity>
@@ -48,9 +49,9 @@ class adminMenu extends Component {
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressTentChecks}>
-              <Text style = {styles.text2}>
+              <Text style = {styles.description}>
                 Tent Checks
               </Text>
             </TouchableOpacity>
@@ -63,9 +64,9 @@ class adminMenu extends Component {
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressManageUsers}>
-                <Text style = {styles.text3}>
+                <Text style = {styles.description}>
                   Manage Users
                 </Text>
             </TouchableOpacity>
@@ -78,9 +79,9 @@ class adminMenu extends Component {
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressUpdateFeed}>
-                <Text style = {styles.text2}>
+                <Text style = {styles.description}>
                   Update Feed
                 </Text>
             </TouchableOpacity>
@@ -92,45 +93,6 @@ class adminMenu extends Component {
     );
   }
 }
-export default adminMenu;
 
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft:50,
-    paddingRight:50,
-    borderColor: 'black',
-    fontSize: 20
- },
- text2: {
-  borderWidth: 1,
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingLeft:80,
-  paddingRight:80,
-  borderColor: 'black',
-  fontSize: 20
-},
-text3: {
-  borderWidth: 1,
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingLeft:70,
-  paddingRight:70,
-  borderColor: 'black',
-  fontSize: 20
-},
-})
+// description3, textInput, textBox
+export default adminMenu;

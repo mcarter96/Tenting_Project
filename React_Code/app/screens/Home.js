@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import styles from '../screens/style.js'
 
 class Home extends Component {
 
@@ -28,9 +29,9 @@ class Home extends Component {
         <Row size={20}>
         <Col size={20}></Col>
         <Col size={60}>
-        <View style = {styles.container}>
+        <View style = {styles.textBox}>
           <TouchableOpacity onPress={() => this.logout()}>
-                    <Text style = {styles.text}>
+                    <Text style = {styles.textInput}>
                       Logout
                     </Text>
           </TouchableOpacity>
@@ -46,27 +47,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    padding: 15,
-    borderColor: 'black',
-    fontSize: 20
- },
- numberText: {
-    padding: 5,
-    fontSize: 30
- },
-})

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
+import styles from '../screens/style.js';
 
 class userRegistration extends Component {
   state = {
@@ -138,7 +139,7 @@ class userRegistration extends Component {
             <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-                <TextInput style = {styles.input}
+                <TextInput style = {styles.textInput}
                     editable = {true}
                     placeholder = "Email"
                     placeholderTextColor = "black"
@@ -167,7 +168,7 @@ class userRegistration extends Component {
             <Row size={10}>
                 <Col size={10}></Col>
                 <Col size={80}>
-                    <TextInput style = {styles.input}
+                    <TextInput style = {styles.textInput}
                         placeholder = "Password"
                         placeholderTextColor = "black"
                         autoCapitalize = "none"
@@ -181,7 +182,7 @@ class userRegistration extends Component {
             <Row size={10}>
                 <Col size={10}></Col>
                 <Col size={80}>
-                <TextInput style = {styles.input}
+                <TextInput style = {styles.numberInput}
                     placeholder = "Student ID"
                     placeholderTextColor = "black"
                     keyboardType = 'numeric'
@@ -196,7 +197,7 @@ class userRegistration extends Component {
             <Row size={10}>
                 <Col size={10}></Col>
                 <Col size={80}>
-                    <TextInput style = {styles.input}
+                    <TextInput style = {styles.numberInput}
                         placeholder = "Phone Number"
                         placeholderTextColor = "black"
                         autoCapitalize = "none"
@@ -210,7 +211,7 @@ class userRegistration extends Component {
             <Row size={10}>
                 <Col size={10}></Col>
                 <Col size={80}>
-                    <TextInput style = {styles.input}
+                    <TextInput style = {styles.numberInput}
                         placeholder = "Graduation Year"
                         placeholderTextColor = "black"
                         autoCapitalize = "none"
@@ -225,9 +226,9 @@ class userRegistration extends Component {
             <Row size={20}>
             <Col size={20}></Col>
                 <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.submit(this.state.userEmail, this.state.name, this.state.password, this.state.id, this.state.phoneNumber, this.state.gradYear)}>
-                    <Text style = {styles.text}>
+                    <Text style = {styles.description}>
                         Create Account
                     </Text>
                 </TouchableOpacity>
@@ -241,28 +242,6 @@ class userRegistration extends Component {
   }
 }
 
-export default userRegistration;
+// textInput, textBox, description, numberInput
 
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    padding: 15,
-    borderColor: 'black',
-    fontSize: 20
- },
- numberText: {
-    padding: 5,
-    fontSize: 30
- },
-})
+export default userRegistration;

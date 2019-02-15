@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native';
 import { Tile, List, ListItem, Button } from 'react-native-elements';
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { me } from '../config/data';
+import styles from '../screens/style.js'
 
 class TentRegInitial extends Component {
   state = {
@@ -160,9 +161,9 @@ class TentRegInitial extends Component {
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressCreateTent}>
-                <Text style = {styles.text}>
+                <Text style = {styles.description}>
                   Create Tent
                 </Text>
             </TouchableOpacity>
@@ -173,9 +174,9 @@ class TentRegInitial extends Component {
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressJoinTent}>
-              <Text style = {styles.textJoin}>
+              <Text style = {styles.textJoinLeave}>
                 Join Tent
               </Text>
             </TouchableOpacity>
@@ -186,9 +187,9 @@ class TentRegInitial extends Component {
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressLeaveTent}>
-              <Text style = {styles.textLeave}>
+              <Text style = {styles.textJoinLeave}>
                 Leave Tent
               </Text>
             </TouchableOpacity>
@@ -202,37 +203,8 @@ class TentRegInitial extends Component {
   }
 }
 
+// description4, textJoinLeave, textbox
+
 //Me.defaultProps = { ...me };
 
 export default TentRegInitial;
-
-const styles = StyleSheet.create ({
-  container: {
-     alignItems: 'center',
-     width: '100%'
-  },
-  text: {
-     borderWidth: 1,
-     padding: 25,
-     borderColor: 'black',
-     fontSize: 30
-  },
-  textJoin: {
-    borderWidth: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 25,
-    paddingBottom: 25,
-    borderColor: 'black',
-    fontSize: 30
- },
- textLeave: {
-  borderWidth: 1,
-  paddingLeft: 30,
-  paddingRight: 30,
-  paddingTop: 25,
-  paddingBottom: 25,
-  borderColor: 'black',
-  fontSize: 30
-},
-})

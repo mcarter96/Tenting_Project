@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
+import styles from '../screens/style.js'
+
 class InitialTentDetails extends Component {
   state = {
     tentName: '.',
@@ -71,7 +73,7 @@ class InitialTentDetails extends Component {
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
+              <TextInput style = {styles.textInput}
                     placeholder = {String(this.state.fullName)}
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
@@ -85,7 +87,7 @@ class InitialTentDetails extends Component {
           <Row size={10}>
           <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
+              <TextInput style = {styles.textInput}
                     placeholder = "Pin"
                     placeholderTextColor = "black"
                     keyboardType = 'number-pad'
@@ -101,9 +103,9 @@ class InitialTentDetails extends Component {
           <Row size={20}>
             <Col size={20}></Col>
               <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.submit(this.state.tentName, this.state.fullName, this.state.pin)}>
-                    <Text style = {styles.text}>
+                    <Text style = {styles.description3}>
                       Next
                     </Text>
                 </TouchableOpacity>
@@ -117,27 +119,6 @@ class InitialTentDetails extends Component {
   }
 }
 
-export default InitialTentDetails;
+// textInput, textBox, description3
 
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft:50,
-    paddingRight:50,
-    borderColor: 'black',
-    fontSize: 20
- },
-})
+export default InitialTentDetails;

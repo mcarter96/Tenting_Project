@@ -12,6 +12,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import styles from '../screens/style.js'
 
 
 class CreateGame extends Component {
@@ -99,7 +100,7 @@ class CreateGame extends Component {
         <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
+              <TextInput style = {styles.textInput}
                     placeholder = "Game Name"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
@@ -115,7 +116,7 @@ class CreateGame extends Component {
         <Row size={15}>
             <Col size={10}></Col>
               <Col size={80}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={this.showStartDateTimePicker}>
                     <Text style = {styles.pickerText}>
                       Set Game Start
@@ -135,9 +136,9 @@ class CreateGame extends Component {
         <Row size={15}>
             <Col size={10}></Col>
               <Col size={80}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={this.showEndDateTimePicker}>
-                    <Text style = {styles.picker2Text}>
+                    <Text style = {styles.pickerText}>
                       Set Tent Start
                     </Text>
                 </TouchableOpacity>
@@ -157,9 +158,9 @@ class CreateGame extends Component {
         <Row size={15}>
             <Col size={20}></Col>
               <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.submit(this.state.gameName, this.state.postTentingStart, this.state.postGameStart)}>
-                    <Text style = {styles.submitText}>
+                    <Text style = {styles.description}>
                       Submit
                     </Text>
                 </TouchableOpacity>
@@ -172,51 +173,8 @@ class CreateGame extends Component {
   }
 }
 
+// textInput, textBox, pickerText, pickerText2, submitText, numberInput, startingText
+
 export default CreateGame;
 
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- pickerText: {
-    borderWidth: 1,
-    padding: 10,
-    borderColor: 'black',
-    fontSize: 20
- },
- picker2Text:{
-  borderWidth: 1,
-  paddingTop: 11,
-  paddingBottom: 11,
-  paddingLeft: 16,
-  paddingRight: 16,
-  borderColor: 'black',
-  fontSize: 20
- },
- submitText: {
-  borderWidth: 1,
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingLeft: 43,
-  paddingRight: 43,
-  borderColor: 'black',
-  fontSize: 20
-},
- numberText: {
-    padding: 5,
-    fontSize: 30
- },
- startingText:{
-   padding: 5,
-   fontSize: 20,
- }
-})
 

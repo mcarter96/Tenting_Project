@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CheckBox from 'react-native-check-box';
+import styles from '../screens/style.js'
 
 class adminTentChecks extends Component {
   state = {
@@ -21,5 +22,7 @@ class adminTentChecks extends Component {
     );
   }
 }
+
+// textBold, textCenter, touchableButton, textInput, camera, description, textBox, buttonText
 
 export default adminTentChecks;

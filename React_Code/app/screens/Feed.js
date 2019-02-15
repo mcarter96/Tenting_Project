@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import styles from '../screens/style.js'
 
 class Feed extends Component {
   render() {
@@ -24,32 +25,3 @@ class Feed extends Component {
 }
 
 export default Feed;
-
-const styles = StyleSheet.create ({
-  container: {
-     //alignItems: 'center',
-     width: '100%'
-  },
-  containerOne:{
-      alignItems: 'center',
-      width: '100%'
-  },
-  text: {
-      borderWidth: 1,
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingLeft:30,
-      paddingRight:30,
-      borderColor: 'black',
-      fontSize: 20
-  },
-  textJoin: {
-    borderWidth: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 25,
-    paddingBottom: 25,
-    borderColor: 'black',
-    fontSize: 30
- },
-})

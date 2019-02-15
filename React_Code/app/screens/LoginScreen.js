@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
+import styles from '../screens/style.js'
 class Login extends Component {
   static navigationOptions = {
     header: null
@@ -92,7 +93,7 @@ class Login extends Component {
             this._textInput2.setNativeProps({text: ''});
             console.log(result.is_admin);
             if (result.is_admin) {
-              this.props.navigation.navigate('Admin', {userEmail: username});
+              this.props.navigation.navigate('Admin', {token: result.token});
             } else {
               this.props.navigation.navigate('Tabs',{tentId: result.tent_id, userEmail: username});
             }
@@ -123,7 +124,7 @@ class Login extends Component {
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
+              <TextInput style = {styles.textInput}
                     placeholder = "Email"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
@@ -139,8 +140,8 @@ class Login extends Component {
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-            <View style = {styles.container}>
-              <TextInput style = {styles.input}
+            <View style = {styles.textBox}>
+              <TextInput style = {styles.textInput}
                     placeholder = "Password"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
@@ -158,9 +159,9 @@ class Login extends Component {
           <Row size={15}>
             <Col size={20}></Col>
               <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.login(this.state.username, this.state.password)}>
-                    <Text style = {styles.text}>
+                    <Text style = {styles.description}>
                       Login
                     </Text>
                 </TouchableOpacity>
@@ -171,9 +172,9 @@ class Login extends Component {
           <Row size={25}>
           <Col size={20}></Col>
               <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
-                    <Text style = {styles.text2}>
+                    <Text style = {styles.description2}>
                       Create Account
                     </Text>
                 </TouchableOpacity>
@@ -188,36 +189,3 @@ class Login extends Component {
 }
 
 export default Login;
-
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft:60,
-    paddingRight: 60,
-    borderColor: 'black',
-    fontSize: 20
- },
- text2: {
-  borderWidth: 1,
-  padding: 15,
-  borderColor: 'black',
-  fontSize: 20
-},
- numberText: {
-    padding: 5,
-    fontSize: 30
- },
-})

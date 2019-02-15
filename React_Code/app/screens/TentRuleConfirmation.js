@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { CheckBox } from 'react-native-elements';
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
+import styles from '../screens/style.js'
 
 class TentRuleConfirmation extends Component {
     onPressConfirm = () => {
@@ -17,7 +18,7 @@ class TentRuleConfirmation extends Component {
     return (
       <Grid>
         <Row size={10}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
                 <CheckBox
                     title='All team members registered?'
                     checked={this.state.checked}
@@ -26,7 +27,7 @@ class TentRuleConfirmation extends Component {
             </View>
         </Row>
         <Row size={10}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
                 <CheckBox
                     title='You can only register 6 members total.'
                     checked={this.state.checked}
@@ -35,7 +36,7 @@ class TentRuleConfirmation extends Component {
             </View>
         </Row>
         <Row size={10}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
                 <CheckBox
                     title='Terms and Conditions.'
                     checked={this.state.checked}
@@ -44,7 +45,7 @@ class TentRuleConfirmation extends Component {
             </View>
         </Row>
         <Row size={10}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
                 <CheckBox
                     title='Waiver'
                     checked={this.state.checked}
@@ -56,9 +57,9 @@ class TentRuleConfirmation extends Component {
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
-            <View style = {styles.containerOne}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressConfirm}>
-                <Text style = {styles.text}>
+                <Text style = {styles.description}>
                   Confirm
                 </Text>
             </TouchableOpacity>
@@ -73,33 +74,7 @@ class TentRuleConfirmation extends Component {
   }
 }
 
+// description5, textJoinLeave, textBox
+
 export default TentRuleConfirmation;
 
-const styles = StyleSheet.create ({
-    container: {
-       //alignItems: 'center',
-       width: '100%'
-    },
-    containerOne:{
-        alignItems: 'center',
-        width: '100%'
-    },
-    text: {
-        borderWidth: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft:30,
-        paddingRight:30,
-        borderColor: 'black',
-        fontSize: 20
-    },
-    textJoin: {
-      borderWidth: 1,
-      paddingLeft: 40,
-      paddingRight: 40,
-      paddingTop: 25,
-      paddingBottom: 25,
-      borderColor: 'black',
-      fontSize: 30
-   },
-  })

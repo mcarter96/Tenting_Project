@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import styles from '../screens/style.js'
 
 class SearchForTent extends Component {
   state = {
@@ -171,7 +172,7 @@ class SearchForTent extends Component {
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
-            <TextInput style = {styles.input}
+            <TextInput style = {styles.textInput}
                   placeholder = "Tent Creator Email"
                   placeholderTextColor = "black"
                   autoCapitalize = "none"
@@ -184,7 +185,7 @@ class SearchForTent extends Component {
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
-            <TextInput style = {styles.input}
+            <TextInput style = {styles.textInput}
                   placeholder = "Pin"
                   placeholderTextColor = "black"
                   keyboardType = 'number-pad'
@@ -199,9 +200,9 @@ class SearchForTent extends Component {
         <Row size={20}>
           <Col size={20}></Col>
             <Col size={60}>
-              <View style = {styles.container}>
+              <View style = {styles.textBox}>
               <TouchableOpacity onPress={() => this.submit(this.state.creatorName, this.state.pin)}>
-                  <Text style = {styles.text}>
+                  <Text style = {styles.description}>
                     Join
                   </Text>
               </TouchableOpacity>
@@ -215,27 +216,6 @@ class SearchForTent extends Component {
   }
 }
 
-export default SearchForTent;
+// description3, textInput, textBox
 
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft:50,
-    paddingRight:50,
-    borderColor: 'black',
-    fontSize: 20
- },
-})
+export default SearchForTent;

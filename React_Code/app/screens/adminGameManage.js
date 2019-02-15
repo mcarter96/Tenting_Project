@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import styles from '../screens/style.js'
 
 class adminGameManage extends Component {
   onPressCreateGame = () => {
@@ -23,9 +24,9 @@ class adminGameManage extends Component {
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressCreateGame}>
-                <Text style = {styles.text}>
+                <Text style = {styles.description}>
                   Create Game
                 </Text>
             </TouchableOpacity>
@@ -36,9 +37,9 @@ class adminGameManage extends Component {
         <Row size={20}>
           <Col size={20}></Col>
           <Col size={60}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressAssignTents}>
-              <Text style = {styles.text}>
+              <Text style = {styles.description}>
                 Assign Tents
               </Text>
             </TouchableOpacity>
@@ -61,24 +62,4 @@ class adminGameManage extends Component {
 
 export default adminGameManage;
 
-const styles = StyleSheet.create ({
-  container: {
-     alignItems: 'center',
-     width: '100%'
-  },
-  text: {
-     borderWidth: 1,
-     padding: 25,
-     borderColor: 'black',
-     fontSize: 30
-  },
-  textJoin: {
-    borderWidth: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 25,
-    paddingBottom: 25,
-    borderColor: 'black',
-    fontSize: 30
- },
-})
+

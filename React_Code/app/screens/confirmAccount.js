@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
+import styles from '../screens/style.js'
 
 class Confirmation extends Component {
   static navigationOptions = {
@@ -58,7 +59,7 @@ class Confirmation extends Component {
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
+              <TextInput style = {styles.numberInput}
                     placeholder = "Confirmation Code"
                     placeholderTextColor = "black"
                     autoCapitalize = "none"
@@ -80,9 +81,9 @@ class Confirmation extends Component {
           <Row size={15}>
             <Col size={20}></Col>
               <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.confirm(userid, this.state.confirmationCode)}>
-                    <Text style = {styles.text}>
+                    <Text style = {styles.description}>
                       Confirm
                     </Text>
                 </TouchableOpacity>
@@ -102,37 +103,5 @@ class Confirmation extends Component {
   }
 }
 
+// textInput, textBox, decription, description2, numberInput
 export default Confirmation;
-
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft:60,
-    paddingRight: 60,
-    borderColor: 'black',
-    fontSize: 20
- },
- text2: {
-  borderWidth: 1,
-  padding: 15,
-  borderColor: 'black',
-  fontSize: 20
-},
- numberText: {
-    padding: 5,
-    fontSize: 30
- },
-})

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Text,View,ScrollView, StyleSheet} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import QRCode from 'react-native-qrcode';
+import styles from '../screens/style.js'
 
 class QRScreen extends Component {
   state = {
@@ -77,7 +78,7 @@ class QRScreen extends Component {
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
               <Text style={{fontSize: 50}}>Tent #{this.state.tentNumber}</Text>
             </View>
           </Col>
@@ -96,14 +97,14 @@ class QRScreen extends Component {
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
-          <View style = {styles.container}><Text style={{fontSize: 15}}>{this.state.tentQr}</Text></View>
+          <View style = {styles.textBox}><Text style={{fontSize: 15}}>{this.state.tentQr}</Text></View>
           </Col>
           <Col size={10}></Col>
         </Row>
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
-            <View style = {styles.container}>
+            <View style = {styles.textBox}>
               <Text style={{fontSize: 50}}>Countdown!</Text>
             </View>
           </Col>
@@ -116,26 +117,6 @@ class QRScreen extends Component {
   }
 }
 
-export default QRScreen;
+// textJoinLeave, description4, textBox
 
-const styles = StyleSheet.create ({
-  container: {
-     alignItems: 'center',
-     width: '100%'
-  },
-  text: {
-     borderWidth: 1,
-     padding: 25,
-     borderColor: 'black',
-     fontSize: 30
-  },
-  textJoin: {
-    borderWidth: 1,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 25,
-    paddingBottom: 25,
-    borderColor: 'black',
-    fontSize: 30
- },
-});
+export default QRScreen;

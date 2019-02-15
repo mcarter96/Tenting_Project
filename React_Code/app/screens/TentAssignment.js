@@ -14,6 +14,7 @@ import {
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import KeyboardShift from './KeyboardShift';
+import styles from '../screens/style.js'
 
 class TentAssignment extends Component {
   state = {
@@ -126,7 +127,7 @@ class TentAssignment extends Component {
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              <TextInput style = {styles.input}
+              <TextInput style = {styles.numberInput}
                     editable = {true}
                     placeholder = "Code"
                     placeholderTextColor = "black"
@@ -141,9 +142,9 @@ class TentAssignment extends Component {
           <Row size={15}>
             <Col size={20}></Col>
               <Col size={60}>
-                <View style = {styles.container}>
+                <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.submitQr(this.state.qrString)}>
-                    <Text style = {styles.text}>
+                    <Text style = {styles.description}>
                       Submit
                     </Text>
                 </TouchableOpacity>
@@ -159,50 +160,4 @@ class TentAssignment extends Component {
 
 export default TentAssignment;
 
-const styles = StyleSheet.create({
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
-  },
-  buttonTouchable: {
-    padding: 16,
-  },
-  camera: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    height: '100%',
-    width: '100%',
-  },
-  input: {
-    textAlign: 'center',
-    height: 40,
-    borderColor: 'black',
-    borderWidth: 1,
-    width: '100%'
- },
- container: {
-  alignItems: 'center',
-  width: '100%'
-},
-text: {
-  borderWidth: 1,
-  paddingTop: 15,
-  paddingBottom: 15,
-  paddingLeft:60,
-  paddingRight: 60,
-  borderColor: 'black',
-  fontSize: 20
-},
-});
 

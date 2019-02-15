@@ -4,6 +4,7 @@ import { InputAutoSuggest } from 'react-native-autocomplete-search';
 import Autocomplete from 'react-native-autocomplete-input';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import styles from '../screens/style.js'
 
 class addMembers extends Component {
   state = {
@@ -155,7 +156,7 @@ class addMembers extends Component {
           <Autocomplete
             autoCapitalize="none"
             autoCorrect={false}
-            containerStyle={styles.autocompleteContainer}
+            containerStyle={styles.autoCompleteTextBox}
             data={emails.length === 1 && comp(query, emails[0].name) ? [] : emails}
             defaultValue={query}
             listStyle={{maxHeight: 20}}
@@ -175,34 +176,34 @@ class addMembers extends Component {
         <Row size={2}>
         </Row>
         <Row size={10}>
-          <Col size={10}><Text style = {styles.numberText}>1.</Text></Col>
+          <Col size={10}><Text style = {styles.numberInput}>1.</Text></Col>
           <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[0]}</Text>
           </Col>
         </Row>
         <Row size={2}></Row>
         <Row size={10}>
-            <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
+            <Col size={10}><Text style = {styles.numberInput}>2.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[1]}</Text>
             </Col>
             
         </Row>
         <Row size={2}></Row>
         <Row size={10}>
-            <Col size={10}><Text style = {styles.numberText}>3.</Text></Col>
+            <Col size={10}><Text style = {styles.numberInput}>3.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[2]}</Text>
             </Col>
             
         </Row>
         <Row size={2}></Row>
         <Row size={10}>
-            <Col size={10}><Text style = {styles.numberText}>4.</Text></Col>
+            <Col size={10}><Text style = {styles.numberInput}>4.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[3]}</Text>
             </Col>
             
         </Row>
         <Row size={2}></Row>
         <Row size={10}>
-            <Col size={10}><Text style = {styles.numberText}>5.</Text></Col>
+            <Col size={10}><Text style = {styles.numberInput}>5.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[4]}</Text>
             </Col>
         </Row>
@@ -210,9 +211,9 @@ class addMembers extends Component {
         <Row size={20}>
           <Col size={10}></Col>
             <Col size={30}>
-              <View style = {styles.container}>
+              <View style = {styles.textBox}>
               <TouchableOpacity onPress={() => this.submit(userName,this.state.tentMembers, tentPin, this.state.qrString)}>
-                  <Text style = {styles.text}>
+                  <Text style = {styles.description}>
                     Submit
                   </Text>
               </TouchableOpacity>
@@ -220,9 +221,9 @@ class addMembers extends Component {
             </Col>
             <Col size={10}></Col>
             <Col size={30}>
-              <View style = {styles.container}>
+              <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.setState({ tentMembers: []})}>
-                    <Text style = {styles.text2}>
+                    <Text style = {styles.description2}>
                       Clear
                     </Text>
                 </TouchableOpacity>
@@ -237,51 +238,3 @@ class addMembers extends Component {
 }
 
 export default addMembers;
-
-const styles = StyleSheet.create({
-  input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
-  container: {
-    alignItems: 'center',
-    width: '100%'
- },
- text: {
-    borderWidth: 1,
-    padding: 15,
-    borderColor: 'black',
-    fontSize: 20
- },
- text2: {
-  borderWidth: 1,
-  paddingLeft: 25,
-  paddingRight: 25,
-  paddingTop: 15,
-  paddingBottom:15,
-  borderColor: 'black',
-  fontSize: 20
-},
- numberText: {
-    padding: 5,
-    fontSize: 25,
-    color: 'black',
- },
- fillText: {
-  padding: 5,
-  fontSize: 20,
-  color: 'black',
-},
- autoFillText: {
-  padding: 0,
-  fontSize: 14,
-  color: 'black',
-},
-autocompleteContainer: {
-  marginLeft: 10,
-  marginRight: 10
-},
-})
