@@ -31,7 +31,7 @@ class Home extends Component {
         <Col size={60}>
         <View style = {styles.textBox}>
           <TouchableOpacity onPress={() => this.logout()}>
-                    <Text style = {styles.buttonText}>
+                    <Text style = {styles.}>
                       Logout
                     </Text>
           </TouchableOpacity>

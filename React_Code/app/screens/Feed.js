@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import {CheckBox} from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from '../screens/style.js'
 

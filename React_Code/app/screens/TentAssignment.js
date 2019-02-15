@@ -25,6 +25,7 @@ class TentAssignment extends Component {
   onSuccess(e) {
     alert("Successfully Scanned, press submit to assign tent number.")
     this.setState({qrString: e.data});
+    //this.submitQr(e.data);
   }
 
   updateQrString = (text)=>{
@@ -52,7 +53,7 @@ class TentAssignment extends Component {
         tenter_6: members[5],
         tent_pin: members[6],
         qr_code_str: qrString,
-        game_id: 1,
+        game_id: this.props.navigation.getParam('gameid'),
         tent_number: null,
       }),
       

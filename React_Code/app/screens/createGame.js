@@ -72,6 +72,7 @@ class CreateGame extends Component {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Token '+this.props.navigation.getParam('token'),
         },
         body: JSON.stringify({
           game_start: gameStart,
