@@ -36,7 +36,7 @@ class adminMenu extends Component {
 
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={20}>
           <Col size={10}></Col>

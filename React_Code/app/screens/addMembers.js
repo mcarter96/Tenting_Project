@@ -144,6 +144,10 @@ class addMembers extends Component {
   this.setState({emails:emailArr})
   this.setState({tentData:userMap2});
  }
+ static navigationOptions = {
+  headerStyle: { backgroundColor: '#9aadce' },
+  headerTitleStyle: { color: 'white' },
+  }
   render() {
     const { navigation } = this.props;
     const userName = navigation.getParam('creatorName', 'No Name');
@@ -152,7 +156,7 @@ class addMembers extends Component {
     const emails = this.findEmail(query);
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={2}></Row>
         <Row size={10}>
           <Col size={100}>
@@ -165,6 +169,8 @@ class addMembers extends Component {
             listStyle={{maxHeight: 20}}
             onChangeText={text => this.setState({ query: text })}
             placeholder="Search for a user"
+            placeholderTextColor = "white"
+            style={styles.input}
             renderItem={({ name }) => (
             <TouchableOpacity onPress={() => this.setState({ tentMembers: this.state.tentMembers.concat([name])})}>
               <Text style = {styles.autoFillText}>
@@ -244,40 +250,62 @@ export default addMembers;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
+    color: 'white',
+    backgroundColor: '#639aff',
+    borderRadius: 10,
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    width: '100%'
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
-    borderWidth: 1,
-    padding: 15,
-    borderColor: 'black',
-    fontSize: 20
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:15,
+  paddingRight: 15,
+  borderColor: 'black',
+  fontSize: 20
  },
  text2: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:25,
+  paddingRight: 25,
+  borderColor: 'black',
+  fontSize: 20
+   /*
   borderWidth: 1,
   paddingLeft: 25,
   paddingRight: 25,
   paddingTop: 15,
   paddingBottom:15,
   borderColor: 'black',
-  fontSize: 20
+  fontSize: 20*/
 },
  numberText: {
     padding: 5,
     fontSize: 25,
-    color: 'black',
+    color: 'white',
  },
  fillText: {
   padding: 5,
   fontSize: 20,
-  color: 'black',
+  color: 'white',
 },
  autoFillText: {
   padding: 0,

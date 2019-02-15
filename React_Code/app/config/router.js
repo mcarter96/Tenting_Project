@@ -84,6 +84,7 @@ export const CreateTentStack = createStackNavigator({
   InitialTentDetails: {
     screen: InitialTentDetails,
     navigationOptions: {
+      tabBarVisible: false ,
       title: 'Setup Tent',
     },
   },
@@ -94,6 +95,7 @@ export const CreateTentStack = createStackNavigator({
     },
   },
 });
+
 
 export const CreateJoinStack = createStackNavigator({
   SearchForTent: {
@@ -122,7 +124,8 @@ export const Tabs = createBottomTabNavigator({
     screen: TentRegInitial,
     navigationOptions: {
       tabBarLabel: 'Tent',
-      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor}
+       />,
     },
   },
   QRCode: {
@@ -136,7 +139,7 @@ export const Tabs = createBottomTabNavigator({
     screen: Settings,
     navigationOptions: {
       tabBarLabel: 'Settings',
-      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />,
     },
   },
   
@@ -180,4 +183,5 @@ export const Root = createStackNavigator({
   mode: 'modal',
   headerMode: 'none',
 });
+
 

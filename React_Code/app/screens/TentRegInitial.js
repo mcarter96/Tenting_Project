@@ -159,10 +159,11 @@ class TentRegInitial extends Component {
       alert("Your not in a tent.")
     }
   }
+ 
 
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={20}>
           <Col size={20}></Col>
@@ -219,27 +220,50 @@ const styles = StyleSheet.create ({
      width: '100%'
   },
   text: {
-     borderWidth: 1,
-     padding: 25,
-     borderColor: 'black',
-     fontSize: 30
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    padding: 25,
+    borderColor: 'black',
+    fontSize: 30,
   },
   textJoin: {
-    borderWidth: 1,
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 25,
     paddingBottom: 25,
     borderColor: 'black',
-    fontSize: 30
+    fontSize: 30,
+    /*
+    borderWidth: 1,
+   */
  },
  textLeave: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingLeft: 30,
+  paddingRight: 30,
+  paddingTop: 25,
+  paddingBottom: 25,
+  borderColor: 'black',
+  fontSize: 30,
+   /*
   borderWidth: 1,
   paddingLeft: 30,
   paddingRight: 30,
   paddingTop: 25,
   paddingBottom: 25,
   borderColor: 'black',
-  fontSize: 30
+  fontSize: 30*/
 },
 })

@@ -75,13 +75,13 @@ class QRScreen extends Component {
   }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
-              <Text style={{fontSize: 50}}>Tent #{this.state.tentNumber}</Text>
+              <Text style={{fontSize: 50, color: 'white'}}>Tent #{this.state.tentNumber}</Text>
             </View>
           </Col>
           <Col size={10}></Col>
@@ -99,7 +99,7 @@ class QRScreen extends Component {
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
-          <View style = {styles.container}><Text style={{fontSize: 15}}>{this.state.tentQr}</Text></View>
+          <View style = {styles.container}><Text style={{fontSize: 15, color: 'white'}}>{this.state.tentQr}</Text></View>
           </Col>
           <Col size={10}></Col>
         </Row>
@@ -107,7 +107,7 @@ class QRScreen extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
-              <Text style={{fontSize: 50}}>Countdown!</Text>
+             
             </View>
           </Col>
           <Col size={10}></Col>

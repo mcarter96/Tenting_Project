@@ -167,16 +167,20 @@ class SearchForTent extends Component {
     //console.log(userMap);
     this.setState({mapOfCreators2Ids: userMap});
   }
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+    }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={5}></Row>
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Tent Creator Email"
-                  placeholderTextColor = "black"
+                  placeholderTextColor = "white"
                   autoCapitalize = "none"
                   onChangeText = {this.handleCreatorName}/>
           </Col>
@@ -189,7 +193,7 @@ class SearchForTent extends Component {
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Pin"
-                  placeholderTextColor = "black"
+                  placeholderTextColor = "white"
                   keyboardType = 'number-pad'
                   maxLength={6} 
                   secureTextEntry = {true}
@@ -222,23 +226,38 @@ export default SearchForTent;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
+    color: 'white',
+    backgroundColor: '#639aff',
+    borderRadius: 10,
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    width: '100%'
   },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:50,
+  paddingRight: 50,
+  borderColor: 'black',
+  fontSize: 20
+   /*
     borderWidth: 1,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft:50,
     paddingRight:50,
     borderColor: 'black',
-    fontSize: 20
+    fontSize: 20*/
  },
 })
