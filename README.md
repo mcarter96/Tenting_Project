@@ -30,3 +30,14 @@ If you want to view the coverage for each individual file, run the following
 coverage html
 ```
 
+## Urls for the Api
+* .../api/profile
+* .../api/login
+* .../api/tent
+* .../api/games
+* .../api/forgot_password
+* .../api/tent-checks
+* .../api/remove-tents
+* .../api/remove-users
+* .../api/remove-games
+* ../api/confirm-email
