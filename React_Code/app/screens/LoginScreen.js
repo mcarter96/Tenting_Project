@@ -168,13 +168,26 @@ class Login extends Component {
               </Col>
               <Col size={20}></Col>
           </Row>
-          <Row size={25}>
-          <Col size={20}></Col>
+          <Row size={15}>
+            <Col size={20}></Col>
               <Col size={60}>
                 <View style = {styles.container}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
                     <Text style = {styles.text2}>
                       Create Account
+                    </Text>
+                </TouchableOpacity>
+                </View>
+              </Col>
+              <Col size={20}></Col>
+          </Row>
+          <Row size={10}>
+          <Col size={20}></Col>
+              <Col size={60}>
+                <View style = {styles.container}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ResetPassword')}>
+                    <Text>
+                      Forgot Password
                     </Text>
                 </TouchableOpacity>
                 </View>

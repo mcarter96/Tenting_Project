@@ -26,6 +26,7 @@ import confirmAccount from '../screens/confirmAccount'
 import TentAssignment from '../screens/TentAssignment';
 import CreateGame from '../screens/createGame';
 import CheckList from '../screens/adminTentCheckList'
+import ForgotPassword from '../screens/ForgotPassword'
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -171,7 +172,10 @@ export const Root = createStackNavigator({
   },
   Confirmation: {
     screen: confirmAccount,
-  }
+  },
+  ResetPassword:{
+    screen:ForgotPassword,
+  },
 }, {
   mode: 'modal',
   headerMode: 'none',
