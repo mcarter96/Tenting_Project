@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'rest_framework',
     'rest_framework.authtoken',
     'Api',
+    'Tent_Checks',
 ]
 
 MIDDLEWARE = [
@@ -57,8 +59,7 @@ ROOT_URLCONF = 'Gonzaga_Tenting_Rewards.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +70,14 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=Api,Tent_Checks',
+    '--nocapture',
 ]
 
 WSGI_APPLICATION = 'Gonzaga_Tenting_Rewards.wsgi.application'
@@ -125,11 +134,17 @@ STATIC_URL = '/static/'
 
 if DEBUG:
     REST_FRAMEWORK = {
-
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+        ),
     }
 else:
     REST_FRAMEWORK = {
-
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+        ),
         'DEFAULT_RENDERER_CLASSES': (
             'rest_framework.renderers.JSONRenderer',
         )
@@ -137,3 +152,11 @@ else:
 
 # Overrides the current user to use our own custom user
 AUTH_USER_MODEL = 'Api.UserProfile'
+
+# Configures an SMTP Email Backend
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tenting.rewards@gmail.com'
+EMAIL_HOST_PASSWORD = 'tentingRewards'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Gonzaga Tenting Rewards Team <tenting.rewards@gmail.com>'

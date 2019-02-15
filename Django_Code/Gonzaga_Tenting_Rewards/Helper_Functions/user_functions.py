@@ -3,119 +3,43 @@ This file provides various user functions that interact with the database
 to allow us to find other values based on the information that we know
 """
 
-import sqlite3
-import os
-
-# Get the base path of the project
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Get the path of the database (will change when not sqlite)
-path = BASE_DIR + "/db.sqlite3"
-
+from Api import models
+from django.db.models import Q
 
 def getUserID(email):
     """Get the user id of the passed in email (this is the unique identifier)"""
 
-    # Establish a connection with the database
-    connection = sqlite3.connect(path)
-    crsr = connection.cursor()
-
-    # SQL command to create a table in the database
-    sql_command = "SELECT id FROM Api_userprofile WHERE email=\"" + email + "\";"
-    crsr.execute(sql_command)
-
-    # Get the response from the database
-    resp = crsr.fetchall()
-
-    # Close the connection
-    connection.close()
-
-    # Grab the first item in the response (should only be one)
-    for i in resp:
-        return i[0]
-
-    # If there was no response then return None
-    return None
+    try:
+        user = models.UserProfile.objects.get(email=email)
+        return user.id
+    except:
+        return None
 
 def getUserEmail(id):
-    """Retrive the user email given the user id"""
-
-    # Establish a connection to the database
-    connection = sqlite3.connect(path)
-    crsr = connection.cursor()
-
-    # Generate the command to be executed
-    sql_command = "SELECT email FROM Api_userprofile WHERE id=\"" + str(id) + "\";"
-
-    # Execute the command
-    crsr.execute(sql_command)
-
-    # Ge the response from the database
-    resp = crsr.fetchall()
-
-    # Close the connection
-    connection.close()
-
-    # Grab the first item in the response (should only be one)
-    for i in resp:
-        return i[0]
-
-    # If there was no response then return None
-    return None
+    """Retrieve the user email given the user id"""
+    try:
+        user = models.UserProfile.objects.get(id=id)
+        return user.email
+    except:
+        return None
 
 def getIfAdmin(id):
     """Retrieve whether the passed in user id is an admin"""
+    try:
+        user = models.UserProfile.objects.get(id=id)
+        return user.is_staff
+    except:
+        return None
 
-    # Establish a connection to the database
-    connection = sqlite3.connect(path)
-    crsr = connection.cursor()
-
-    # Generate the sql command to execute
-    sql_command = "SELECT is_staff FROM Api_userprofile WHERE id=\"" + str(id) + "\";"
-
-    # Execute the sql command
-    crsr.execute(sql_command)
-
-    # Get the response from the database
-    resp = crsr.fetchall()
-
-    # Close the connection to the database
-    connection.close()
-
-    # Grab the first response (should only be one)
-    for i in resp:
-        # If they are not an admin return False, otherwise return True
-        if i[0] == 0:
-            return False
-        return True
 
 def getTentID(userId):
-    """Retrive the tent id the user belongs to if they are apart of one"""
+    """Retrieve the tent id the user belongs to if they are apart of one"""
 
-    # Establish a connection to the database
-    connection = sqlite3.connect(path)
-    crsr = connection.cursor()
+    # Attempt to get a tent the user is apart of, if they are not apart of one, an exception is thrown so return None
+    try:
+        tents = models.TentGroup.objects.get(Q(tenter_1=userId) | Q(tenter_2=userId) | Q(tenter_3=userId) |
+                                             Q(tenter_4=userId) | Q(tenter_5=userId) | Q(tenter_6=userId))
+        return tents.id
+    except:
+        return None
 
-    # Generate the sql command to execute
-    sql_command = "SELECT id FROM Api_tentgroup WHERE " \
-                  "tenter_1_id=\"" + str(userId) + "\"" \
-                    "OR tenter_2_id= \"" + str(userId) + "\" " \
-                    "OR tenter_3_id= \"" + str(userId) + "\" " \
-                    "OR tenter_4_id= \"" + str(userId) + "\" " \
-                    "OR tenter_5_id= \"" + str(userId) + "\" " \
-                    "OR tenter_6_id= \"" + str(userId) + "\";"
-
-    # Execute the sql command
-    crsr.execute(sql_command)
-
-    # Get the response from the database
-    resp = crsr.fetchall()
-
-    # Close the connection to the database
-    connection.close()
-
-
-    # Grab the first response (should only be one)
-    for i in resp:
-        # If they are not an admin return False, otherwise return True
-        return i[0]
