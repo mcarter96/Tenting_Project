@@ -170,7 +170,7 @@ class TentRegInitial extends Component {
           <Col size={60}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressCreateTent}>
-                <Text style = {styles.description}>
+                <Text style = {styles.description4}>
                   Create Tent
                 </Text>
             </TouchableOpacity>
@@ -183,7 +183,7 @@ class TentRegInitial extends Component {
           <Col size={60}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressJoinTent}>
-              <Text style = {styles.textJoinLeave}>
+              <Text style = {styles.textJoin}>
                 Join Tent
               </Text>
             </TouchableOpacity>
@@ -196,7 +196,7 @@ class TentRegInitial extends Component {
           <Col size={60}>
             <View style = {styles.textBox}>
             <TouchableOpacity onPress={this.onPressLeaveTent}>
-              <Text style = {styles.textJoinLeave}>
+              <Text style = {styles.textLeave}>
                 Leave Tent
               </Text>
             </TouchableOpacity>

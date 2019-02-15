@@ -113,10 +113,19 @@ const styles = StyleSheet.create({
   touchableButton: {
     padding: 16,
   },
-  textJoinLeave: {
+  textJoin: {
     borderWidth: 1,
     paddingLeft: 40,
     paddingRight: 40,
+    paddingTop: 25,
+    paddingBottom: 25,
+    borderColor: 'black',
+    fontSize: 30,
+  },
+  textLeave: {
+    borderWidth: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
     paddingTop: 25,
     paddingBottom: 25,
     borderColor: 'black',

@@ -166,7 +166,7 @@ class Login extends Component {
               <Col size={60}>
                 <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.login(this.state.username, this.state.password)}>
-                    <Text style = {styles.textInput}>
+                    <Text style = {styles.description}>
                       Login
                     </Text>
                 </TouchableOpacity>
@@ -179,7 +179,7 @@ class Login extends Component {
               <Col size={60}>
                 <View style = {styles.textBox}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration')}>
-                    <Text style = {styles.textInput}>
+                    <Text style = {styles.description2}>
                       Create Account
                     </Text>
                 </TouchableOpacity>
