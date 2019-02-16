@@ -121,9 +121,9 @@ class Login extends Component {
       <KeyboardShift>
         <Grid style={{backgroundColor: "#639aff"}}>
           <Row size={30}>
-            <Col size={23}></Col>
+            <Col size={24}></Col>
               <Col size={54}><Image source={require('../images/tenttwo.png')} /></Col>
-            <Col size={23}></Col>
+            <Col size={22}></Col>
           </Row>
           <Row size={10}>
             <Col size={10}></Col>
