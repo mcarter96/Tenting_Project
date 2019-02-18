@@ -35,7 +35,7 @@ coverage html
 * .../api/login
 * .../api/tent
 * .../api/games
-* .../api/forgot_password
+* .../api/forgot-password
 * .../api/tent-checks
 * .../api/remove-tents
 * .../api/remove-users
