@@ -1,6 +1,6 @@
 # Gonzaga-Tenting-Rewards
 
-## To Start The Server On tenting-rewards@gonzaga.edu 
+## To Start The Server On tenting-rewards.gonzaga.edu 
 1. ssh into the server (tenting-rewards.gonzaga.edu) (Use putty on Windows)
 2. Navigate to the following directory: `/home/source_code/Gonzaga-Tenting-Rewards`
 3. Run the runserver.sh script: `./runserver.sh`
