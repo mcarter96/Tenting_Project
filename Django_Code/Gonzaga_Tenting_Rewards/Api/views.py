@@ -242,7 +242,7 @@ class PasswordReset(APIView):
 
     cleaned_data = {"email":"tenting.rewards@gmail.com"}
     def post(self, request):
-        print(request.data)
+
         self.cleaned_data = request.data
 
         try:
@@ -251,8 +251,6 @@ class PasswordReset(APIView):
             return Response({"message": "Password Reset!"})
         except:
             return Response("User does not exist")
-        self.save(self, use_https=False, from_email="Gonzaga Tenting Rewards", request=request)
-        return Response({"message":"Password Reset!"})
 
     def send_mail(self, subject_template_name, email_template_name,
                   context, from_email, to_email, html_email_template_name=None):
@@ -263,11 +261,10 @@ class PasswordReset(APIView):
         # Email subject *must not* contain newlines
         subject = ''.join(subject.splitlines())
         body = loader.render_to_string(email_template_name, context)
-        print("Body: ", body)
+
 
 
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
-        print("Email Message: ", email_message)
         if html_email_template_name is not None:
             html_email = loader.render_to_string(html_email_template_name, context)
             email_message.attach_alternative(html_email, 'text/html')
@@ -282,7 +279,6 @@ class PasswordReset(APIView):
         resetting their password.
         """
         active_users = models.UserProfile.objects.get(email=email)
-        print(active_users)
         return [active_users]
 
     def save(self, domain_override=None,
@@ -306,6 +302,8 @@ class PasswordReset(APIView):
                 current_site = get_current_site(request)
                 site_name = current_site.name
                 domain = current_site.domain
+            if settings.DEBUG:
+                email = "tenting.rewards@gmail.com"
             context = {
                 'email': email,
                 'domain': domain,
@@ -315,12 +313,7 @@ class PasswordReset(APIView):
                 'token': token_generator.make_token(user),
                 'protocol': 'https' if use_https else 'http',
             }
-            print("Domain: ", domain)
-            print("site name: ", site_name)
-            print("email: ", email)
-            print("uid: ", urlsafe_base64_encode(force_bytes(user.pk)).decode())
-            print("user: ", user)
-            print("token: ", token_generator.make_token(user))
+
 
             if extra_email_context is not None:
                 context.update(extra_email_context)

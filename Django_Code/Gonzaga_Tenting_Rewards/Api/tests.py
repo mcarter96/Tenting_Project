@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.urls import reverse
 from rest_framework.test import  APIClient
 from . import models
 import threading
@@ -64,6 +63,7 @@ class TestCreateSingleUser(TestCase):
         assert(results['email'] == "test@zagmail.gonzaga.edu")
         assert(results['name'] == 'test case')
         assert(results['url'] == "http://testserver/api/profile/1")
+
 
 class TestGetProfileObjects(TestCase):
     """Test the list function of the UserProfile View"""
@@ -226,6 +226,7 @@ class TestCreateTentGroup(TestCase):
         models.TentGroup.objects.create(tenter_1=tenter1, tenter_2=tenter2, tenter_3=tenter3, tenter_4=tenter4,
                                         tenter_5=tenter5, tenter_6=tenter6,
                                         tent_pin=1111, qr_code_str="ONE")
+
     def test_object_was_created(self):
         """Object was successfully created in database"""
 
@@ -238,6 +239,7 @@ class TestCreateTentGroup(TestCase):
         self.assertEqual(tmp.tent_pin, 1111)
         self.assertEqual(tmp.qr_code_str, "ONE")
         # print("Test 8")
+
 
 class TestTentGroupModel(TestCase):
 

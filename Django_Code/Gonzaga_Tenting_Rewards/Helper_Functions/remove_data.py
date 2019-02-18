@@ -4,13 +4,13 @@ the admin wants to perform
 """
 
 import datetime
-from Api import models
+from Api import models as Api_models
 
 
 def removeAllTents():
     """Remove all data from the tent table"""
 
-    tents = models.TentGroup.objects.all()
+    tents = Api_models.TentGroup.objects.all()
     for i in tents:
         i.delete()
 
@@ -20,10 +20,18 @@ def removeExtraneousUsers():
     # Get the current year and go back one
     year = datetime.datetime.now().year - 1
     print(year)
-    users = models.UserProfile.objects.all().filter(graduation_year__lt=year)
+    users = Api_models.UserProfile.objects.all().filter(graduation_year__lt=year)
 
-    # Go through each user and delete if their grad year was before the current year +1
+    # Go through each user and delete if their grad year was before the current year -1
     for i in users:
         print(i)
         if i.graduation_year <= year:
             i.delete()
+
+
+def removeAllGames():
+    """Delete all the games that were created"""
+
+    games = Api_models.Game.objects.all()
+    for i in games:
+        i.delete()
