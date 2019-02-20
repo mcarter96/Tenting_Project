@@ -9,7 +9,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 class adminManageUsers extends Component {
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={30}></Row>
         <Row size={40}>
           <Col size={30}></Col>

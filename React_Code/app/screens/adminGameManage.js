@@ -53,6 +53,10 @@ class adminGameManage extends Component {
     this.setState({games: gameArray});
     this.setState({gameid: result[0].id});
   }
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  }
   render() {
     return (
       <Grid style={{backgroundColor: "#639aff"}}>
@@ -86,15 +90,16 @@ class adminGameManage extends Component {
         <Row size={40}>
           <Col size={36}>
             <Row size={35}></Row>
-            <Row size={65}><Text style={{fontSize: 20, padding: 10}}>Current Game:</Text></Row>
+            <Row size={65}><Text style={{fontSize: 20, padding: 10, color:'white'}}>Current Game:</Text></Row>
           </Col>
           <Col size={20}>
             <Picker
-              style={{width: 100}} 
+              itemStyle={{color:'white'}}
+              style={{width: 100, color:'white'}} 
               selectedValue={this.state.gameid}
               onValueChange={(itemValue, itemIndex) => this.pickerChange(itemIndex)}>{
               this.state.games.map( (v)=>{
-              return <Picker.Item label={v.gameName} value={v.gameId} />
+              return <Picker.Item label={v.gameName} value={v.gameId}/>
               })
               }
             </Picker>
@@ -116,18 +121,39 @@ const styles = StyleSheet.create ({
      width: '100%'
   },
   text: {
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    padding:25,
+    borderColor: 'black',
+    fontSize: 30
+    /*
      borderWidth: 1,
      padding: 25,
      borderColor: 'black',
-     fontSize: 30
+     fontSize: 30*/
   },
   textJoin: {
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft:40,
+    paddingRight: 40,
+    borderColor: 'black',
+    fontSize: 20
+    /*
     borderWidth: 1,
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 25,
     paddingBottom: 25,
     borderColor: 'black',
-    fontSize: 30
+    fontSize: 30*/
  },
 })

@@ -146,7 +146,7 @@ class CheckList extends Component {
             RNchecked: tentcheckData[i].tent_check_4,
           },
           {
-            label: 'Final  Check   ',
+            label: 'Final  Check    ',
             value: 'seven',
             RNchecked: tentcheckData[i].final_check,
          },
@@ -189,7 +189,7 @@ class CheckList extends Component {
           RNchecked: false,
         },
         {
-          label: 'Final  Check   ',
+          label: 'Final  Check     ',
           value: 'seven',
           RNchecked: false,
        },
@@ -198,15 +198,19 @@ class CheckList extends Component {
       noTentCheck = false;
     }
 };
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size ={2}></Row>
         <Row size ={6}>
           <Col size={10}></Col>
             <Col size={80}>
               <View style = {styles.container}>
-                <Text style={{fontSize: 30}}>Tent #{this.state.tentId}</Text>
+                <Text style={{fontSize: 30, color:'white'}}>Tent #{this.state.tentId}</Text>
               </View>
             </Col>
             <Col size={10}></Col>
@@ -218,8 +222,10 @@ class CheckList extends Component {
               <CheckboxFormX
                   style={{ width: '100%', marginLeft: 0}}
                   dataSource={this.state.checkData}
+                  textStyle={{color: 'white'}}
                   itemShowKey="label"
                   itemCheckedKey="RNchecked"
+                  iconColor="white"
                   iconSize={30}
                   formHorizontal={false}
                   labelHorizontal={true}
@@ -262,13 +268,25 @@ const styles = StyleSheet.create ({
       width: '100%'
   },
   text: {
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft:30,
+    paddingRight: 30,
+    borderColor: 'black',
+    fontSize: 20
+    /*
       borderWidth: 1,
       paddingTop: 10,
       paddingBottom: 10,
       paddingLeft:30,
       paddingRight:30,
       borderColor: 'black',
-      fontSize: 20
+      fontSize: 20*/
   },
   textJoin: {
     borderWidth: 1,

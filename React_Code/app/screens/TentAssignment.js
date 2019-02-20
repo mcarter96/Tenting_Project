@@ -105,11 +105,15 @@ class TentAssignment extends Component {
     this.setState({data: userMap});
     this.setState({tentData:userMap2});
   }
-
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  }
   render() {
     return (
-      <KeyboardShift>
-        <Grid>
+      
+      <Grid style={{backgroundColor: "#639aff"}}>
+         <KeyboardShift>
           <Row size ={20}></Row>
           <Row size={40}>
             <Col size={10}></Col>
@@ -130,7 +134,7 @@ class TentAssignment extends Component {
               <TextInput style = {styles.input}
                     editable = {true}
                     placeholder = "Code"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.updateQrString}
@@ -152,8 +156,9 @@ class TentAssignment extends Component {
               </Col>
               <Col size={20}></Col>
           </Row>
-        </Grid>
-      </KeyboardShift>
+        </KeyboardShift>
+      </Grid>
+     
     );
   }
 }
@@ -186,24 +191,45 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
+    color: 'white',
+    backgroundColor: '#639aff',
+    borderRadius: 10,
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    width: '100%'
+    /*
     textAlign: 'center',
     height: 40,
     borderColor: 'black',
     borderWidth: 1,
-    width: '100%'
+    width: '100%'*/
  },
  container: {
   alignItems: 'center',
   width: '100%'
 },
 text: {
-  borderWidth: 1,
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
   paddingTop: 15,
   paddingBottom: 15,
   paddingLeft:60,
   paddingRight: 60,
   borderColor: 'black',
   fontSize: 20
+  /*
+  borderWidth: 1,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:60,
+  paddingRight: 60,
+  borderColor: 'black',
+  fontSize: 20*/
 },
 });
 
