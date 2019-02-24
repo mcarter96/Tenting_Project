@@ -32,7 +32,7 @@ class adminGameManage extends Component {
     console.log(this.state.gameid);
     this.props.navigation.navigate('tentAssignment', {gameid: this.state.gameid});
   }
-  async componentDidMount(){
+  loadGameData = async() =>{
     var result = await fetch("http://tenting-rewards.gonzaga.edu/api/games/", {
     method: 'GET',
     headers: {
@@ -56,6 +56,13 @@ class adminGameManage extends Component {
       this.setState({gameid: result[0].id});
     }
   }
+  componentWillMount(){
+    this.props.navigation.addListener('willFocus', () => this.loadGameData());
+  }
+  async componentDidMount(){
+    this.loadGameData();
+  }
+ 
   static navigationOptions = {
     headerStyle: { backgroundColor: '#9aadce' },
     headerTitleStyle: { color: 'white' },
