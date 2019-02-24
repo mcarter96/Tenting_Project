@@ -17,7 +17,7 @@ import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
 import SearchForTent from '../screens/SearchForTent'
 import adminFeed from '../screens/adminFeed'
-import adminManageUsers from '../screens/adminManageUsers'
+import adminManageUsers from '../screens/adminClearData'
 import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminGameManage from '../screens/adminGameManage'
@@ -56,7 +56,7 @@ export const AdminStack = createStackNavigator({
   adminManageUsers: {
     screen: adminManageUsers, 
     navigationOptions: {
-      title: 'Manage Users'
+      title: 'Clear Data'
     },
   },
   createGame: {

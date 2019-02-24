@@ -210,7 +210,7 @@ class CheckList extends Component {
           <Col size={10}></Col>
             <Col size={80}>
               <View style = {styles.container}>
-                <Text style={{fontSize: 30, color:'white'}}>Tent #{this.state.tentId}</Text>
+                <Text style={{fontSize: 30, color:'white'}}>Tent #{this.state.tentNum}</Text>
               </View>
             </Col>
             <Col size={10}></Col>

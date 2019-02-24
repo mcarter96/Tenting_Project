@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, 
+    TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
 
@@ -128,6 +129,7 @@ class userRegistration extends Component {
     
     
  }
+ 
   render() {
     return (
         <KeyboardShift>
@@ -222,7 +224,7 @@ class userRegistration extends Component {
             </Row>
             <Row size={7}></Row>
 
-            <Row size={20}>
+            <Row size={10}>
             <Col size={20}></Col>
                 <Col size={60}>
                 <View style = {styles.container}>
@@ -232,6 +234,20 @@ class userRegistration extends Component {
                     </Text>
                 </TouchableOpacity>
                 </View>
+                </Col>
+                <Col size={20}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={8}>
+                <Col size={20}></Col>
+                <Col size={60}>
+                    <View style = {styles.container}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text style={{color: 'white'}}>
+                        Go Back
+                        </Text>
+                    </TouchableOpacity>
+                    </View>
                 </Col>
                 <Col size={20}></Col>
             </Row>

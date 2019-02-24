@@ -80,7 +80,7 @@ class ForgotPassword extends Component {
             <Col size={10}></Col>
           </Row>
           <Row size={5}></Row>
-          <Row size={15}>
+          <Row size={10}>
             <Col size={20}></Col>
               <Col size={60}>
                 <View style = {styles.container}>
@@ -93,12 +93,21 @@ class ForgotPassword extends Component {
               </Col>
               <Col size={20}></Col>
           </Row>
-          <Row size={25}>
-          <Col size={20}></Col>
-              <Col size={60}>
-              </Col>
-              <Col size={20}></Col>
-          </Row>
+          <Row size={2}></Row>
+            <Row size={10}>
+                <Col size={20}></Col>
+                <Col size={60}>
+                    <View style = {styles.container}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text style={{color: 'white'}}>
+                        Go Back
+                        </Text>
+                    </TouchableOpacity>
+                    </View>
+                </Col>
+                <Col size={20}></Col>
+            </Row>
+            <Row size={18}></Row>
         </Grid>
       </KeyboardShift>
     );

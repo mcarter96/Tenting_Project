@@ -28,6 +28,10 @@ class adminMenu extends Component {
   onPressUpdateFeed = () => {
     this.props.navigation.navigate('adminFeed');
   }
+  logout = () => {
+    console.log(this.state.data);
+    this.props.navigation.navigate('Login');
+  }
   componentDidMount(){
     const { navigation } = this.props;
     const adminToken = navigation.getParam('token', 'No ID');
@@ -41,8 +45,8 @@ static navigationOptions = {
   render() {
     return (
       <Grid style={{backgroundColor: "#639aff"}}>
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={5}></Row>
+        <Row size={19}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -56,8 +60,8 @@ static navigationOptions = {
           <Col size={10}></Col>
         </Row>
 
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={5}></Row>
+        <Row size={19}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -71,14 +75,14 @@ static navigationOptions = {
           <Col size={10}></Col>
         </Row>
 
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={5}></Row>
+        <Row size={19}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
             <TouchableOpacity onPress={this.onPressManageUsers}>
                 <Text style = {styles.text3}>
-                  Manage Users
+                  Clear Data
                 </Text>
             </TouchableOpacity>
             </View>
@@ -86,14 +90,28 @@ static navigationOptions = {
           <Col size={10}></Col>
         </Row>
         
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={5}></Row>
+        <Row size={19}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
             <TouchableOpacity onPress={this.onPressUpdateFeed}>
                 <Text style = {styles.text2}>
                   Update Feed
+                </Text>
+            </TouchableOpacity>
+            </View>
+          </Col>
+          <Col size={10}></Col>
+        </Row>
+        <Row size={5}></Row>
+        <Row size={20}>
+          <Col size={10}></Col>
+          <Col size={80}>
+            <View style = {styles.container}>
+            <TouchableOpacity onPress={this.logout}>
+                <Text style = {styles.text4}>
+                  Logout
                 </Text>
             </TouchableOpacity>
             </View>
@@ -142,6 +160,19 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     fontSize: 20*/
  },
+ text4: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:105,
+  paddingRight: 105,
+  borderColor: 'black',
+  fontSize: 20
+ },
  text2: {
   color: 'white',
   backgroundColor: '#9aadce',
@@ -171,8 +202,8 @@ text3: {
   borderWidth: 0,
   paddingTop: 10,
   paddingBottom: 10,
-  paddingLeft:70,
-  paddingRight: 70,
+  paddingLeft:90,
+  paddingRight: 90,
   borderColor: 'black',
   fontSize: 20
   /*

@@ -32,40 +32,45 @@ class TentAssignment extends Component {
   }
 
   submitQr = async(qrString)=>{
-    var tentId = this.state.data.get(qrString);
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentId+"/";
-     var members = this.state.tentData.get(qrString);
-     
-     var result = fetch(url, {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: tentId,
-        tenter_1: members[0],
-        tenter_2: members[1],
-        tenter_3: members[2],
-        tenter_4: members[3],
-        tenter_5: members[4],
-        tenter_6: members[5],
-        tent_pin: members[6],
-        qr_code_str: qrString,
-        game_id: this.props.navigation.getParam('gameid'),
-        tent_number: null,
-      }),
+    if(this.state.data.get(qrString)){
+      var tentId = this.state.data.get(qrString);
+      const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentId+"/";
+      var members = this.state.tentData.get(qrString);
       
-    })
-      .then(res => res.text())
-      .then(res => {
-        return res
+      var result = fetch(url, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: tentId,
+          tenter_1: members[0],
+          tenter_2: members[1],
+          tenter_3: members[2],
+          tenter_4: members[3],
+          tenter_5: members[4],
+          tenter_6: members[5],
+          tent_pin: members[6],
+          qr_code_str: qrString,
+          game_id: this.props.navigation.getParam('gameid'),
+          tent_number: null,
+        }),
+        
       })
-      .catch(error => {
-        console.error(error);
-      });
-      this.scanner.reactivate()
-      alert("Successfully assigned tent number.");
+        .then(res => res.text())
+        .then(res => {
+          return res
+        })
+        .catch(error => {
+          console.error(error);
+        });
+        this.scanner.reactivate()
+        alert("Successfully assigned tent number.");
+      }
+      else{
+        alert("Invalid code.")
+      }
   }
 
   loadTentNumber = async(id) =>{

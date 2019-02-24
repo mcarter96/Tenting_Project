@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, Button} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class SearchForTent extends Component {
@@ -167,10 +167,13 @@ class SearchForTent extends Component {
     //console.log(userMap);
     this.setState({mapOfCreators2Ids: userMap});
   }
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: <Button onPress={() => navigation.goBack(null)}
+          title="Back"
+          color="#fff" />,
     headerStyle: { backgroundColor: '#9aadce' },
     headerTitleStyle: { color: 'white' },
-    }
+  });
   render() {
     return (
       <Grid style={{backgroundColor: "#639aff"}}>

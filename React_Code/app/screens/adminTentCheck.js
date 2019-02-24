@@ -33,10 +33,17 @@ class adminTentChecks extends Component {
     this.setState({qrString: text});
   }
   submitQr = async(qrString)=>{
-    var tentId = this.state.data.get(qrString)[0];
-    var tentNumber = this.state.data.get(qrString)[1];
+    console.log(this.state.data)
+    if(this.state.data.get(qrString)){
+      var tentId = this.state.data.get(qrString)[0];
+      var tentNumber = this.state.data.get(qrString)[1];
+      this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
+    }
+    else{
+      alert("Invalid QR code.")
+    }
     //this.scanner.reactivate()
-    this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
+  
   }
   
   componentWillMount(){

@@ -6,7 +6,11 @@ import {
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-class adminManageUsers extends Component {
+class adminClearData extends Component {
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+    }
   render() {
     return (
       <Grid style={{backgroundColor: "#639aff"}}>
@@ -23,4 +27,4 @@ class adminManageUsers extends Component {
   }
 }
 
-export default adminManageUsers;
+export default adminClearData;

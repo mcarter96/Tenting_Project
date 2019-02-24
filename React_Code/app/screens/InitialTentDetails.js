@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, Dimensions} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, Dimensions, Button} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {Content} from "native-base";
 import KeyboardShift from './KeyboardShift';
@@ -51,11 +51,14 @@ class InitialTentDetails extends Component {
       }
     }
  }
+ static navigationOptions = ({ navigation }) => ({
+    headerLeft: <Button onPress={() => navigation.goBack(null)}
+          title="Back"
+          color="#fff" />,
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  });
  
- static navigationOptions = {
-  headerStyle: { backgroundColor: '#9aadce' },
-  headerTitleStyle: { color: 'white' },
-}
  componentDidMount(){
   const { navigation } = this.props;
   const userEmail = navigation.getParam('userEmail', 'No Name');

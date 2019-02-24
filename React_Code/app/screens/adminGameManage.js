@@ -11,7 +11,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 class adminGameManage extends Component {
   state = {
-    games: [{gameName: "BYU", gameId: 1}, {gameName: "GU", gameId:2}],
+    games: [],
     currentLabel: "Select Game.",
     gameid: '',
   }
@@ -47,11 +47,14 @@ class adminGameManage extends Component {
       console.error(error);
     });
     gameArray= []
-    for(var i = 0; i < result.length; i++){
-      gameArray.push({gameName: result[i].game_name, gameId: result[i].id});
+    if(result.length > 0){
+      console.log(result)
+      for(var i = 0; i < result.length; i++){
+        gameArray.push({gameName: result[i].game_name, gameId: result[i].id});
+      }
+      this.setState({games: gameArray});
+      this.setState({gameid: result[0].id});
     }
-    this.setState({games: gameArray});
-    this.setState({gameid: result[0].id});
   }
   static navigationOptions = {
     headerStyle: { backgroundColor: '#9aadce' },
