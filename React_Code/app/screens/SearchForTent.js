@@ -87,31 +87,31 @@ class SearchForTent extends Component {
             tentData.tenter_2 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str,  tentnum: tentData.tent_number});
           }
           else if(tentData.tenter_3 == null){
             tentData.tenter_3 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
           else if(tentData.tenter_4 == null){
             tentData.tenter_4 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
           else if(tentData.tenter_5 == null){
             tentData.tenter_5 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
           else{
             tentData.tenter_6 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
         }
         else{
@@ -201,6 +201,7 @@ class SearchForTent extends Component {
                   maxLength={6} 
                   secureTextEntry = {true}
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.handlePin}/>
           </Col>
           <Col size={10}></Col>

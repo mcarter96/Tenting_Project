@@ -9,16 +9,8 @@ class QRScreen extends Component {
     tentId: '',
     tentQr:'No Tent',
   }
-  async componentDidMount(){
-    const { navigation } = this.props;
-    const tentIdentifier = navigation.getParam('tentId', 'bad');
-    const tentString = navigation.getParam('qrString', 'No QR');
-    this.setState({tentId: tentIdentifier});
-    if(tentString != "No QR"){
-      this.setState({tentQr: tentString})
-    }
-    else{
-      var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+  loadTentData = async() =>{
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
       })
       .then((response) => response.json())
@@ -33,21 +25,39 @@ class QRScreen extends Component {
       for(var i = 0; i < result.length; i++){
         if(result[i].id == this.state.tentId){
           this.setState({tentQr: result[i].qr_code_str});
+          this.setState({tentNumber: result[i].tent_number});
         }
       }
-      
+  }
+  async componentDidMount(){
+    const { navigation } = this.props;
+    const tentIdentifier = navigation.getParam('tentId', 'bad');
+    const tentString = navigation.getParam('qrString', 'No QR');
+    this.setState({tentId: tentIdentifier});
+    if(tentString != "No QR"){
+      this.setState({tentQr: tentString})
+    }
+    else{
+      this.loadTentData();
     }
   }
   async componentDidUpdate(){
     const { navigation } = this.props;
     const tentIdentifier = navigation.getParam('tentId', 'bad');
     const tentString = navigation.getParam('qrString', 'No QR');
+    const tentNum = navigation.getParam('tentnum', 'nonum')
     if(this.state.tentId !== tentIdentifier)
       this.setState({tentId: tentIdentifier});
     if(tentString != "No QR"){
       if(this.state.tentQr !== tentString)
         this.setState({tentQr: tentString})
     }
+    if(tentNum != 'nonum'){
+      if(this.state.tentNumber !== tentNum){
+        this.setState({tentNumber: tentNum});
+      }
+    }
+    
     else{
       var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
