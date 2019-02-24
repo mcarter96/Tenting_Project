@@ -22,7 +22,7 @@ class adminMenu extends Component {
   }
 
   onPressManageUsers = () => {
-    this.props.navigation.navigate('adminManageUsers');
+    this.props.navigation.navigate('adminManageUsers', {adminToken: this.state.token});
   }
 
   onPressUpdateFeed = () => {
