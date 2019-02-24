@@ -58,7 +58,7 @@ class userRegistration extends Component {
         password: passWord,
         student_id: parseInt(id),
         phone_number: phone,
-        graduation_year: parseInt(yyyy),
+        graduation_year: parseInt(yyyy + 5),
       }),
     })
       .then(res => res.json())
