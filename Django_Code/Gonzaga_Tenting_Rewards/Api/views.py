@@ -202,7 +202,7 @@ class LoginViewSet(viewsets.ViewSet):
             return Response({'token': token.key, 'is_admin': is_admin, 'tent_id': tent_id,
                              'is_confirmed': is_confirmed, 'status': status.HTTP_202_ACCEPTED})
         else:
-            return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet',
+            return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet', 'user_id': user_id,
                              'status': status.HTTP_401_UNAUTHORIZED})
 
 class TentViewSet(viewsets.ModelViewSet):
