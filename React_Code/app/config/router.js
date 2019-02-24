@@ -27,6 +27,7 @@ import TentAssignment from '../screens/TentAssignment';
 import CreateGame from '../screens/createGame';
 import CheckList from '../screens/adminTentCheckList'
 import ForgotPassword from '../screens/ForgotPassword'
+console.disableYellowBox = true;
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -155,6 +156,7 @@ export const LoginStack = createStackNavigator({
 });
 
 export const Root = createStackNavigator({
+  
   Login: {
     screen: LoginStack,
   },
