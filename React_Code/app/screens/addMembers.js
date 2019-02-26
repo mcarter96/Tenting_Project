@@ -144,6 +144,19 @@ class addMembers extends Component {
   this.setState({emails:emailArr})
   this.setState({tentData:userMap2});
  }
+ addNewMember = (name) =>{
+   var notDup = true;
+    for(var i = 0; i < this.state.tentMembers.length; i++){
+      if(this.state.tentMembers[i] != name){
+        notDup = true;
+      }
+      else{
+        notDup = false;
+      }
+    }
+    if(notDup)
+      this.setState({ tentMembers: this.state.tentMembers.concat([name])});
+ }
  static navigationOptions = {
   headerStyle: { backgroundColor: '#9aadce' },
   headerTitleStyle: { color: 'white' },
@@ -172,7 +185,7 @@ class addMembers extends Component {
             placeholderTextColor = "white"
             style={styles.input}
             renderItem={({ name }) => (
-            <TouchableOpacity onPress={() => this.setState({ tentMembers: this.state.tentMembers.concat([name])})}>
+            <TouchableOpacity onPress={() => this.addNewMember(name)}>
               <Text style = {styles.autoFillText}>
                 {name} 
               </Text>
