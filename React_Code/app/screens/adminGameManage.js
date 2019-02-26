@@ -4,21 +4,72 @@ import {
   View,
   ScrollView,
   StyleSheet, 
-  TouchableOpacity
+  TouchableOpacity, 
+  Picker,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class adminGameManage extends Component {
-  onPressCreateGame = () => {
-    this.props.navigation.navigate('createGame')
+  state = {
+    games: [],
+    currentLabel: "Select Game.",
+    gameid: '',
   }
-
+  pickerChange(index){
+    this.state.games.map( (v,i)=>{
+     if( index === i ){
+       this.setState({
+       currentLabel: this.state.games[index].gameName,
+       gameid: this.state.games[index].gameId
+      })
+     }
+    })
+   }
+  onPressCreateGame = () => {
+    this.props.navigation.navigate('createGame', {token: this.props.navigation.getParam('token')})
+  }
   onPressAssignTents = () => {
-    this.props.navigation.navigate('tentAssignment');
+    console.log(this.state.gameid);
+    this.props.navigation.navigate('tentAssignment', {gameid: this.state.gameid});
+  }
+  loadGameData = async() =>{
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/games/", {
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    gameArray= []
+    if(result.length > 0){
+      console.log(result)
+      for(var i = 0; i < result.length; i++){
+        gameArray.push({gameName: result[i].game_name, gameId: result[i].id});
+      }
+      this.setState({games: gameArray});
+      this.setState({gameid: result[0].id});
+    }
+  }
+  componentWillMount(){
+    this.props.navigation.addListener('willFocus', () => this.loadGameData());
+  }
+  async componentDidMount(){
+    this.loadGameData();
+  }
+ 
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
   }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={20}>
           <Col size={20}></Col>
@@ -47,10 +98,23 @@ class adminGameManage extends Component {
           <Col size={20}></Col>
         </Row>
         <Row size={40}>
-          <Col size={10}></Col>
-          <Col size={80}>
+          <Col size={36}>
+            <Row size={35}></Row>
+            <Row size={65}><Text style={{fontSize: 20, padding: 10, color:'white'}}>Current Game:</Text></Row>
           </Col>
-          <Col size={10}></Col>
+          <Col size={20}>
+            <Picker
+              itemStyle={{color:'white'}}
+              style={{width: 100, color:'white'}} 
+              selectedValue={this.state.gameid}
+              onValueChange={(itemValue, itemIndex) => this.pickerChange(itemIndex)}>{
+              this.state.games.map( (v)=>{
+              return <Picker.Item label={v.gameName} value={v.gameId}/>
+              })
+              }
+            </Picker>
+          </Col>
+          <Col size={34}></Col>
         </Row>
         <Row size={10}></Row>
       </Grid>
@@ -67,18 +131,39 @@ const styles = StyleSheet.create ({
      width: '100%'
   },
   text: {
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    padding:25,
+    borderColor: 'black',
+    fontSize: 30
+    /*
      borderWidth: 1,
      padding: 25,
      borderColor: 'black',
-     fontSize: 30
+     fontSize: 30*/
   },
   textJoin: {
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft:40,
+    paddingRight: 40,
+    borderColor: 'black',
+    fontSize: 20
+    /*
     borderWidth: 1,
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 25,
     paddingBottom: 25,
     borderColor: 'black',
-    fontSize: 30
+    fontSize: 30*/
  },
 })

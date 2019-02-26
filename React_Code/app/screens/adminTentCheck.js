@@ -8,6 +8,7 @@ import {
   Linking,
   TextInput,
   View,
+  Button,
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -19,20 +20,34 @@ class adminTentChecks extends Component {
     data:'',
     tentData: '',
     token: '',
+    shouldUpdate:'',
   }
+  
   onSuccess(e) {
-    alert("Successfully Scanned.")
+    
     this.setState({qrString: e.data});
+    this.submitQr(e.data);
   }
 
   updateQrString = (text)=>{
     this.setState({qrString: text});
   }
   submitQr = async(qrString)=>{
-    var tentId = this.state.data.get(qrString)[0];
-    var tentNumber = this.state.data.get(qrString)[1];
-    this.scanner.reactivate()
-    this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
+    console.log(this.state.data)
+    if(this.state.data.get(qrString)){
+      var tentId = this.state.data.get(qrString)[0];
+      var tentNumber = this.state.data.get(qrString)[1];
+      this.props.navigation.navigate('checkList', {tentid: tentId, tentnum: tentNumber, adminToken:this.state.token});
+    }
+    else{
+      alert("Invalid QR code.")
+    }
+    //this.scanner.reactivate()
+  
+  }
+  
+  componentWillMount(){
+    this.props.navigation.addListener('willFocus', () => this.scanner.reactivate());
   }
   async componentDidMount(){
     const { navigation } = this.props;
@@ -54,54 +69,60 @@ class adminTentChecks extends Component {
     }
     this.setState({data: userMap});
   }
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  }
   render() {
     return (
+     
+      <Grid style={{backgroundColor: "#639aff"}}>
       <KeyboardShift>
-        <Grid>
-          <Row size ={20}></Row>
-          <Row size={40}>
-            <Col size={10}></Col>
-            <Col size={80}>
-            
-            <QRCodeScanner
-              onRead={this.onSuccess.bind(this)}
-              cameraStyle = {styles.camera}
-              ref={(node) => { this.scanner = node }}
-              />
-              </Col>
-            <Col size={10}></Col>
-          </Row>
-          <Row size={30}></Row>
-          <Row size={10}>
-            <Col size={10}></Col>
-            <Col size={80}>
-              <TextInput style = {styles.input}
-                    editable = {true}
-                    placeholder = "Code"
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    returnKeyType={ "done" }
-                    onChangeText = {this.updateQrString}
-                    />
+        <Row size ={20}></Row>
+        <Row size={40}>
+          <Col size={10}></Col>
+          <Col size={80}>
+          
+          <QRCodeScanner
+            onRead={this.onSuccess.bind(this)}
+            cameraStyle = {styles.camera}
+            ref={(node) => { this.scanner = node }}
+            />
             </Col>
-            <Col size={10}></Col>
-          </Row>
-          <Row size={5}></Row>
-          <Row size={15}>
+          <Col size={10}></Col>
+        </Row>
+        <Row size={30}></Row>
+        <Row size={10}>
+          <Col size={10}></Col>
+          <Col size={80}>
+            <TextInput style = {styles.input}
+                  editable = {true}
+                  placeholder = "Code"
+                  placeholderTextColor = "white"
+                  autoCapitalize = "none"
+                  returnKeyType={ "done" }
+                  onChangeText = {this.updateQrString}
+                  />
+          </Col>
+          <Col size={10}></Col>
+        </Row>
+        <Row size={5}></Row>
+        <Row size={15}>
+          <Col size={20}></Col>
+            <Col size={60}>
+              <View style = {styles.container}>
+              <TouchableOpacity onPress={() => this.submitQr(this.state.qrString)}>
+                  <Text style = {styles.text}>
+                    Submit
+                  </Text>
+              </TouchableOpacity>
+              </View>
+            </Col>
             <Col size={20}></Col>
-              <Col size={60}>
-                <View style = {styles.container}>
-                <TouchableOpacity onPress={() => this.submitQr(this.state.qrString)}>
-                    <Text style = {styles.text}>
-                      Submit
-                    </Text>
-                </TouchableOpacity>
-                </View>
-              </Col>
-              <Col size={20}></Col>
-          </Row>
-        </Grid>
-      </KeyboardShift>
+        </Row>
+        </KeyboardShift>
+      </Grid>
+      
       
     );
   }
@@ -135,23 +156,38 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
-    textAlign: 'center',
-    height: 40,
-    borderColor: 'black',
-    borderWidth: 1,
-    width: '100%'
+     color: 'white',
+     backgroundColor: '#639aff',
+     borderRadius: 10,
+     textAlign: 'center',
+     height: 40,
+     borderColor: 'white',
+     borderWidth: 0.5,
+     width: '100%'
  },
  container: {
   alignItems: 'center',
   width: '100%'
 },
 text: {
-  borderWidth: 1,
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
   paddingTop: 15,
   paddingBottom: 15,
   paddingLeft:60,
   paddingRight: 60,
   borderColor: 'black',
   fontSize: 20
+  /*
+  borderWidth: 1,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:60,
+  paddingRight: 60,
+  borderColor: 'black',
+  fontSize: 20*/
 },
 });

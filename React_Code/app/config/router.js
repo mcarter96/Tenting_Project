@@ -17,7 +17,7 @@ import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
 import SearchForTent from '../screens/SearchForTent'
 import adminFeed from '../screens/adminFeed'
-import adminManageUsers from '../screens/adminManageUsers'
+import adminManageUsers from '../screens/adminClearData'
 import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminGameManage from '../screens/adminGameManage'
@@ -26,6 +26,8 @@ import confirmAccount from '../screens/confirmAccount'
 import TentAssignment from '../screens/TentAssignment';
 import CreateGame from '../screens/createGame';
 import CheckList from '../screens/adminTentCheckList'
+import ForgotPassword from '../screens/ForgotPassword'
+console.disableYellowBox = true;
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -55,7 +57,7 @@ export const AdminStack = createStackNavigator({
   adminManageUsers: {
     screen: adminManageUsers, 
     navigationOptions: {
-      title: 'Manage Users'
+      title: 'Clear Data'
     },
   },
   createGame: {
@@ -83,6 +85,7 @@ export const CreateTentStack = createStackNavigator({
   InitialTentDetails: {
     screen: InitialTentDetails,
     navigationOptions: {
+      tabBarVisible: false ,
       title: 'Setup Tent',
     },
   },
@@ -93,6 +96,7 @@ export const CreateTentStack = createStackNavigator({
     },
   },
 });
+
 
 export const CreateJoinStack = createStackNavigator({
   SearchForTent: {
@@ -121,7 +125,8 @@ export const Tabs = createBottomTabNavigator({
     screen: TentRegInitial,
     navigationOptions: {
       tabBarLabel: 'Tent',
-      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor}
+       />,
     },
   },
   QRCode: {
@@ -135,7 +140,7 @@ export const Tabs = createBottomTabNavigator({
     screen: Settings,
     navigationOptions: {
       tabBarLabel: 'Settings',
-      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />,
     },
   },
   
@@ -151,6 +156,7 @@ export const LoginStack = createStackNavigator({
 });
 
 export const Root = createStackNavigator({
+  
   Login: {
     screen: LoginStack,
   },
@@ -171,9 +177,13 @@ export const Root = createStackNavigator({
   },
   Confirmation: {
     screen: confirmAccount,
-  }
+  },
+  ResetPassword:{
+    screen:ForgotPassword,
+  },
 }, {
   mode: 'modal',
   headerMode: 'none',
 });
+
 

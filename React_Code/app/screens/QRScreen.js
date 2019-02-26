@@ -9,16 +9,8 @@ class QRScreen extends Component {
     tentId: '',
     tentQr:'No Tent',
   }
-  async componentDidMount(){
-    const { navigation } = this.props;
-    const tentIdentifier = navigation.getParam('tentId', 'bad');
-    const tentString = navigation.getParam('qrString', 'No QR');
-    this.setState({tentId: tentIdentifier});
-    if(tentString != "No QR"){
-      this.setState({tentQr: tentString})
-    }
-    else{
-      var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+  loadTentData = async() =>{
+    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
       })
       .then((response) => response.json())
@@ -33,21 +25,39 @@ class QRScreen extends Component {
       for(var i = 0; i < result.length; i++){
         if(result[i].id == this.state.tentId){
           this.setState({tentQr: result[i].qr_code_str});
+          this.setState({tentNumber: result[i].tent_number});
         }
       }
-      
+  }
+  async componentDidMount(){
+    const { navigation } = this.props;
+    const tentIdentifier = navigation.getParam('tentId', 'bad');
+    const tentString = navigation.getParam('qrString', 'No QR');
+    this.setState({tentId: tentIdentifier});
+    if(tentString != "No QR"){
+      this.setState({tentQr: tentString})
+    }
+    else{
+      this.loadTentData();
     }
   }
   async componentDidUpdate(){
     const { navigation } = this.props;
     const tentIdentifier = navigation.getParam('tentId', 'bad');
     const tentString = navigation.getParam('qrString', 'No QR');
+    const tentNum = navigation.getParam('tentnum', 'nonum')
     if(this.state.tentId !== tentIdentifier)
       this.setState({tentId: tentIdentifier});
     if(tentString != "No QR"){
       if(this.state.tentQr !== tentString)
         this.setState({tentQr: tentString})
     }
+    if(tentNum != 'nonum'){
+      if(this.state.tentNumber !== tentNum){
+        this.setState({tentNumber: tentNum});
+      }
+    }
+    
     else{
       var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
@@ -65,20 +75,23 @@ class QRScreen extends Component {
         if(result[i].id == this.state.tentId){
           if(this.state.tentQr !== result[i].qr_code_str)
             this.setState({tentQr: result[i].qr_code_str});
+            if(result[i].tent_number != null && this.state.tentNumber != result[i].tent_number)
+              this.setState({tentNumber: result[i].tent_number});
         }
       }
+      
       
     }
   }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={20}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
-              <Text style={{fontSize: 50}}>Tent #{this.state.tentNumber}</Text>
+              <Text style={{fontSize: 50, color: 'white'}}>Tent #{this.state.tentNumber}</Text>
             </View>
           </Col>
           <Col size={10}></Col>
@@ -96,7 +109,7 @@ class QRScreen extends Component {
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
-          <View style = {styles.container}><Text style={{fontSize: 15}}>{this.state.tentQr}</Text></View>
+          <View style = {styles.container}><Text style={{fontSize: 15, color: 'white'}}>{this.state.tentQr}</Text></View>
           </Col>
           <Col size={10}></Col>
         </Row>
@@ -104,14 +117,13 @@ class QRScreen extends Component {
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
-              <Text style={{fontSize: 50}}>Countdown!</Text>
+             
             </View>
           </Col>
           <Col size={10}></Col>
         </Row>
         <Row size={10}></Row>
       </Grid>
-      
     );
   }
 }

@@ -14,7 +14,7 @@ class TentRegInitial extends Component {
     if(this.state.tentData != null){
       this.props.navigation.navigate('QRCode');
     }else{
-      this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email});
+      this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email, token: this.props.navigation.getParam('token')});
     }
     
   }
@@ -38,7 +38,7 @@ class TentRegInitial extends Component {
       this.props.navigation.navigate('QRCode');
     }
     else{
-      this.props.navigation.navigate('JoinTentStack', {tentId: this.state.tentData, userEmail: this.state.email});
+      this.props.navigation.navigate('JoinTentStack', {tentId: this.state.tentData, userEmail: this.state.email, token: this.props.navigation.getParam('token')});
     }
     
   }
@@ -50,6 +50,7 @@ class TentRegInitial extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Authorization: 'Token '+this.props.navigation.getParam('token'),
       },
       body: JSON.stringify({
         id: tentdata.id,
@@ -78,7 +79,10 @@ class TentRegInitial extends Component {
   loadTentData = async(id) =>{
     var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
     })
     .then((response) => response.json())
     .then((responseJson) => {
@@ -92,7 +96,10 @@ class TentRegInitial extends Component {
   email2id = async(email) =>{
     console.log(email);
     var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
     })
     .then((response) => response.json())
     .then((responseJson) => {
@@ -152,10 +159,11 @@ class TentRegInitial extends Component {
       alert("Your not in a tent.")
     }
   }
+ 
 
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={20}>
           <Col size={20}></Col>
@@ -212,27 +220,50 @@ const styles = StyleSheet.create ({
      width: '100%'
   },
   text: {
-     borderWidth: 1,
-     padding: 25,
-     borderColor: 'black',
-     fontSize: 30
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    padding: 25,
+    borderColor: 'black',
+    fontSize: 30,
   },
   textJoin: {
-    borderWidth: 1,
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 25,
     paddingBottom: 25,
     borderColor: 'black',
-    fontSize: 30
+    fontSize: 30,
+    /*
+    borderWidth: 1,
+   */
  },
  textLeave: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingLeft: 30,
+  paddingRight: 30,
+  paddingTop: 25,
+  paddingBottom: 25,
+  borderColor: 'black',
+  fontSize: 30,
+   /*
   borderWidth: 1,
   paddingLeft: 30,
   paddingRight: 30,
   paddingTop: 25,
   paddingBottom: 25,
   borderColor: 'black',
-  fontSize: 30
+  fontSize: 30*/
 },
 })

@@ -66,6 +66,7 @@ class CheckList extends Component {
     .catch(error => {
       console.error(error);
     });
+    this.props.navigation.navigate('adminTentChecks');
     alert("Tent successfully checked!")
   }
   createTentCheck = async(tentid) =>{
@@ -115,37 +116,37 @@ class CheckList extends Component {
         this.setState({tentCheckId: tentcheckData[i].id});
         var updatedData = [
           {
-              label: 'Waiver Check',
+              label: 'Waiver Check ',
               value: 'one',
               RNchecked: tentcheckData[i].waiver_check,
           },
           {
-              label: 'Tent Setup',
+              label: 'Tent Setup      ',
               value: 'two',
               RNchecked: tentcheckData[i].setup_check,
           },
           {
-              label: 'Tent Check 1',
+              label: 'Tent Check 1  ',
               value: 'three',
               RNchecked: tentcheckData[i].tent_check_1,
           },
           {
-            label: 'Tent Check 2',
+            label: 'Tent Check 2  ',
             value: 'four',
             RNchecked: tentcheckData[i].tent_check_2,
           },
           {
-            label: 'Tent Check 3',
+            label: 'Tent Check 3  ',
             value: 'five',
             RNchecked: tentcheckData[i].tent_check_3,
           },
           {
-            label: 'Tent Check 4',
+            label: 'Tent Check 4  ',
             value: 'six',
             RNchecked: tentcheckData[i].tent_check_4,
           },
           {
-            label: 'Final Check',
+            label: 'Final  Check    ',
             value: 'seven',
             RNchecked: tentcheckData[i].final_check,
          },
@@ -158,37 +159,37 @@ class CheckList extends Component {
       this.createTentCheck(tentid)
       var updatedData = [
         {
-            label: 'Waiver Check',
+            label: 'Waiver Check ',
             value: 'one',
             RNchecked: false,
         },
         {
-            label: 'Tent Setup',
+            label: 'Tent Setup      ',
             value: 'two',
             RNchecked: false,
         },
         {
-            label: 'Tent Check 1',
+            label: 'Tent Check 1  ',
             value: 'three',
             RNchecked: false,
         },
         {
-          label: 'Tent Check 2',
+          label: 'Tent Check 2  ',
           value: 'four',
           RNchecked: false,
         },
         {
-          label: 'Tent Check 3',
+          label: 'Tent Check 3  ',
           value: 'five',
           RNchecked: false,
         },
         {
-          label: 'Tent Check 4',
+          label: 'Tent Check 4  ',
           value: 'six',
           RNchecked: false,
         },
         {
-          label: 'Final Check',
+          label: 'Final  Check     ',
           value: 'seven',
           RNchecked: false,
        },
@@ -197,15 +198,19 @@ class CheckList extends Component {
       noTentCheck = false;
     }
 };
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size ={2}></Row>
         <Row size ={6}>
           <Col size={10}></Col>
             <Col size={80}>
               <View style = {styles.container}>
-                <Text style={{fontSize: 30}}>Tent #{this.state.tentId}</Text>
+                <Text style={{fontSize: 30, color:'white'}}>Tent #{this.state.tentNum}</Text>
               </View>
             </Col>
             <Col size={10}></Col>
@@ -217,11 +222,13 @@ class CheckList extends Component {
               <CheckboxFormX
                   style={{ width: '100%', marginLeft: 0}}
                   dataSource={this.state.checkData}
+                  textStyle={{color: 'white'}}
                   itemShowKey="label"
                   itemCheckedKey="RNchecked"
+                  iconColor="white"
                   iconSize={30}
                   formHorizontal={false}
-                  labelHorizontal={false}
+                  labelHorizontal={true}
                   onChecked={(item) => this._onSelect(item)}
               />
           </View>
@@ -261,13 +268,25 @@ const styles = StyleSheet.create ({
       width: '100%'
   },
   text: {
+    color: 'white',
+    backgroundColor: '#9aadce',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft:30,
+    paddingRight: 30,
+    borderColor: 'black',
+    fontSize: 20
+    /*
       borderWidth: 1,
       paddingTop: 10,
       paddingBottom: 10,
       paddingLeft:30,
       paddingRight:30,
       borderColor: 'black',
-      fontSize: 20
+      fontSize: 20*/
   },
   textJoin: {
     borderWidth: 1,

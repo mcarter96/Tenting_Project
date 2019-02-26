@@ -71,6 +71,7 @@ class CreateGame extends Component {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Token '+this.props.navigation.getParam('token'),
         },
         body: JSON.stringify({
           game_start: gameStart,
@@ -92,16 +93,20 @@ class CreateGame extends Component {
       alert("All fields are required!");
     }
   }
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#9aadce' },
+    headerTitleStyle: { color: 'white' },
+  }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={10}></Row>
         <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Game Name"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.gamename}
@@ -176,47 +181,91 @@ export default CreateGame;
 
 const styles = StyleSheet.create({
   input: {
+    color: 'white',
+    backgroundColor: '#639aff',
+    borderRadius: 10,
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    width: '100%'
+    /*
      textAlign: 'center',
      height: 40,
      borderColor: 'black',
      borderWidth: 1,
-     width: '100%'
+     width: '100%'*/
   },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  pickerText: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  padding:10,
+  borderColor: 'black',
+  fontSize: 20
+   /*
     borderWidth: 1,
     padding: 10,
     borderColor: 'black',
-    fontSize: 20
+    fontSize: 20*/
  },
  picker2Text:{
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 11,
+  paddingBottom: 11,
+  paddingLeft:16,
+  paddingRight: 16,
+  borderColor: 'black',
+  fontSize: 20
+  /*
   borderWidth: 1,
   paddingTop: 11,
   paddingBottom: 11,
   paddingLeft: 16,
   paddingRight: 16,
   borderColor: 'black',
-  fontSize: 20
+  fontSize: 20*/
  },
  submitText: {
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:43,
+  paddingRight: 43,
+  borderColor: 'black',
+  fontSize: 20
+   /*
   borderWidth: 1,
   paddingTop: 10,
   paddingBottom: 10,
   paddingLeft: 43,
   paddingRight: 43,
   borderColor: 'black',
-  fontSize: 20
+  fontSize: 20*/
 },
  numberText: {
     padding: 5,
-    fontSize: 30
+    fontSize: 30,
+    color:'white',
  },
  startingText:{
    padding: 5,
    fontSize: 20,
+   color:'white',
  }
 })
 

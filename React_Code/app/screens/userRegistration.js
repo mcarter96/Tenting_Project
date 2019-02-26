@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, AsyncStorage, 
+    TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import KeyboardShift from './KeyboardShift';
 
@@ -11,7 +12,7 @@ class userRegistration extends Component {
     id: '',
     phoneNumber: '',
     gradYear: '',
-
+    confirmPassword: '',
   }
   userEmail = (text) => {
       this.setState({userEmail: text});
@@ -23,6 +24,9 @@ class userRegistration extends Component {
   password = (text) => {
     this.setState({id: text});
     
+  }
+  confirmPassword = (text) =>{
+      this.setState({confirmPassword: text});
   }
   studentID = (text) => {
     this.setState({id: text});
@@ -39,6 +43,8 @@ class userRegistration extends Component {
       this.setState({gradYear: text});
   }
   fetchDataFromApi = (userName, passWord, Name, id, phone, gradyear)  => {
+    var today = new Date();
+    var yyyy = today.getFullYear();
     const url = "http://tenting-rewards.gonzaga.edu/api/profile/";
      return fetch(url, {
         method: 'POST',
@@ -52,7 +58,7 @@ class userRegistration extends Component {
         password: passWord,
         student_id: parseInt(id),
         phone_number: phone,
-        graduation_year: parseInt(gradyear),
+        graduation_year: parseInt(yyyy + 5),
       }),
     })
       .then(res => res.json())
@@ -84,54 +90,55 @@ class userRegistration extends Component {
         alertString = alertString.concat("Student id\n");
         displayAlert = true;
     }
-    if (gradYear == ""){
-        alertString = alertString.concat("Graduation Year\n");
-        displayAlert = true;
-    }
     if(displayAlert){
         alert(alertString);
     }
     else{
-        var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber, gradYear)
-        var success = true;
-        console.log(result);
-        if(result.email){
-            if(result.email[0] == "Email address must be a zagmail email address"){
-                success = false;
-                alert("Email address must be a zagmail email address");
+        if(this.state.password != this.state.confirmPassword){
+            alert("Passwords don't match!")
+        }
+        else{
+            var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber, gradYear)
+            var success = true;
+            console.log(result);
+            if(result.email){
+                if(result.email[0] == "Email address must be a zagmail email address"){
+                    success = false;
+                    alert("Email address must be a zagmail email address");
+                }
+            }
+            else if(result.phone_number){
+                if(result.phone_number[0] == "Phone number must be entered in the format: '+999-999-9999'"){
+                    success = false;
+                    alert("Phone number must be entered in the format: '+999-999-9999'");
+                }
+                else if(result.phone_number[0] == "user profile with this phone number already exists."){
+                    success = false;
+                    alert("An account using this phone number already exists.");
+                }
+                
+            }
+            else if(result.student_id){
+                if(result.student_id[0] == "user profile with this student id already exists."){
+                    success = false;
+                    alert("User profile with this student id already exists!");
+                }
+                
+            }
+            if(success){
+                alert("Registration successful, check your email for a confirmation code!");
+                this.props.navigation.navigate('Login');
             }
         }
-        else if(result.phone_number){
-            if(result.phone_number[0] == "Phone number must be entered in the format: '+999-999-9999'"){
-                success = false;
-                alert("Phone number must be entered in the format: '+999-999-9999'");
-            }
-            else if(result.phone_number[0] == "user profile with this phone number already exists."){
-                success = false;
-                alert("An account using this phone number already exists.");
-            }
-            
-        }
-        else if(result.student_id){
-            if(result.student_id[0] == "user profile with this student id already exists."){
-                success = false;
-                alert("User profile with this student id already exists!");
-            }
-            
-        }
-        if(success){
-            alert("Registration successful, check your email for a confirmation code!");
-            this.props.navigation.navigate('Login');
-        }
-        
     }
     
     
  }
+ 
   render() {
     return (
         <KeyboardShift>
-        <Grid>
+        <Grid style={{backgroundColor: "#639aff"}}>
             <Row size={2}></Row>
             <Row size={10}>
             </Row>
@@ -141,7 +148,7 @@ class userRegistration extends Component {
                 <TextInput style = {styles.input}
                     editable = {true}
                     placeholder = "Email"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.userEmail}
@@ -156,7 +163,7 @@ class userRegistration extends Component {
             <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Name"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.userName}/>
@@ -169,7 +176,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Password"
-                        placeholderTextColor = "black"
+                        placeholderTextColor = "white"
                         autoCapitalize = "none"
                         secureTextEntry = {true}
                         returnKeyType={ "done" }
@@ -181,9 +188,23 @@ class userRegistration extends Component {
             <Row size={10}>
                 <Col size={10}></Col>
                 <Col size={80}>
+                    <TextInput style = {styles.input}
+                        placeholder = "Confirm Password"
+                        placeholderTextColor = "white"
+                        autoCapitalize = "none"
+                        secureTextEntry = {true}
+                        returnKeyType={ "done" }
+                        onChangeText = {this.confirmPassword}/>
+                </Col>
+                <Col size={10}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={10}>
+                <Col size={10}></Col>
+                <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Student ID"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "white"
                     keyboardType = 'numeric'
                     maxLength={8} 
                     autoCapitalize = "none"
@@ -198,7 +219,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Phone Number"
-                        placeholderTextColor = "black"
+                        placeholderTextColor = "white"
                         autoCapitalize = "none"
                         keyboardType = 'number-pad'
                         returnKeyType={ "done" }
@@ -206,23 +227,10 @@ class userRegistration extends Component {
                 </Col>
                 <Col size={10}></Col>
             </Row>
-            <Row size={2}></Row>
-            <Row size={10}>
-                <Col size={10}></Col>
-                <Col size={80}>
-                    <TextInput style = {styles.input}
-                        placeholder = "Graduation Year"
-                        placeholderTextColor = "black"
-                        autoCapitalize = "none"
-                        keyboardType = 'number-pad'
-                        returnKeyType={ "done" }
-                        onChangeText = {this.gradYear}/>
-                </Col>
-                <Col size={10}></Col>
-            </Row>
+            
             <Row size={7}></Row>
 
-            <Row size={20}>
+            <Row size={10}>
             <Col size={20}></Col>
                 <Col size={60}>
                 <View style = {styles.container}>
@@ -232,6 +240,20 @@ class userRegistration extends Component {
                     </Text>
                 </TouchableOpacity>
                 </View>
+                </Col>
+                <Col size={20}></Col>
+            </Row>
+            <Row size={2}></Row>
+            <Row size={8}>
+                <Col size={20}></Col>
+                <Col size={60}>
+                    <View style = {styles.container}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text style={{color: 'white'}}>
+                        Go Back
+                        </Text>
+                    </TouchableOpacity>
+                    </View>
                 </Col>
                 <Col size={20}></Col>
             </Row>
@@ -245,21 +267,28 @@ export default userRegistration;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
+    color: 'white',
+    backgroundColor: '#639aff',
+    borderRadius: 10,
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    width: '100%'
   },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
-    borderWidth: 1,
+    color: 'white',
+    backgroundColor: '#9aadce',//'#4a86f7',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
     padding: 15,
     borderColor: 'black',
-    fontSize: 20
+    fontSize: 20,
  },
  numberText: {
     padding: 5,
