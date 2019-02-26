@@ -421,7 +421,7 @@ class TestPasswordReset(TestCase):
     """Verify that password reset assigns new password to user account"""
     def test_password_reset_form(self):
         user = models.UserProfile.objects.get(email="test@zagmail.gonzaga.edu")
-        url = '/api/forgot_password/'
+        url = '/api/forgot-password/'
         client.force_authenticate(user=user)
         response = client.post(url, data={"email":"test@zagmail.gonzaga.edu"})
         print(response.content)
@@ -431,7 +431,7 @@ class TestPasswordReset(TestCase):
     """Alert user that password reset is invalid if account does not exist"""
     def test_invalid_email(self):
         user = models.UserProfile.objects.get(email="test@zagmail.gonzaga.edu")
-        url = '/api/forgot_password/'
+        url = '/api/forgot-password/'
         client.force_authenticate(user=user)
         response = client.post(url, data={"email": "invalid_test@zagmail.gonzaga.edu"})
         print(response.content)
