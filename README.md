@@ -3,7 +3,7 @@
 ## To Start The Server On tenting-rewards@gonzaga.edu 
 1. ssh into the server (tenting-rewards.gonzaga.edu) (Use putty on Windows)
 2. Navigate to the following directory: `/home/source_code/Gonzaga-Tenting-Rewards`
-3. Run the runserver.sh script: `./runserver.sh`
+3. Run the runserver.sh script: `sudo ./runserver.sh`
 
  > This will open up a virtual environment and install any necessary components into the virtual environment required for the server to run
 4. Type in your password when prompted
@@ -35,9 +35,29 @@ coverage html
 * .../api/login
 * .../api/tent
 * .../api/games
-* .../api/forgot_password
-* .../api/tent-checks
+* .../api/forgot-password
+    - Simple post request with a key of 'email' and the values of the user whoever wants to reset their password. [Ex: {'email': 'test@zagmail.gonzaga.edu}]
+* .../api/tent-checks?params
+    - Parameters for tent-checks are as follows (for multiple parameters seperate w/ &):
+    ```
+    missing_check=waiver_check,tent_check_1
+    ```
+    > The values can be any sort of tent check field seperated by commas. No limit on number of values that can be passed in. Will return all tents that have not completed the passed in checks
+    ```
+    done_tents=True
+    ```
+    > This returns all tents that have every field marked as true for their tent check object. If set to anything but true the field will not filter any responses and return all tents like normal
+    ```
+    completed_check=waiver_check,tent_check_1
+    ```
+    > This field is like the missing check field in that you can input as many tents as you want and it will filter the tents into which ones have completed the appropriate checks that the user is requesting.
+    
 * .../api/remove-tents
+    - Simple post request will delete all tents in the database
 * .../api/remove-users
+    - Simple post request will delete all users in the database
 * .../api/remove-games
-* ../api/confirm-email
+    - Simple post request will delete all games in the database
+* ../api/confirm-email?id=[id]&confirmation_id=[confirmation_id]
+    - Sending a get request to the confirm email url with the appropriate fields will allow a user to confirm their email
+    

@@ -52,6 +52,18 @@ class TentCheckViewSet(viewsets.ModelViewSet):
                     params[field.name] = True
             queryset = queryset.filter(**params)
 
+        completed_check = self.request.query_params.get('completed_check')
+        if completed_check is not None:
+            print(completed_check)
+            params = {}
+            # Generate a list of all checks they want to complete
+            checks = completed_check.split(',')
+            for check in checks:
+                if check in [field.name for field in models.Tent_Check._meta.fields]:
+                    params[check] = True
+            # Filter on parameters
+            queryset = queryset.filter(**params)
+
 
         page = self.paginate_queryset(queryset)
         if page is not None:
