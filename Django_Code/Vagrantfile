@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     # Update and upgrade the server packages.
     sudo apt-get update
     sudo apt-get -y upgrade
+    apt-get install -y apache2
     # Set Ubuntu Language
     sudo locale-gen en_GB.UTF-8
     # Install Python, SQLite and pip
@@ -36,5 +37,6 @@ Vagrant.configure("2") do |config|
         echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/ubuntu/.bashrc
     fi
   SHELL
+  config.vm.provision :shell, path: "bootstrap.sh"
 
 end
