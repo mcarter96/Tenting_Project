@@ -135,7 +135,7 @@ class addMembers extends Component {
   var emailArr = [];
   for(var i = 0; i < result.length; i++){
     userMap2.set(result[i].email, result[i].tent_id);
-    if(result[i].tent_id == null){
+    if(result[i].tent_id == null && result[i].email != this.props.navigation.getParam('creatorName', 'No Name')){
       emailArr.push({id: result[i].id, name: result[i].email})
     }
   }
@@ -208,39 +208,40 @@ class addMembers extends Component {
             placeholderTextColor = "white"
             resetValue={false}
             underlineColorAndroid="transparent"
+            listType = 'ListView'
           />
           </Col>
         </Row>
-        <Row size={10}>
+        <Row size={20}>
         </Row>
-        <Row size={10}>
+        <Row size={8}>
           <Col size={10}><Text style = {styles.numberText}>1.</Text></Col>
           <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[0]}</Text>
           </Col>
         </Row>
         
-        <Row size={10}>
+        <Row size={8}>
             <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[1]}</Text>
             </Col>
             
         </Row>
         
-        <Row size={10}>
+        <Row size={8}>
             <Col size={10}><Text style = {styles.numberText}>3.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[2]}</Text>
             </Col>
             
         </Row>
         
-        <Row size={10}>
+        <Row size={8}>
             <Col size={10}><Text style = {styles.numberText}>4.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[3]}</Text>
             </Col>
             
         </Row>
         
-        <Row size={10}>
+        <Row size={8}>
             <Col size={10}><Text style = {styles.numberText}>5.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[4]}</Text>
             </Col>
