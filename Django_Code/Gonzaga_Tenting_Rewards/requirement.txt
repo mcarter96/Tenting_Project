@@ -1,0 +1,5 @@
+coverage==4.5.2
+Django==2.0.9
+djangorestframework==3.9.0
+mysqlclient==1.4.2.post1
+pytz==2018.6
