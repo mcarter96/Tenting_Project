@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { InputAutoSuggest } from 'react-native-autocomplete-search';
-
-import Autocomplete from 'react-native-autocomplete-input';
+import SearchableDropdown from 'react-native-searchable-dropdown';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -16,7 +14,7 @@ class addMembers extends Component {
     query: '',
     tentMembers: [],
   }
-
+/*
   findEmail(query) {
     if (query === '') {
       return [];
@@ -24,7 +22,7 @@ class addMembers extends Component {
     const { emails } = this.state;
     const regex = new RegExp(`${query.trim()}`, 'i');
     return emails.filter(email => email.name.search(regex) >= 0);
-  }
+  }*/
   genQrCodeStr = () => {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -138,14 +136,23 @@ class addMembers extends Component {
   for(var i = 0; i < result.length; i++){
     userMap2.set(result[i].email, result[i].tent_id);
     if(result[i].tent_id == null){
-      emailArr.push({id: String(i+1), name: result[i].email})
+      emailArr.push({id: result[i].id, name: result[i].email})
     }
   }
+  console.log(emailArr);
   this.setState({emails:emailArr})
   this.setState({tentData:userMap2});
  }
  addNewMember = (name) =>{
    var notDup = true;
+   emailArr = []
+    for(var i = 0; i < this.state.emails.length; i++){
+      if(name != this.state.emails[i].name){
+        emailArr.push(this.state.emails[i]);
+      }
+      
+    }
+    this.setState({emails:emailArr});
     for(var i = 0; i < this.state.tentMembers.length; i++){
       if(this.state.tentMembers[i] != name){
         notDup = true;
@@ -154,8 +161,9 @@ class addMembers extends Component {
         notDup = false;
       }
     }
-    if(notDup)
+    if(notDup){
       this.setState({ tentMembers: this.state.tentMembers.concat([name])});
+    }
  }
  static navigationOptions = {
   headerStyle: { backgroundColor: '#9aadce' },
@@ -165,65 +173,73 @@ class addMembers extends Component {
     const { navigation } = this.props;
     const userName = navigation.getParam('creatorName', 'No Name');
     const tentPin = navigation.getParam('tentPin', 'noPin');
-    const { query } = this.state;
-    const emails = this.findEmail(query);
-    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
+    //const { query } = this.state;
+    //const emails = this.findEmail(query);
+    //const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
       <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={2}></Row>
         <Row size={10}>
           <Col size={100}>
-          <Autocomplete
-            autoCapitalize="none"
-            autoCorrect={false}
-            containerStyle={styles.autocompleteContainer}
-            data={emails.length === 1 && comp(query, emails[0].name) ? [] : emails}
-            defaultValue={query}
-            listStyle={{maxHeight: 20}}
-            onChangeText={text => this.setState({ query: text })}
-            placeholder="Search for a user"
+          <SearchableDropdown
+            onTextChange={text => console.log(text)}
+            onItemSelect={item => this.addNewMember(item.name)}
+            containerStyle={{ padding: 5 }}
+            textInputStyle={{
+              padding: 12,
+              borderWidth: 1,
+              borderColor: '#ccc',
+              borderRadius: 5,
+              color:'white',
+            }}
+            itemStyle={{
+              padding: 10,
+              marginTop: 2,
+              backgroundColor: 'white',
+              borderColor: '#bbb',
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
+            itemTextStyle={{ color: '#222' }}
+            itemsContainerStyle={{ maxHeight: 140 }}
+            items={this.state.emails}
+            defaultIndex={2}
+            placeholder="Email"
             placeholderTextColor = "white"
-            style={styles.input}
-            renderItem={({ name }) => (
-            <TouchableOpacity onPress={() => this.addNewMember(name)}>
-              <Text style = {styles.autoFillText}>
-                {name} 
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-            
+            resetValue={false}
+            underlineColorAndroid="transparent"
+          />
           </Col>
         </Row>
-        <Row size={2}>
+        <Row size={10}>
         </Row>
         <Row size={10}>
           <Col size={10}><Text style = {styles.numberText}>1.</Text></Col>
           <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[0]}</Text>
           </Col>
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[1]}</Text>
             </Col>
             
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>3.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[2]}</Text>
             </Col>
             
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>4.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[3]}</Text>
             </Col>
             
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>5.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[4]}</Text>

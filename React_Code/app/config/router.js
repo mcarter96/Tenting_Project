@@ -28,6 +28,8 @@ import CreateGame from '../screens/createGame';
 import CheckList from '../screens/adminTentCheckList'
 import ForgotPassword from '../screens/ForgotPassword'
 console.disableYellowBox = true;
+console.disableRedBox = true;
+console.reportErrorsAsExceptions = false;
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
