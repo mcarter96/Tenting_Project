@@ -112,6 +112,38 @@ class addMembers extends Component {
       
     
  }
+ reloadEmails = async() =>{
+  this.setState({ tentMembers: []})
+  var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    return responseJson;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+  var userMap = new Map();
+  for(var i = 0; i < result.length; i++){
+    userMap.set(result[i].email,result[i].id)
+  }
+  this.setState({data: userMap});
+  var userMap2 = new Map();
+  var emailArr = [];
+  for(var i = 0; i < result.length; i++){
+    userMap2.set(result[i].email, result[i].tent_id);
+    if(result[i].tent_id == null && result[i].email != this.props.navigation.getParam('creatorName', 'No Name')){
+      emailArr.push({id: result[i].id, name: result[i].email})
+    }
+  }
+  console.log(emailArr);
+  this.setState({emails:emailArr})
+  this.setState({tentData:userMap2});
+ }
  async componentDidMount(){
   var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
     method: 'GET',
@@ -201,47 +233,46 @@ class addMembers extends Component {
               borderRadius: 5,
             }}
             itemTextStyle={{ color: '#222' }}
-            itemsContainerStyle={{ maxHeight: 140 }}
+            itemsContainerStyle={{ maxHeight: 300, zIndex: 5, }}
             items={this.state.emails}
             defaultIndex={2}
             placeholder="Email"
             placeholderTextColor = "white"
-            resetValue={false}
+            resetValue={true}
             underlineColorAndroid="transparent"
-            listType = 'ListView'
           />
           </Col>
         </Row>
-        <Row size={20}>
+        <Row size={2}>
         </Row>
-        <Row size={8}>
+        <Row size={10}>
           <Col size={10}><Text style = {styles.numberText}>1.</Text></Col>
           <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[0]}</Text>
           </Col>
         </Row>
         
-        <Row size={8}>
+        <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[1]}</Text>
             </Col>
             
         </Row>
         
-        <Row size={8}>
+        <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>3.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[2]}</Text>
             </Col>
             
         </Row>
         
-        <Row size={8}>
+        <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>4.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[3]}</Text>
             </Col>
             
         </Row>
         
-        <Row size={8}>
+        <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>5.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[4]}</Text>
             </Col>
@@ -261,7 +292,7 @@ class addMembers extends Component {
             <Col size={10}></Col>
             <Col size={30}>
               <View style = {styles.container}>
-                <TouchableOpacity onPress={() => this.setState({ tentMembers: []})}>
+                <TouchableOpacity onPress={() => this.reloadEmails()}>
                     <Text style = {styles.text2}>
                       Clear
                     </Text>
