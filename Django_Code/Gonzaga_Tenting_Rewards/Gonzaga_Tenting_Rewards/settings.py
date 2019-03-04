@@ -93,7 +93,7 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'tenting_data',
             'USER': 'tenting-rewards',
-            'PASSWORD', 'tentingRewards',
+            'PASSWORD': 'tentingRewards',
             'HOST': 'localhost',
             'PORT': '',
         }

@@ -1,6 +1,6 @@
 # Gonzaga-Tenting-Rewards
 
-## To Start The Server On tenting-rewards@gonzaga.edu 
+## To Start The Server On tenting-rewards.gonzaga.edu 
 1. ssh into the server (tenting-rewards.gonzaga.edu) (Use putty on Windows)
 2. Navigate to the following directory: `/home/source_code/Gonzaga-Tenting-Rewards`
 3. Run the runserver.sh script: `sudo ./runserver.sh`
@@ -51,7 +51,6 @@ coverage html
     completed_check=waiver_check,tent_check_1
     ```
     > This field is like the missing check field in that you can input as many tents as you want and it will filter the tents into which ones have completed the appropriate checks that the user is requesting.
-    
 * .../api/remove-tents
     - Simple POST request will delete all tents in the database
 * .../api/remove-users
