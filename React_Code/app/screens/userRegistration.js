@@ -94,13 +94,16 @@ class userRegistration extends Component {
         alert(alertString);
     }
     else{
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
         if(this.state.password != this.state.confirmPassword){
             alert("Passwords don't match!")
+        }
+        else if(!strongRegex.test(this.state.password)){
+            alert("Password must be minimum length of 8 characters, contain one lower and one upper case character, one numeric character, and one special character.")
         }
         else{
             var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber, gradYear)
             var success = true;
-            console.log(result);
             if(result.email){
                 if(result.email[0] == "Email address must be a zagmail email address"){
                     success = false;
