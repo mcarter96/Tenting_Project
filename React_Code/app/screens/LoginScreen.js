@@ -83,6 +83,7 @@ class Login extends Component {
     }
     else{
         var result = await this.fetchDataFromApi(username, password);
+        console.log(result);
         if (!result.non_field_errors){
           
           console.log(result);
@@ -103,7 +104,7 @@ class Login extends Component {
             this.setState({username:''});
             this._textInput.setNativeProps({ text: '' });
             this._textInput2.setNativeProps({text: ''});
-            this.props.navigation.navigate('Confirmation', {id: userId});
+            this.props.navigation.navigate('Confirmation', {id: result.user_id});
           }
           else{
             alert("Invalid Username or Password.")
