@@ -10,13 +10,12 @@ import Home from '../screens/Home';
 import Settings from '../screens/Settings';
 import Feed from '../screens/Feed';
 import TentRegInitial from '../screens/TentRegInitial';
-import TentRuleConfirmation from '../screens/TentRuleConfirmation';
 import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
 import SearchForTent from '../screens/SearchForTent'
-import adminFeed from '../screens/adminFeed'
+import adminTentFilter from '../screens/adminTentFilter'
 import adminManageUsers from '../screens/adminClearData'
 import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
@@ -49,10 +48,10 @@ export const AdminStack = createStackNavigator({
       title: 'Tent Checks'
     },
   },
-  adminFeed: {
-    screen: adminFeed,
+  adminTentFilter: {
+    screen: adminTentFilter,
     navigationOptions: {
-      title: 'Admin Feed'
+      title: 'Filter Tents'
     },
   },
   adminManageUsers: {

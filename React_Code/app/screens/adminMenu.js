@@ -25,8 +25,8 @@ class adminMenu extends Component {
     this.props.navigation.navigate('adminManageUsers', {adminToken: this.state.token});
   }
 
-  onPressUpdateFeed = () => {
-    this.props.navigation.navigate('adminFeed');
+  onPressFilterTents = () => {
+    this.props.navigation.navigate('adminTentFilter', {token: this.state.token});
   }
   logout = () => {
     console.log(this.state.data);
@@ -73,8 +73,21 @@ static navigationOptions = {
             </View>
           </Col>
           <Col size={10}></Col>
+        </Row>        
+        <Row size={5}></Row>
+        <Row size={19}>
+          <Col size={10}></Col>
+          <Col size={80}>
+            <View style = {styles.container}>
+            <TouchableOpacity onPress={this.onPressFilterTents}>
+                <Text style = {styles.text2}>
+                  Filter Tents
+                </Text>
+            </TouchableOpacity>
+            </View>
+          </Col>
+          <Col size={10}></Col>
         </Row>
-
         <Row size={5}></Row>
         <Row size={19}>
           <Col size={10}></Col>
@@ -83,21 +96,6 @@ static navigationOptions = {
             <TouchableOpacity onPress={this.onPressManageUsers}>
                 <Text style = {styles.text3}>
                   Clear Data
-                </Text>
-            </TouchableOpacity>
-            </View>
-          </Col>
-          <Col size={10}></Col>
-        </Row>
-        
-        <Row size={5}></Row>
-        <Row size={19}>
-          <Col size={10}></Col>
-          <Col size={80}>
-            <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressUpdateFeed}>
-                <Text style = {styles.text2}>
-                  Update Feed
                 </Text>
             </TouchableOpacity>
             </View>
@@ -151,14 +149,6 @@ const styles = StyleSheet.create({
   paddingRight: 50,
   borderColor: 'black',
   fontSize: 20
-   /*
-    borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft:50,
-    paddingRight:50,
-    borderColor: 'black',
-    fontSize: 20*/
  },
  text4: {
   color: 'white',
@@ -181,18 +171,11 @@ const styles = StyleSheet.create({
   borderWidth: 0,
   paddingTop: 10,
   paddingBottom: 10,
-  paddingLeft:80,
-  paddingRight: 80,
+  paddingLeft:90,
+  paddingRight: 90,
   borderColor: 'black',
   fontSize: 20
-   /*
-  borderWidth: 1,
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingLeft:80,
-  paddingRight:80,
-  borderColor: 'black',
-  fontSize: 20*/
+   
 },
 text3: {
   color: 'white',
@@ -206,13 +189,6 @@ text3: {
   paddingRight: 90,
   borderColor: 'black',
   fontSize: 20
-  /*
-  borderWidth: 1,
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingLeft:70,
-  paddingRight:70,
-  borderColor: 'black',
-  fontSize: 20*/
+
 },
 })
