@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Api',
     'Tent_Checks',
     'Admin_Maintenance',
+    'Game',
 ]
 
 MIDDLEWARE = [

@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('Api.urls')),
     url(r'^api/', include('Tent_Checks.urls')),
-    url(r'^api/', include('Admin_Maintenance.urls'))
+    url(r'^api/', include('Admin_Maintenance.urls')),
+    url(r'^api/', include('Game.urls'))
 ]

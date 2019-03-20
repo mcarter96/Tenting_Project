@@ -10,6 +10,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.core.validators import RegexValidator
 import uuid
+from Game import models as game_models
 
 # Create your models here.
 
@@ -113,26 +114,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
         return self.email
 
-class Game(models.Model):
-    """Create a game for admins to assign tents for"""
-
-    game_start = models.DateTimeField()
-    tenting_start = models.DateTimeField()
-    game_name = models.CharField(max_length=20)
-
-    def create_game(self, game_start, tenting_start, game_name):
-        game = self.model(game_start=game_start, tenting_start=tenting_start, game_name=game_name)
-        return game
-
-    def get_game_start(self):
-        return self.game_start
-
-    def get_tenting_start(self):
-        return self.tenting_start
-
-    def get_game_name(self):
-        return self.game_name
-
 def limit_tenter_choices():
     return {'is_staff': False, 'is_active': True}
 
@@ -153,7 +134,7 @@ class TentGroup(models.Model):
                                  limit_choices_to=limit_tenter_choices, null=True)
     tent_pin = models.IntegerField()
     qr_code_str = models.CharField(max_length=100)
-    game_id = models.ForeignKey(Game, related_name='game_id', on_delete=models.CASCADE, null=True)
+    game_id = models.ForeignKey(game_models.Game, related_name='game_id', on_delete=models.CASCADE, null=True)
     tent_number = models.IntegerField(null=True)
 
     def create_tent_group(self, tenter_1, tenter_2, tenter_3, tenter_4, tenter_5, tenter_6, tent_pin, qr_code_str):
