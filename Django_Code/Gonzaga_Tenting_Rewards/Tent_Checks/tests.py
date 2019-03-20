@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.test import TestCase, Client
 from rest_framework.test import  force_authenticate, APIClient
 from . import models
-from Api import models as Api_models
+from User_Profile import models as Api_models
 import threading
 import json
 

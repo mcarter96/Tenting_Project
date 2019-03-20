@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'Api',
+    'User_Profile',
     'Tent_Checks',
     'Admin_Maintenance',
     'Game',
+    'Tents',
+
 ]
 
 MIDDLEWARE = [
@@ -158,7 +160,7 @@ else:
     }
 
 # Overrides the current user to use our own custom user
-AUTH_USER_MODEL = 'Api.UserProfile'
+AUTH_USER_MODEL = 'User_Profile.UserProfile'
 
 # Configures an SMTP Email Backend
 EMAIL_HOST = 'smtp.gmail.com'

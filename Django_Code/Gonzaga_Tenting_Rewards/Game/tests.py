@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import  APIClient
 
 import json
-from Api import models as api_models
+from User_Profile import models as api_models
 # Create your tests here.
 
 def confirmUserOutsideOfAPI(email):

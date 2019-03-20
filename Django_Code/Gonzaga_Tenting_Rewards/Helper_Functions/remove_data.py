@@ -4,7 +4,7 @@ the admin wants to perform
 """
 
 import datetime
-from Api import models as Api_models
+from User_Profile import models as Api_models
 
 
 def removeAllTents():

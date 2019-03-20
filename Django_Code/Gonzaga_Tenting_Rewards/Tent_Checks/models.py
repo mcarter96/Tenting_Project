@@ -1,11 +1,12 @@
 from django.db import models
-from Api import models as Api_models
+from User_Profile import models as Api_models
+from Tents import models as tent_models
 
 # Create your models here.
 class Tent_Check(models.Model):
     """Create a game for admins to assign tents for"""
 
-    tent_id = models.ForeignKey(Api_models.TentGroup, on_delete=models.CASCADE)
+    tent_id = models.ForeignKey(tent_models.TentGroup, on_delete=models.CASCADE)
     waiver_check = models.BooleanField(default=False)
     setup_check = models.BooleanField(default=False)
     tent_check_1 = models.BooleanField(default=False)

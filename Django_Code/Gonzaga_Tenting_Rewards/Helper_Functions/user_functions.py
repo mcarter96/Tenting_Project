@@ -3,7 +3,7 @@ This file provides various user functions that interact with the database
 to allow us to find other values based on the information that we know
 """
 
-from Api import models
+from User_Profile import models
 from django.db.models import Q
 
 def getUserID(email):

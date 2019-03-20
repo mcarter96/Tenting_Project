@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from Api import models
+from User_Profile import models
 
 class InteractWithGameData(permissions.BasePermission):
     """Determine if the user can interact with the Game Data object"""

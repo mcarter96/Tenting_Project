@@ -2,7 +2,7 @@
 
 # Imports
 from rest_framework import permissions
-from Api import models
+from User_Profile import models
 
 # Define custom permissions here
 

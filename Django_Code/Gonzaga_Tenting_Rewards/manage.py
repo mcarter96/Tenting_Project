@@ -15,7 +15,7 @@ if __name__ == "__main__":
         ) from exc
     if is_testing:
         import coverage
-        cov = coverage.coverage(source=['Api', 'Tent_Checks'], omit=['*/tests/*'])
+        cov = coverage.coverage(source=['User_Profile', 'Tent_Checks'], omit=['*/tests/*'])
         cov.erase()
         cov.start()
 
