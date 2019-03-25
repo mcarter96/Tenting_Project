@@ -18,7 +18,7 @@ class SearchForTent extends Component {
   }
   
   loadTentData = async(id) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
     method: 'GET'
     })
@@ -33,7 +33,7 @@ class SearchForTent extends Component {
   }
 
   addToTent = async (tentdata) => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
     console.log(tentdata);
     var result = await fetch(url, {
       method: 'PUT',
@@ -128,7 +128,7 @@ class SearchForTent extends Component {
     const { navigation } = this.props;
     const email = navigation.getParam('userEmail', 'No Name');
     this.setState({userEmail: email});
-    var result2 = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    var result2 = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),
@@ -149,7 +149,7 @@ class SearchForTent extends Component {
     }
     this.setState({email2id: userMap3});
     //console.log(userMap2);
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
     .then((response) => response.json())

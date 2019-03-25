@@ -21,7 +21,7 @@ class CheckList extends Component {
     console.log(item);
   };
   loadTentChecks = async(token) => {
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent-checks/";
     var result = await fetch(url, {
     method: 'GET',
     headers: new Headers({
@@ -39,7 +39,7 @@ class CheckList extends Component {
     return result;
   }
   updateTentCheck =(checkdata)=>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/"+this.state.tentCheckId+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent-checks/"+this.state.tentCheckId+"/";
     var result = fetch(url, {
       method: 'PUT',
       headers: {
@@ -70,7 +70,7 @@ class CheckList extends Component {
     alert("Tent successfully checked!")
   }
   createTentCheck = async(tentid) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent-checks/";
     var result = fetch(url, {
       method: 'POST',
       headers: {

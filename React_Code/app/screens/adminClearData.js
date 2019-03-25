@@ -17,7 +17,7 @@ class adminClearData extends Component {
     headerTitleStyle: { color: 'white' },
     }
   onPressClearTents = () => {
-    var url = "http://tenting-rewards.gonzaga.edu/api/remove-tents/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/remove-tents/";
     var result = fetch(url, {
       method: 'POST',
       headers: {
@@ -39,7 +39,7 @@ class adminClearData extends Component {
     alert("All tents removed");
   }
   onPressClearGames = () => {
-    var url = "http://tenting-rewards.gonzaga.edu/api/remove-games/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/remove-games/";
     var result = fetch(url, {
       method: 'POST',
       headers: {

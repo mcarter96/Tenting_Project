@@ -45,7 +45,7 @@ class userRegistration extends Component {
   fetchDataFromApi = (userName, passWord, Name, id, phone, gradyear)  => {
     var today = new Date();
     var yyyy = today.getFullYear();
-    const url = "http://tenting-rewards.gonzaga.edu/api/profile/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/profile/";
      return fetch(url, {
         method: 'POST',
         headers: {

@@ -21,10 +21,10 @@ class Login extends Component {
     data: [],
     error: null,
     refreshing: false,
-    base_url: "http://tenting-rewards.gonzaga.edu/",
+    base_url: "https://tenting-rewards.gonzaga.edu/",
   }
   fetchDataFromApi = (userName, passWord)  => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/login/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/login/";
 
      return fetch(url, {
         method: 'POST',
@@ -47,7 +47,7 @@ class Login extends Component {
   };
 
    getUserId = async(userName) =>{
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
       method: 'GET'
     })
     .then((response) => response.json())

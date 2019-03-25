@@ -20,7 +20,7 @@ class adminTentFilter extends Component {
     }
     getFilteredTents = async(token) =>{
       
-      var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent-checks/",{
+      var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent-checks/",{
         method: 'GET',
         headers: {
           Authorization: 'Token '+ token,
@@ -36,7 +36,7 @@ class adminTentFilter extends Component {
         return result;
       }
       tentIdstoNumbers = async(token)=>{
-        var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/",{
+        var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/",{
         method: 'GET',
         headers: {
           Authorization: 'Token '+ token,

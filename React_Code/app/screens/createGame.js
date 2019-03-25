@@ -64,7 +64,7 @@ class CreateGame extends Component {
    }
   
   submit = async(name, tentStart, gameStart) =>{
-    const url = "http://tenting-rewards.gonzaga.edu/api/games/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/games/";
     if(name != "" && tentStart != "" && gameStart != ""){
       var result = await fetch(url, {
           method: 'POST',

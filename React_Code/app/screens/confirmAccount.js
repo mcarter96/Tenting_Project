@@ -19,8 +19,8 @@ class Confirmation extends Component {
   }
   
   confirmUserAccount = async(userId, confirmCode) => {
-    console.log("http://tenting-rewards.gonzaga.edu/api/confirm-email/?id=" + userId + "&confirmation_id="+ confirmCode);
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/confirm-email/?id=" + userId + "&confirmation_id="+ confirmCode, {
+    console.log("https://tenting-rewards.gonzaga.edu/api/confirm-email/?id=" + userId + "&confirmation_id="+ confirmCode);
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/confirm-email/?id=" + userId + "&confirmation_id="+ confirmCode, {
       method: 'GET'
     })
     .then((response) => response.json())

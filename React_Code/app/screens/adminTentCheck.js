@@ -53,7 +53,7 @@ class adminTentChecks extends Component {
     const { navigation } = this.props;
     const adminToken = navigation.getParam('adminToken', 'No ID');
     this.setState({token: adminToken});
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
     .then((response) => response.json())

@@ -33,7 +33,7 @@ class adminGameManage extends Component {
     this.props.navigation.navigate('tentAssignment', {gameid: this.state.gameid});
   }
   loadGameData = async() =>{
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/games/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/games/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),

@@ -34,7 +34,7 @@ class TentAssignment extends Component {
   submitQr = async(qrString)=>{
     if(this.state.data.get(qrString)){
       var tentId = this.state.data.get(qrString);
-      const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentId+"/";
+      const url = "https://tenting-rewards.gonzaga.edu/api/tent/"+tentId+"/";
       var members = this.state.tentData.get(qrString);
       
       var result = fetch(url, {
@@ -74,7 +74,7 @@ class TentAssignment extends Component {
   }
 
   loadTentNumber = async(id) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
     method: 'GET'
     })
@@ -89,7 +89,7 @@ class TentAssignment extends Component {
   }
 
   async componentDidMount(){
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
     .then((response) => response.json())

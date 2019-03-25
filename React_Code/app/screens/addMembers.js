@@ -42,7 +42,7 @@ class addMembers extends Component {
     }
     console.log(members);
     this.setState({qrString: qrStr})
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/tent/";
 
      return fetch(url, {
         method: 'POST',
@@ -114,7 +114,7 @@ class addMembers extends Component {
  }
  reloadEmails = async() =>{
   this.setState({ tentMembers: []})
-  var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+  var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),
@@ -145,7 +145,7 @@ class addMembers extends Component {
   this.setState({tentData:userMap2});
  }
  async componentDidMount(){
-  var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+  var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),
@@ -211,7 +211,7 @@ class addMembers extends Component {
     return (
       <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={2}></Row>
-        <Row size={10}>
+        <Row size={10} style={{zIndex: 5}}>
           <Col size={100}>
           <SearchableDropdown
             onTextChange={text => console.log(text)}

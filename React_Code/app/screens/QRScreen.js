@@ -10,7 +10,7 @@ class QRScreen extends Component {
     tentQr:'No Tent',
   }
   loadTentData = async() =>{
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
       })
       .then((response) => response.json())
@@ -59,7 +59,7 @@ class QRScreen extends Component {
     }
     
     else{
-      var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+      var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
       })
       .then((response) => response.json())

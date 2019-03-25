@@ -19,7 +19,7 @@ class ForgotPassword extends Component {
   }
   
   resetPassword = async(useremail) => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/forgot-password/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/forgot-password/";
     var result = fetch(url, {
         method: 'POST',
         headers: {
