@@ -147,12 +147,15 @@ class TentRegInitial extends Component {
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Succesfully left tent!")
       }
-      else{
+      else if(tentdata.tenter_6 == userid){
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: ""});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Succesfully left tent!")
+      }
+      else{
+        alert("Can't leave a tent you created!")
       }
     }
     else{
