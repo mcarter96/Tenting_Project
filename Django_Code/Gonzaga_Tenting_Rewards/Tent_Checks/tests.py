@@ -5,7 +5,8 @@ from django.test import TestCase
 from django.test import TestCase, Client
 from rest_framework.test import  force_authenticate, APIClient
 from . import models
-from User_Profile import models as Api_models
+from User_Profile import models as user_models
+from Tents import models as tent_models
 import threading
 import json
 
@@ -13,7 +14,7 @@ import json
 client = APIClient()
 
 def confirmUserOutsideOfAPI(email):
-    user = Api_models.UserProfile.objects.get(email=email)
+    user = user_models.UserProfile.objects.get(email=email)
     user.is_confirmed = True
     user.save()
 
@@ -21,22 +22,22 @@ class TestTentCheckView(TestCase):
     """Test the tent check view"""
 
     def setUp(self):
-        Api_models.UserProfile.objects.create_user(email="cvillagomez@zagmail.gonzaga.edu", name="Carlos Villagomez",
+        user_models.UserProfile.objects.create_user(email="cvillagomez@zagmail.gonzaga.edu", name="Carlos Villagomez",
                                                phone_number="971-400-8724", student_id=79849078, password=123,
                                                graduation_year=2019)
-        Api_models.UserProfile.objects.create_user(email="azenoni@zagmail.gonzaga.edu", name="Andrew Zenoni",
+        user_models.UserProfile.objects.create_user(email="azenoni@zagmail.gonzaga.edu", name="Andrew Zenoni",
                                                phone_number="223-234-1223", student_id=7984407, password=123,
                                                graduation_year=2019)
-        Api_models.UserProfile.objects.create_user(email="skopczynski@zagmail.gonzaga.edu", name="Scott Kopczynski",
+        user_models.UserProfile.objects.create_user(email="skopczynski@zagmail.gonzaga.edu", name="Scott Kopczynski",
                                                phone_number="912-440-8214", student_id=71249078, password=123,
                                                graduation_year=2019)
-        Api_models.UserProfile.objects.create_user(email="mcarter@zagmail.gonzaga.edu", name="Matt Carter",
+        user_models.UserProfile.objects.create_user(email="mcarter@zagmail.gonzaga.edu", name="Matt Carter",
                                                phone_number="954-432-8732", student_id=79834078, password=123,
                                                graduation_year=2019)
-        Api_models.UserProfile.objects.create_user(email="tester1@zagmail.gonzaga.edu", name="Shawn Bowers",
+        user_models.UserProfile.objects.create_user(email="tester1@zagmail.gonzaga.edu", name="Shawn Bowers",
                                                phone_number="954-454-8434", student_id=79815078, password=123,
                                                graduation_year=2019)
-        Api_models.UserProfile.objects.create_user(email="tester2@zagmail.gonzaga.edu", name="David Schroeder",
+        user_models.UserProfile.objects.create_user(email="tester2@zagmail.gonzaga.edu", name="David Schroeder",
                                                phone_number="924-435-8231", student_id=79844248, password=123,
                                                graduation_year=2019)
 
@@ -48,24 +49,24 @@ class TestTentCheckView(TestCase):
         confirmUserOutsideOfAPI("tester2@zagmail.gonzaga.edu")
 
         """Accesses users' profile information with email"""
-        tenter1 = Api_models.UserProfile.objects.get(email="cvillagomez@zagmail.gonzaga.edu")
-        tenter2 = Api_models.UserProfile.objects.get(email="azenoni@zagmail.gonzaga.edu")
-        tenter3 = Api_models.UserProfile.objects.get(email="skopczynski@zagmail.gonzaga.edu")
-        tenter4 = Api_models.UserProfile.objects.get(email="mcarter@zagmail.gonzaga.edu")
-        tenter5 = Api_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
-        tenter6 = Api_models.UserProfile.objects.get(email="tester2@zagmail.gonzaga.edu")
+        tenter1 = user_models.UserProfile.objects.get(email="cvillagomez@zagmail.gonzaga.edu")
+        tenter2 = user_models.UserProfile.objects.get(email="azenoni@zagmail.gonzaga.edu")
+        tenter3 = user_models.UserProfile.objects.get(email="skopczynski@zagmail.gonzaga.edu")
+        tenter4 = user_models.UserProfile.objects.get(email="mcarter@zagmail.gonzaga.edu")
+        tenter5 = user_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
+        tenter6 = user_models.UserProfile.objects.get(email="tester2@zagmail.gonzaga.edu")
 
         """Creates a new tent group object and passes in data"""
-        Api_models.TentGroup.objects.create(tenter_1=tenter1, tenter_2=tenter2, tenter_3=tenter3, tenter_4=tenter4,
+        tent_models.TentGroup.objects.create(tenter_1=tenter1, tenter_2=tenter2, tenter_3=tenter3, tenter_4=tenter4,
                                         tenter_5=tenter5, tenter_6=tenter6,
                                         tent_pin=1111, qr_code_str="ONE")
-        tent = Api_models.TentGroup.objects.get(tenter_1=tenter1)
+        tent = tent_models.TentGroup.objects.get(tenter_1=tenter1)
         models.Tent_Check.objects.create(tent_id=tent)
 
     def test_tent_list(self):
         """See if the list of tents is returned properly"""
 
-        user = Api_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
+        user = user_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
         client.force_authenticate(user=user)
         request = client.get('/api/tent-checks/')
 
@@ -82,7 +83,7 @@ class TestTentCheckView(TestCase):
     def test_tent_creation(self):
         """Test the creation of a tent-check via api"""
 
-        Api_models.UserProfile.objects.create_superuser(email="admin@zagmail.gonzaga.edu",
+        user_models.UserProfile.objects.create_superuser(email="admin@zagmail.gonzaga.edu",
                                                     name="admin admin",
                                                     phone_number="5555555555",
                                                     student_id=1,
@@ -92,9 +93,9 @@ class TestTentCheckView(TestCase):
 
         confirmUserOutsideOfAPI("admin@zagmail.gonzaga.edu")
 
-        user = Api_models.UserProfile.objects.get(email="admin@zagmail.gonzaga.edu")
+        user = user_models.UserProfile.objects.get(email="admin@zagmail.gonzaga.edu")
 
-        tent = Api_models.TentGroup.objects.create(tenter_1=user, tent_pin=12333, qr_code_str="TWO")
+        tent = tent_models.TentGroup.objects.create(tenter_1=user, tent_pin=12333, qr_code_str="TWO")
 
         data = {
             "tent_id": tent.id,
@@ -113,8 +114,8 @@ class TestTentCheckView(TestCase):
 
     def test_model_creation(self):
         """Test the creation of a tent check model"""
-        user = Api_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
-        tent = Api_models.TentGroup.objects.create(tenter_1=user, tent_pin=123123, qr_code_str="THREE")
+        user = user_models.UserProfile.objects.get(email="tester1@zagmail.gonzaga.edu")
+        tent = tent_models.TentGroup.objects.create(tenter_1=user, tent_pin=123123, qr_code_str="THREE")
         assert(tent)
         tent_check = models.Tent_Check.objects.create(tent_id=tent)
         assert(tent_check.get_tent_id() == tent)

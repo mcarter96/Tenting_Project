@@ -3,3 +3,5 @@ Django==2.0.9
 django-nose==1.4.6
 djangorestframework==3.9.0
 pytz==2018.6
+mysqlclient==1.4.2.post1
+pytz==2018.6

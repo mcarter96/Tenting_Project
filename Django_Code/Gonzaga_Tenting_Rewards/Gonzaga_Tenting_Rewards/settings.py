@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['tenting-rewards.gonzaga.edu', 'localhost', '127.0.0.1']
 
+# SECURITY FEATURES
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -140,6 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_media/')
 
 if DEBUG:
     REST_FRAMEWORK = {

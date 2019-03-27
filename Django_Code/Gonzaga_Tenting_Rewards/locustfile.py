@@ -7,7 +7,7 @@ class LoginTaskSet(TaskSequence):
 
     @seq_task(1)
     def login(self):
-        request = self.client.post("/api/login/", json={"username": "test3@zagmail.gonzaga.edu", "password": "p"}, )
+        request = self.client.post("/api/login/", json={"username": "locust@zagmail.gonzaga.edu", "password": "somePassword"}, )
         data = None
         if request is not None and request.content is not None:
             data = json.loads(request.content.decode('utf-8'))
@@ -18,7 +18,7 @@ class LoginTaskSet(TaskSequence):
     @seq_task(2)
     def get_profiles(self):
         if self.token is not None:
-            self.client.get("/api/profile", headers={'Authorization': self.token})
+            self.client.get("/api/profile/", headers={'Authorization': self.token})
 
 
 class ViewProfiles(TaskSet):
@@ -28,11 +28,11 @@ class ViewProfiles(TaskSet):
     @task
     def profiles(self):
         if self.token is not None:
-            self.client.get("/api/profile", headers={'Authorization': self.token})
+            self.client.get("/api/profile/", headers={'Authorization': self.token})
 
 
 class MyLocust(HttpLocust):
-    task_set = ViewProfiles
-    min_wait = 1000
-    max_wait = 5000
+    task_set = LoginTaskSet
+    min_wait = 5000
+    max_wait = 15000
 
