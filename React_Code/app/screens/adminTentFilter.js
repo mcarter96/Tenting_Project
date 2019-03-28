@@ -51,7 +51,8 @@ class adminTentFilter extends Component {
         });
         var userMap = new Map();
         for(var i = 0; i < result.length; i++){
-          userMap.set(result[i].id,result[i].tent_number)
+          if(result[i].tent_number != null)
+            userMap.set(result[i].id,result[i].tent_number)
         }
         this.setState({idToNum: userMap});
       }
@@ -117,7 +118,7 @@ class adminTentFilter extends Component {
       }
       missingSetup = () =>{
         var alertString = "Tents:\n" 
-        var result = this.getMissingTentCheck(1);
+        var result = this.getMissingTentCheck(2);
         for(var i = 0; i < result.length; i++){
           alertString += String(result[i])
           alertString += "\n"
@@ -126,7 +127,7 @@ class adminTentFilter extends Component {
       }
       missingWaiver = () =>{
         var alertString = "Tents:\n" 
-        var result = this.getMissingTentCheck(2);
+        var result = this.getMissingTentCheck(1);
         for(var i = 0; i < result.length; i++){
           alertString += String(result[i])
           alertString += "\n"

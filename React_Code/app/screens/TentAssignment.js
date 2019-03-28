@@ -71,6 +71,7 @@ class TentAssignment extends Component {
       else{
         alert("Invalid code.")
       }
+      this.scanner.reactivate()
   }
 
   loadTentNumber = async(id) =>{
