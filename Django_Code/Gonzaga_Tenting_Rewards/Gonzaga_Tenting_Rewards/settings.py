@@ -28,9 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['tenting-rewards.gonzaga.edu', 'localhost', '127.0.0.1']
 
 # SECURITY FEATURES
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Application definition
 
