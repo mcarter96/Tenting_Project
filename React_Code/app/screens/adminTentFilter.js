@@ -15,9 +15,10 @@ class adminTentFilter extends Component {
     idToNum: '',
   }
   static navigationOptions = {
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
-    }
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+    headerBackTitleStyle: {color: "#C1C6C8"},
+  }
     getFilteredTents = async(token) =>{
       
       var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent-checks/",{
@@ -189,7 +190,7 @@ class adminTentFilter extends Component {
      }
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={5}></Row>
         <Row size={10}>
           <Col size={10}></Col>
@@ -313,7 +314,7 @@ const styles = StyleSheet.create({
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
  },
  text4: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -339,7 +340,7 @@ const styles = StyleSheet.create({
  },
  text2: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -353,7 +354,7 @@ const styles = StyleSheet.create({
 },
 text3: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

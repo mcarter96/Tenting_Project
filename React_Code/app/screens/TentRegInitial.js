@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { ScrollView } from 'react-native';
 import { Tile, List, ListItem, Button } from 'react-native-elements';
-import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native'
 import { me } from '../config/data';
 
 class TentRegInitial extends Component {
@@ -166,9 +166,14 @@ class TentRegInitial extends Component {
 
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
-        <Row size={10}></Row>
-        <Row size={20}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
+        <Row size={5}></Row>
+        <Row size={10}>
+          <Col size={24}></Col>
+              <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+            <Col size={22}></Col>
+        </Row>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -181,7 +186,7 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -194,7 +199,7 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -207,7 +212,6 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={10}></Row>
       </Grid>
     );
   }
@@ -224,7 +228,7 @@ const styles = StyleSheet.create ({
   },
   text: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,
@@ -234,7 +238,7 @@ const styles = StyleSheet.create ({
   },
   textJoin: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,
@@ -250,7 +254,7 @@ const styles = StyleSheet.create ({
  },
  textLeave: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -260,13 +264,5 @@ const styles = StyleSheet.create ({
   paddingBottom: 25,
   borderColor: 'black',
   fontSize: 30,
-   /*
-  borderWidth: 1,
-  paddingLeft: 30,
-  paddingRight: 30,
-  paddingTop: 25,
-  paddingBottom: 25,
-  borderColor: 'black',
-  fontSize: 30*/
 },
 })

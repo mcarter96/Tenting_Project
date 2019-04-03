@@ -107,43 +107,37 @@ export const CreateJoinStack = createStackNavigator({
   },
 });
 export const Tabs = createBottomTabNavigator({
-  Home: {
-    screen: Home,
+  QRCode: {
+    screen: QRScreen,
     navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />,
-    },
-  },
-  Feed: {
-    screen: Feed,
-    navigationOptions: {
-      tabBarLabel: 'Feed',
-      tabBarIcon: ({ tintColor }) => <Entypo name="news" size={35} color={tintColor} />
+      tabBarLabel: 'QR',
+      tabBarIcon: ({ tintColor }) => <AntDesign name="qrcode" size={45} color={tintColor} />
     },
   },
   TentRegInitial: {
     screen: TentRegInitial,
     navigationOptions: {
       tabBarLabel: 'Tent',
-      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor}
+      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={45} color={tintColor}
        />,
-    },
-  },
-  QRCode: {
-    screen: QRScreen,
-    navigationOptions: {
-      tabBarLabel: 'QR',
-      tabBarIcon: ({ tintColor }) => <AntDesign name="qrcode" size={35} color={tintColor} />
     },
   },
   Settings: {
     screen: Settings,
     navigationOptions: {
-      tabBarLabel: 'Settings',
-      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />,
+      tabBarLabel: 'Info',
+      tabBarIcon: ({ tintColor }) => <AntDesign name="info" size={45} color={tintColor} />,
     },
   },
-  
+},{
+  tabBarOptions: {
+    activeTintColor: '#C1C6C8',
+    inactiveTintColor: 'white',
+    style: {
+      height: 65,
+      backgroundColor: '#041E42',
+    },
+  }
 });
 
 export const LoginStack = createStackNavigator({

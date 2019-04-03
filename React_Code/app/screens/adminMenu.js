@@ -5,7 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   TextInput, 
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -38,15 +39,21 @@ class adminMenu extends Component {
     this.setState({token: adminToken});
 };
 static navigationOptions = {
-  headerStyle: { backgroundColor: '#9aadce' },
-  headerTitleStyle: { color: 'white' },
+  headerStyle: { backgroundColor: '#C1C6C8' },
+  headerTitleStyle: { color: '#C1C6C8' },
   }
 
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={5}></Row>
-        <Row size={19}>
+        <Row size={20}>
+          <Col size={24}></Col>
+            <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+          <Col size={22}></Col>
+        </Row>
+        <Row size={10}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -60,13 +67,13 @@ static navigationOptions = {
           <Col size={10}></Col>
         </Row>
 
-        <Row size={5}></Row>
-        <Row size={19}>
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
             <TouchableOpacity onPress={this.onPressTentChecks}>
-              <Text style = {styles.text2}>
+              <Text style = {styles.text5}>
                 Tent Checks
               </Text>
             </TouchableOpacity>
@@ -74,8 +81,8 @@ static navigationOptions = {
           </Col>
           <Col size={10}></Col>
         </Row>        
-        <Row size={5}></Row>
-        <Row size={19}>
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -88,8 +95,8 @@ static navigationOptions = {
           </Col>
           <Col size={10}></Col>
         </Row>
-        <Row size={5}></Row>
-        <Row size={19}>
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -102,8 +109,8 @@ static navigationOptions = {
           </Col>
           <Col size={10}></Col>
         </Row>
-        <Row size={5}></Row>
-        <Row size={20}>
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -139,7 +146,7 @@ const styles = StyleSheet.create({
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
  },
  text4: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -165,7 +172,7 @@ const styles = StyleSheet.create({
  },
  text2: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -177,9 +184,23 @@ const styles = StyleSheet.create({
   fontSize: 20
    
 },
+text5: {
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:85,
+  paddingRight: 85,
+  borderColor: 'black',
+  fontSize: 20
+   
+},
 text3: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

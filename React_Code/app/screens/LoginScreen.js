@@ -83,9 +83,9 @@ class Login extends Component {
     }
     else{
         var result = await this.fetchDataFromApi(username, password);
-        console.log(result);
+        //console.log(result);
         if (!result.non_field_errors){
-          
+          console.log("HI");
           console.log(result);
           if (result.token){
             this.setState({password:''});
@@ -120,10 +120,11 @@ class Login extends Component {
   render() {
     return (
       <KeyboardShift>
-        <Grid style={{backgroundColor: "#639aff"}}>
-          <Row size={30}>
+        <Grid style={{backgroundColor: "#C1C6C8"}}>
+          <Row size={10}></Row>
+          <Row size={20}>
             <Col size={24}></Col>
-              <Col size={54}><Image source={require('../images/tenttwo.png')} /></Col>
+              <Col size={54}><Image source={require('../images/logo.png')} /></Col>
             <Col size={22}></Col>
           </Row>
           <Row size={10}>
@@ -131,7 +132,7 @@ class Login extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Email"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#8d8c8c"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.username}
@@ -148,7 +149,7 @@ class Login extends Component {
             <View style = {styles.container}>
               <TextInput style = {styles.input}
                     placeholder = "Password"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#8d8c8c"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     secureTextEntry = {true}
@@ -210,13 +211,14 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
-     color: 'white',
-     backgroundColor: '#639aff',
-     borderRadius: 10,
-     textAlign: 'center',
+     color: '#8d8c8c',
+     backgroundColor: 'white',
+     borderRadius: 25,
+     textAlign: 'left',
+     paddingLeft:20,
      height: 40,
-     borderColor: 'white',
-     borderWidth: 0.5,
+     borderColor: '#041E42',
+     borderWidth: 1,
      width: '100%'
   },
   container: {
@@ -225,7 +227,7 @@ const styles = StyleSheet.create({
  },
  text: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,
@@ -238,7 +240,7 @@ const styles = StyleSheet.create({
  },
  text2: {
   color: 'white',
-  backgroundColor: '#9aadce',//'#4a86f7',
+  backgroundColor: '#041E42',//'#4a86f7',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

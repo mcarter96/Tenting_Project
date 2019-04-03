@@ -198,8 +198,10 @@ class addMembers extends Component {
     }
  }
  static navigationOptions = {
-  headerStyle: { backgroundColor: '#9aadce' },
-  headerTitleStyle: { color: 'white' },
+  headerStyle: { backgroundColor: '#041E42' },
+  headerTitleStyle: { color: '#041E42' },
+  headerBackTitleStyle: {color: "#C1C6C8"},
+  headerLeftContainerStyle:{color: "#C1C6C8"},
   }
   render() {
     const { navigation } = this.props;
@@ -209,7 +211,7 @@ class addMembers extends Component {
     //const emails = this.findEmail(query);
     //const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={2}></Row>
         <Row size={10} style={{zIndex:5}}>
           <Col size={100}>
@@ -217,13 +219,9 @@ class addMembers extends Component {
             onTextChange={text => console.log(text)}
             onItemSelect={item => this.addNewMember(item.name)}
             containerStyle={{ padding: 5 }}
-            textInputStyle={{
-              padding: 12,
-              borderWidth: 1,
-              borderColor: '#ccc',
-              borderRadius: 5,
-              color:'white',
-            }}
+            textInputStyle={
+              styles.input
+            }
             itemStyle={{
               padding: 10,
               marginTop: 2,
@@ -237,7 +235,7 @@ class addMembers extends Component {
             items={this.state.emails}
             defaultIndex={2}
             placeholder="Email"
-            placeholderTextColor = "white"
+            placeholderTextColor = "#C1C6C8"
             resetValue={true}
             underlineColorAndroid="transparent"
           />
@@ -311,22 +309,23 @@ export default addMembers;
 
 const styles = StyleSheet.create({
   input: {
-    color: 'white',
-    backgroundColor: '#639aff',
-    borderRadius: 10,
-    textAlign: 'center',
+    color: '#8d8c8c',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
     height: 40,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    borderColor: '#041E42',
+    borderWidth: 1,
     width: '100%'
- },
+  },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -339,7 +338,7 @@ const styles = StyleSheet.create({
  },
  text2: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -361,12 +360,12 @@ const styles = StyleSheet.create({
  numberText: {
     padding: 5,
     fontSize: 25,
-    color: 'white',
+    color: '#041E42',
  },
  fillText: {
   padding: 5,
   fontSize: 20,
-  color: 'white',
+  color: '#041E42',
 },
  autoFillText: {
   padding: 0,

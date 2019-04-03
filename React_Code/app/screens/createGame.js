@@ -94,19 +94,20 @@ class CreateGame extends Component {
     }
   }
   static navigationOptions = {
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+    headerBackTitleStyle: {color: "#C1C6C8"},
   }
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={10}></Row>
         <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Game Name"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#C1C6C8"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.gamename}
@@ -181,28 +182,23 @@ export default CreateGame;
 
 const styles = StyleSheet.create({
   input: {
-    color: 'white',
-    backgroundColor: '#639aff',
-    borderRadius: 10,
-    textAlign: 'center',
+    color: '#8d8c8c',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
     height: 40,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    borderColor: '#041E42',
+    borderWidth: 1,
     width: '100%'
-    /*
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'*/
-  },
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  pickerText: {
-  color: 'white',
-  backgroundColor: '#9aadce',
+  color: "white",
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -216,8 +212,8 @@ const styles = StyleSheet.create({
     fontSize: 20*/
  },
  picker2Text:{
-  color: 'white',
-  backgroundColor: '#9aadce',
+  color: "white",
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -238,7 +234,7 @@ const styles = StyleSheet.create({
  },
  submitText: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -260,12 +256,12 @@ const styles = StyleSheet.create({
  numberText: {
     padding: 5,
     fontSize: 30,
-    color:'white',
+    color:'#041E42',
  },
  startingText:{
    padding: 5,
    fontSize: 20,
-   color:'white',
+   color:'#041E42',
  }
 })
 
