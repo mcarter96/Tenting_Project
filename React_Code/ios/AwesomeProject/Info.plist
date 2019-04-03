@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>9</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -45,8 +45,12 @@
 	<string>This application needs access to the calendar to select game dates</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This application needs access to the camera in order to scan QR codes.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This application uses libraries that may access user location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>This application uses libraries that may access user location.</string>
+	<key>NSLocationWhenInUseUsageDescription </key>
+	<string>This application uses libraries that may access user location.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This application access's the camera to scan QR codes, which may access the microphone.</string>
 	<key>NSMotionUsageDescription</key>

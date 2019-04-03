@@ -170,20 +170,20 @@ class SearchForTent extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: <Button onPress={() => navigation.goBack(null)}
           title="Back"
-          color="#fff" />,
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
+          color="#C1C6C8" />,
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
   });
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={5}></Row>
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Tent Creator Email"
-                  placeholderTextColor = "white"
+                  placeholderTextColor = "#C1C6C8"
                   autoCapitalize = "none"
                   onChangeText = {this.handleCreatorName}/>
           </Col>
@@ -196,7 +196,7 @@ class SearchForTent extends Component {
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Pin"
-                  placeholderTextColor = "white"
+                  placeholderTextColor = "#C1C6C8"
                   keyboardType = 'number-pad'
                   maxLength={6} 
                   secureTextEntry = {true}
@@ -230,22 +230,23 @@ export default SearchForTent;
 
 const styles = StyleSheet.create({
   input: {
-    color: 'white',
-    backgroundColor: '#639aff',
-    borderRadius: 10,
-    textAlign: 'center',
+    color: '#8d8c8c',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
     height: 40,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    borderColor: '#041E42',
+    borderWidth: 1,
     width: '100%'
-  },
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
