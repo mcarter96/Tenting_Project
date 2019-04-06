@@ -63,10 +63,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         user = models.UserProfile.objects.get(id=serializer.data['id'])
 
         # generate the url required for them to complete the registration process
-        url = reverse_lazy('api-root', request=request)
-        url += 'confirm-email/?id=' + str(user.id) + '&confirmation_id=' + str(user.confirmation_id)
 
-        # determine who to send the email to, depending on deployement state
+        # determine who to send the email to, depending on deployment state
         if settings.DEBUG:
             to_email = "tenting.rewards@gmail.com"
         else:

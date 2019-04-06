@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from django.db import transaction
 
 from . import models
 from Tent_Checks import models as Tent_Checks_Models
@@ -40,6 +40,7 @@ class TentSerializer(serializers.ModelSerializer):
         return tent
         # return TentSerializer.objects.create(**validated_data)
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         """
         Update and return an existing `TentingGroup` instance, given the validated data.

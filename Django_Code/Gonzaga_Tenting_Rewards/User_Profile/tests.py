@@ -46,12 +46,6 @@ class TestCreateSingleUser(TestCase):
                               data=data,
                               content_type="application/json")
         assert(request.status_code == 201)
-        # user = models.UserProfile.objects.get(email="test@zagmail.gonzaga.edu")
-        # client.force_authenticate(user=user)
-        # request = client.get('/api/profile/')
-        # results = request.data[0]
-        # assert(len(request.data) == 2)
-        # assert(request.data[1]['name'] == "Tester")
 
     def test_api_response(self):
         """Make sure the api retrieves a non admin user"""
@@ -286,8 +280,6 @@ class TestPasswordReset(TestCase):
         url = '/api/forgot-password/'
         client.force_authenticate(user=user)
         response = client.post(url, data={"email":"test@zagmail.gonzaga.edu"})
-        print(response.content)
-        print("Hello from password reset")
         assert(response.data['message']=="Password Reset!")
 
     """Alert user that password reset is invalid if account does not exist"""
@@ -296,7 +288,4 @@ class TestPasswordReset(TestCase):
         url = '/api/forgot-password/'
         client.force_authenticate(user=user)
         response = client.post(url, data={"email": "invalid_test@zagmail.gonzaga.edu"})
-        print(response.content)
-        print("Hello from test invalid email")
-        print(response.data)
         assert(response.data=="User does not exist")
