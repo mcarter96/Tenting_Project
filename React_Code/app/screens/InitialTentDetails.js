@@ -86,7 +86,7 @@ class InitialTentDetails extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Pin"
-                    placeholderTextColor = "#C1C6C8"
+                    placeholderTextColor = "#041E42"
                     keyboardType = 'number-pad'
                     maxLength={6} 
                     secureTextEntry = {true}
@@ -121,7 +121,7 @@ export default InitialTentDetails;
 
 const styles = StyleSheet.create({
   input: {
-    color: '#8d8c8c',
+    color: '#041E42',
     backgroundColor: 'white',
     borderRadius: 25,
     textAlign: 'left',

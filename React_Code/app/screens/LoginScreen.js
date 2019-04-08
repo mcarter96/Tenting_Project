@@ -132,7 +132,7 @@ class Login extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Email"
-                    placeholderTextColor = "#8d8c8c"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.username}
@@ -149,7 +149,7 @@ class Login extends Component {
             <View style = {styles.container}>
               <TextInput style = {styles.input}
                     placeholder = "Password"
-                    placeholderTextColor = "#8d8c8c"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     secureTextEntry = {true}
@@ -211,7 +211,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
-     color: '#8d8c8c',
+     color: '#041E42',
      backgroundColor: 'white',
      borderRadius: 25,
      textAlign: 'left',

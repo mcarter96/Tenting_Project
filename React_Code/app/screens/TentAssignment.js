@@ -150,7 +150,7 @@ class TentAssignment extends Component {
               <TextInput style = {styles.input}
                     editable = {true}
                     placeholder = "Code"
-                    placeholderTextColor = "#C1C6C8"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.updateQrString}
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
-    color: '#8d8c8c',
+    color: '#041E42',
     backgroundColor: 'white',
     borderRadius: 25,
     textAlign: 'left',

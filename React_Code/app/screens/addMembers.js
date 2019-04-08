@@ -235,7 +235,7 @@ class addMembers extends Component {
             items={this.state.emails}
             defaultIndex={2}
             placeholder="Email"
-            placeholderTextColor = "#C1C6C8"
+            placeholderTextColor = "#041E42"
             resetValue={true}
             underlineColorAndroid="transparent"
           />
@@ -309,7 +309,7 @@ export default addMembers;
 
 const styles = StyleSheet.create({
   input: {
-    color: '#8d8c8c',
+    color: '#041E42',
     backgroundColor: 'white',
     borderRadius: 25,
     textAlign: 'left',

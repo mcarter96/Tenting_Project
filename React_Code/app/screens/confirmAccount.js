@@ -60,7 +60,7 @@ class Confirmation extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Confirmation Code"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     returnKeyType={ "done" }
@@ -106,7 +106,7 @@ export default Confirmation;
 
 const styles = StyleSheet.create({
   input: {
-    color: '#8d8c8c',
+    color: '#041E42',
     backgroundColor: 'white',
     borderRadius: 25,
     textAlign: 'left',

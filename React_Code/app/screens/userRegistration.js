@@ -151,7 +151,7 @@ class userRegistration extends Component {
                 <TextInput style = {styles.input}
                     editable = {true}
                     placeholder = "Email"
-                    placeholderTextColor = "#C1C6C8"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.userEmail}
@@ -166,7 +166,7 @@ class userRegistration extends Component {
             <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Name"
-                    placeholderTextColor = "#C1C6C8"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.userName}/>
@@ -179,7 +179,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Password"
-                        placeholderTextColor = "#C1C6C8"
+                        placeholderTextColor = "#041E42"
                         autoCapitalize = "none"
                         secureTextEntry = {true}
                         returnKeyType={ "done" }
@@ -193,7 +193,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Confirm Password"
-                        placeholderTextColor = "#C1C6C8"
+                        placeholderTextColor = "#041E42"
                         autoCapitalize = "none"
                         secureTextEntry = {true}
                         returnKeyType={ "done" }
@@ -207,7 +207,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Student ID"
-                    placeholderTextColor = "#C1C6C8"
+                    placeholderTextColor = "#041E42"
                     keyboardType = 'numeric'
                     maxLength={8} 
                     autoCapitalize = "none"
@@ -222,7 +222,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Phone Number"
-                        placeholderTextColor = "#C1C6C8"
+                        placeholderTextColor = "#041E42"
                         autoCapitalize = "none"
                         keyboardType = 'number-pad'
                         returnKeyType={ "done" }
@@ -270,7 +270,7 @@ export default userRegistration;
 
 const styles = StyleSheet.create({
     input: {
-        color: '#8d8c8c',
+        color: '#041E42',
         backgroundColor: 'white',
         borderRadius: 25,
         textAlign: 'left',
