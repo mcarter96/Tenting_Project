@@ -15,16 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.urls import path
+from . import views
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('User_Profile.urls')),
-    url(r'^api/', include('Tent_Checks.urls')),
-    url(r'^api/', include('Admin_Maintenance.urls')),
-    url(r'^api/', include('Game.urls')),
-    url(r'^api/', include('Tents.urls')),
-    url(r'', include('Generic_Information.urls')),
+    path('privacy-policy/', views.privacy_policy)
 ]
