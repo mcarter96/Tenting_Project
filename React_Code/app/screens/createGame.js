@@ -65,7 +65,7 @@ class CreateGame extends Component {
   
   submit = async(name, tentStart, gameStart) =>{
     const url = "https://tenting-rewards.gonzaga.edu/api/games/";
-    if(name != "" && tentStart != "" && gameStart != ""){
+    if(name != ""){
       var result = await fetch(url, {
           method: 'POST',
           headers: {
@@ -74,8 +74,8 @@ class CreateGame extends Component {
             Authorization: 'Token '+this.props.navigation.getParam('token'),
         },
         body: JSON.stringify({
-          game_start: gameStart,
-          tenting_start: tentStart,
+          game_start: new Date(),
+          tenting_start: new Date(),
           game_name: name
         }),
       })
@@ -117,45 +117,11 @@ class CreateGame extends Component {
             <Col size={10}></Col>
         </Row>
         <Row size={5}></Row>
-        <Row size={10}><Text style = {styles.startingText}>{this.state.gameStart}</Text></Row>
+        <Row size={10}></Row>
         <Row size={15}>
-            <Col size={10}></Col>
-              <Col size={80}>
-                <View style = {styles.container}>
-                <TouchableOpacity onPress={this.showStartDateTimePicker}>
-                    <Text style = {styles.pickerText}>
-                      Set Game Start
-                    </Text>
-                </TouchableOpacity>
-                <DateTimePicker
-                  isVisible={this.state.startDateTimePickerVisible}
-                  onConfirm={this.handleStartDatePicked}
-                  onCancel={this.hideStartDateTimePicker}
-                  mode={'datetime'}
-                />
-                </View>
-              </Col>
-              <Col size={10}></Col>
         </Row>
-        <Row size={10}><Text style = {styles.startingText}>{this.state.tentingStart}</Text></Row>
+        <Row size={10}></Row>
         <Row size={15}>
-            <Col size={10}></Col>
-              <Col size={80}>
-                <View style = {styles.container}>
-                <TouchableOpacity onPress={this.showEndDateTimePicker}>
-                    <Text style = {styles.picker2Text}>
-                      Set Tent Start
-                    </Text>
-                </TouchableOpacity>
-                <DateTimePicker
-                  isVisible={this.state.endDateTimePickerVisible}
-                  onConfirm={this.handleEndDatePicked}
-                  onCancel={this.hideEndDateTimePicker}
-                  mode={'datetime'}
-                />
-                </View>
-              </Col>
-              <Col size={10}></Col>
         </Row>
         
         <Row size={10}>
