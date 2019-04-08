@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['tenting-rewards.gonzaga.edu', 'localhost', '127.0.0.1']
 
+# SECURITY FEATURES
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -39,9 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'Api',
+    'User_Profile',
     'Tent_Checks',
     'Admin_Maintenance',
+    'Game',
+    'Tents',
+
 ]
 
 MIDDLEWARE = [
@@ -91,9 +99,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'read_default_file': '/etc/mysql/my.cnf',
-            },
+            'NAME': 'tenting_data',
+            'USER': 'tenting-rewards',
+            'PASSWORD': 'tentingRewards',
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
 
@@ -135,6 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_media/')
 
 if DEBUG:
     REST_FRAMEWORK = {
@@ -155,7 +166,7 @@ else:
     }
 
 # Overrides the current user to use our own custom user
-AUTH_USER_MODEL = 'Api.UserProfile'
+AUTH_USER_MODEL = 'User_Profile.UserProfile'
 
 # Configures an SMTP Email Backend
 EMAIL_HOST = 'smtp.gmail.com'

@@ -63,10 +63,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         user = models.UserProfile.objects.get(id=serializer.data['id'])
 
         # generate the url required for them to complete the registration process
-        url = reverse_lazy('api-root', request=request)
-        url += 'confirm-email/?id=' + str(user.id) + '&confirmation_id=' + str(user.confirmation_id)
 
-        # determine who to send the email to, depending on deployement state
+        # determine who to send the email to, depending on deployment state
         if settings.DEBUG:
             to_email = "tenting.rewards@gmail.com"
         else:
@@ -205,37 +203,7 @@ class LoginViewSet(viewsets.ViewSet):
             return Response({'is_confirmed': is_confirmed, 'message': 'This user is not confirmed yet', 'user_id': user_id,
                              'status': status.HTTP_401_UNAUTHORIZED})
 
-class TentViewSet(viewsets.ModelViewSet):
-    """Handles creating and updating of tent groups"""
 
-    # What serializer to use
-    serializer_class = serializers.TentSerializer
-
-    # What to bounce queries against
-    queryset = models.TentGroup.objects.all()
-
-    # What to use for authentication
-    authentication_classes = (TokenAuthentication,)
-
-
-class GamesViewSet(viewsets.ModelViewSet):
-    """Logic to assign tents to a game"""
-
-    serializer_class = serializers.GameSerializer
-
-    queryset = models.Game.objects.all()
-
-    permission_classes = (permissions.InteractWithGameData,)
-
-    def create(self, request, *args, **kwargs):
-        """Create a game"""
-
-        serializer = self.get_serializer(data=request.data)
-
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class PasswordReset(APIView):
     """Password reset feature for user profile"""
