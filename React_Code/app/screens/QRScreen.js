@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Text,View,ScrollView, StyleSheet, TouchableOpacity,Image,} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import QRCode from 'react-native-qrcode';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class QRScreen extends Component {
   state = {
@@ -29,9 +31,30 @@ class QRScreen extends Component {
         }
       }
   }
+  
   logout = () => {
     console.log(this.state.data);
     this.props.navigation.navigate('Login');
+  }
+  updateTentData = async() =>{
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
+      method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        return responseJson;
+        //return responseJson.results;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      console.log(result);
+      for(var i = 0; i < result.length; i++){
+        if(result[i].id == this.state.tentId){
+              this.setState({tentNumber: result[i].tent_number});
+        }
+      }
   }
   async componentDidMount(){
     const { navigation } = this.props;
@@ -45,6 +68,7 @@ class QRScreen extends Component {
       this.loadTentData();
     }
   }
+  
   async componentDidUpdate(){
     const { navigation } = this.props;
     const tentIdentifier = navigation.getParam('tentId', 'bad');
@@ -90,7 +114,19 @@ class QRScreen extends Component {
   render() {
     return (
       <Grid style={{backgroundColor: "#C1C6C8"}}>
-       <Row size={5}></Row>
+       <Row size={3}></Row>
+       <Row size={8}>
+        <Col size ={90}></Col>
+        <Col size={10}>
+          <Icon
+            name='refresh'
+            size={35}
+            type='fontawesome'
+            color='#041E42'
+            onPress={() => this.updateTentData()}
+          />
+        </Col>
+       </Row>
        <Row size={20}>
             <Col size={24}></Col>
               <Col size={54}><Image source={require('../images/logo.png')} /></Col>
@@ -123,18 +159,14 @@ class QRScreen extends Component {
           <Col size={10}></Col>
         </Row>
         <Row size={5}></Row>
-        <Row size={10}>
-        <Col size={20}></Col>
-        <Col size={60}>
-        <View style = {styles.container}>
-          <TouchableOpacity onPress={() => this.logout()}>
-                    <Text style = {styles.textLogout}>
-                      Logout
-                    </Text>
-          </TouchableOpacity>
-          </View>
-        </Col>
-        <Col size={20}></Col>
+        <Row size={5}>
+          <Col size={20}></Col>
+          <Col size={60}>
+          <View style = {styles.container}>
+            
+            </View>
+          </Col>
+          <Col size={20}></Col>
         </Row>
       </Grid>
     );
@@ -184,6 +216,16 @@ const styles = StyleSheet.create ({
   borderColor: 'black',
   fontSize: 20
  },
+ clearButton: {
+  backgroundColor: 'white',
+  alignSelf: 'flex-end',
+  padding: 0,
+},
+clearIcon: {
+  marginRight: 4,
+  marginLeft: 4,
+  backgroundColor: 'white',
+},
  /*
  color: 'white',
     backgroundColor: '#041E42',

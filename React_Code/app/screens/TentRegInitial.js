@@ -12,6 +12,7 @@ class TentRegInitial extends Component {
   }
   onPressCreateTent = () => {
     if(this.state.tentData != null){
+      alert("Already in a tent!")
       this.props.navigation.navigate('QRCode');
     }else{
       this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email, token: this.props.navigation.getParam('token')});
@@ -35,6 +36,7 @@ class TentRegInitial extends Component {
 
   onPressJoinTent = () => {
     if(this.state.tentData != null){
+      alert("Already in a tent!")
       this.props.navigation.navigate('QRCode');
     }
     else{

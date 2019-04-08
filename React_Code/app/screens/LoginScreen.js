@@ -142,7 +142,7 @@ class Login extends Component {
             </Col>
             <Col size={10}></Col>
           </Row>
-          <Row size={5}></Row>
+          <Row size={1}></Row>
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>

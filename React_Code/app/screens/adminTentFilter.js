@@ -62,7 +62,7 @@ class adminTentFilter extends Component {
         //Waiver
         if(checkNum == 1){
           for(var i = 0; i < this.state.tentData.length; i++){
-            if(this.state.tentData[i].waiver_check == false){
+            if(this.state.tentData[i].waiver_check == false && this.state.tentData[i]){
               result.push(this.state.idToNum.get(this.state.tentData[i].id))
             }
           }
@@ -121,8 +121,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(2);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       }
@@ -130,8 +132,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(1);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       }
@@ -139,8 +143,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(3);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       }
@@ -148,8 +154,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(4);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       } 
@@ -157,8 +165,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(5);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       }
@@ -166,8 +176,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(6);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       }
@@ -175,8 +187,10 @@ class adminTentFilter extends Component {
         var alertString = "Tents:\n" 
         var result = this.getMissingTentCheck(7);
         for(var i = 0; i < result.length; i++){
-          alertString += String(result[i])
-          alertString += "\n"
+          if(result[i]!= undefined){
+            alertString += String(result[i])
+            alertString += "\n"
+          }
         }
         alert(alertString)
       }
