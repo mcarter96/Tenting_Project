@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['tenting-rewards.gonzaga.edu', 'localhost', '127.0.0.1']
 
+# SECURITY FEATURES
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -37,12 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_nose',
     'rest_framework',
     'rest_framework.authtoken',
-    'Api',
+    'User_Profile',
     'Tent_Checks',
     'Admin_Maintenance',
+    'Game',
+    'Tents',
+
 ]
 
 MIDDLEWARE = [
@@ -79,13 +86,26 @@ WSGI_APPLICATION = 'Gonzaga_Tenting_Rewards.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# If developing, use a SQLite backend
+# else use the the MySQL database
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'tenting_data',
+            'USER': 'tenting-rewards',
+            'PASSWORD': 'tentingRewards',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Password validation
@@ -125,6 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_media/')
 
 if DEBUG:
     REST_FRAMEWORK = {
@@ -145,7 +166,7 @@ else:
     }
 
 # Overrides the current user to use our own custom user
-AUTH_USER_MODEL = 'Api.UserProfile'
+AUTH_USER_MODEL = 'User_Profile.UserProfile'
 
 # Configures an SMTP Email Backend
 EMAIL_HOST = 'smtp.gmail.com'

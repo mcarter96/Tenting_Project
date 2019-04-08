@@ -1,12 +1,7 @@
-# This file allows for custom permissions to be created
-
-# Imports
 from rest_framework import permissions
-from User_Profile import models as Api_models
+from User_Profile import models
 
-# Define custom permissions here
-
-class InteractWithTentChecks(permissions.BasePermission):
+class InteractWithGameData(permissions.BasePermission):
     """Determine if the user can interact with the Game Data object"""
 
     def has_permission(self, request, view):
@@ -14,7 +9,7 @@ class InteractWithTentChecks(permissions.BasePermission):
 
         user = request.user.id
         try:
-            user = Api_models.UserProfile.objects.get(id=user)
+            user = models.UserProfile.objects.get(id=user)
         except:
             return False
         if user.is_staff:

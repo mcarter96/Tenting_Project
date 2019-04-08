@@ -10,6 +10,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.core.validators import RegexValidator
 import uuid
+from Game import models as game_models
 
 # Create your models here.
 
@@ -22,18 +23,18 @@ class UserProfileManager(BaseUserManager):
 
         # Make sure a phone number was entered
         if not phone_number and not superUser:
-            raise ValueError('Api must have a phone number')
+            raise ValueError('User_Profile must have a phone number')
 
         # Make sure a student id was entered
         if not student_id and not superUser:
-            raise ValueError('Api must have a student id')
+            raise ValueError('User_Profile must have a student id')
 
         # Make sure an email was entered
         if not email:
-            raise ValueError('Api must have an email address.')
+            raise ValueError('User_Profile must have an email address.')
 
         if not graduation_year and not superUser:
-            raise ValueError('Api must have a graduation year.')
+            raise ValueError('User_Profile must have a graduation year.')
 
         email = self.normalize_email(email)
 
@@ -113,87 +114,3 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
         return self.email
 
-class Game(models.Model):
-    """Create a game for admins to assign tents for"""
-
-    game_start = models.DateTimeField()
-    tenting_start = models.DateTimeField()
-    game_name = models.CharField(max_length=20)
-
-    def create_game(self, game_start, tenting_start, game_name):
-        game = self.model(game_start=game_start, tenting_start=tenting_start, game_name=game_name)
-        return game
-
-    def get_game_start(self):
-        return self.game_start
-
-    def get_tenting_start(self):
-        return self.tenting_start
-
-    def get_game_name(self):
-        return self.game_name
-
-def limit_tenter_choices():
-    return {'is_staff': False, 'is_active': True}
-
-class TentGroup(models.Model):
-    """Creates a new instance of a tenting group object and assigns up to 6 users to the group"""
-
-    tenter_1 = models.ForeignKey(UserProfile, related_name='tenter_1', on_delete=models.PROTECT,
-                                 limit_choices_to=limit_tenter_choices)
-    tenter_2 = models.ForeignKey(UserProfile, related_name='tenter_2', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
-    tenter_3 = models.ForeignKey(UserProfile, related_name='tenter_3', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
-    tenter_4 = models.ForeignKey(UserProfile, related_name='tenter_4', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
-    tenter_5 = models.ForeignKey(UserProfile, related_name='tenter_5', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
-    tenter_6 = models.ForeignKey(UserProfile, related_name='tenter_6', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
-    tent_pin = models.IntegerField()
-    qr_code_str = models.CharField(max_length=100)
-    game_id = models.ForeignKey(Game, related_name='game_id', on_delete=models.CASCADE, null=True)
-    tent_number = models.IntegerField(null=True)
-
-    def create_tent_group(self, tenter_1, tenter_2, tenter_3, tenter_4, tenter_5, tenter_6, tent_pin, qr_code_str):
-        """Creates a new tenting group object."""
-        tent_group = self.model(tenter_1=tenter_1, tenter_2=tenter_2, tenter_3=tenter_3, tenter_4=tenter_4,
-                                tenter_5=tenter_5, tenter_6=tenter_6, tent_pin=tent_pin, qr_code_str=qr_code_str)
-
-        return tent_group
-
-    def get_tenter_1(self):
-        """Used to get tenter 1's email."""
-
-        return self.tenter_1
-
-    def get_tenter_2(self):
-        """Used to get tenter 2's email."""
-
-        return self.tenter_2
-
-    def get_tenter_3(self):
-        """Used to get tenter 3's email."""
-
-        return self.tenter_3
-
-    def get_tenter_4(self):
-        """Used to get tenter 4's email."""
-
-        return self.tenter_4
-
-    def get_tenter_5(self):
-        """Used to get tenter 5's email."""
-
-        return self.tenter_5
-
-    def get_tenter_6(self):
-        """Used to get tenter 6's email."""
-
-        return self.tenter_6
-
-    def get_qr_code_str(self):
-        """Used to get QR code of tent group."""
-
-        return self.qr_code_str
