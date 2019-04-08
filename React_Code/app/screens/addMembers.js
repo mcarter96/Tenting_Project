@@ -103,7 +103,7 @@ class addMembers extends Component {
       var idArray = this.email2id(members);
       var qrStr = this.genQrCodeStr();
       this.fetchDataFromApi(idArray, tentPin, qrStr);
-      this.props.navigation.navigate('TentRegInitial');
+      this.props.navigation.navigate('TentRegInitial', {tentId: 5});
       this.props.navigation.navigate('QRCode', {tentMembers: members, qrString: qrStr});
     }
     else{

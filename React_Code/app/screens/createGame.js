@@ -49,11 +49,11 @@ class CreateGame extends Component {
   handleEndDatePicked = (date) => {
     var startDate = new Date(date)
     if(startDate.getHours() > 12){
-      this.setState({tentingStart: 'Tenting Start: ' + (startDate.getMonth()+1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
+      this.setState({tentingStart: 'Tent Start: ' + (startDate.getMonth()+1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
     ", " +(startDate.getHours() - 12) + ":" + ('0' + (startDate.getMinutes())).slice(-2) + " PM"});
     }
     else{
-      this.setState({tentingStart: 'Game Start: ' + (startDate.getMonth() + 1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
+      this.setState({tentingStart: 'Tent Start: ' + (startDate.getMonth() + 1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
     ", " +startDate.getHours() + ":" + ('0' + (startDate.getMinutes())).slice(-2)+ " AM"})
     }
     this.setState({postTentingStart: startDate.getFullYear()+"-"+('0' + (startDate.getMonth()+1) ).slice(-2)+"-"+('0' + startDate.getDate()).slice(-2)+"T"+('0' + startDate.getHours()).slice(-2)+":"+('0' + startDate.getMinutes()).slice(-2)});
