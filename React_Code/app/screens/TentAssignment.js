@@ -10,6 +10,7 @@ import {
   Linking,
   TextInput,
   View,
+  Alert,
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -20,11 +21,24 @@ class TentAssignment extends Component {
     qrString:'',
     data:'',
     tentData: '',
+    maxTentNumber: '',
   }
   onSuccess(e) {
-    alert("Successfully Scanned, press submit to assign tent number.")
     this.setState({qrString: e.data});
-    //this.submitQr(e.data);
+    Alert.alert(
+      'Assign Tent',
+      'Press OK to assign tent number '+this.state.maxTentNumber + ' .',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => this.scanner.reactivate(),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.submitQr(e.data)},
+      ],
+      {cancelable: false},
+    );
+    
   }
 
   updateQrString = (text)=>{
@@ -66,14 +80,35 @@ class TentAssignment extends Component {
           console.error(error);
         });
         this.scanner.reactivate()
-        alert("Successfully assigned tent number.");
       }
       else{
         alert("Invalid code.")
       }
-      this.scanner.reactivate()
+      this.getMaxTentNumber();
+      this.scanner.reactivate();
   }
-
+  getMaxTentNumber = async()=>{
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
+    method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    var maxTentNum = 0;
+    
+    for(var i = 0; i < result.length; i++){
+      if(result[i].tent_number != null){
+        if(result[i].tent_number > maxTentNum){
+          maxTentNum = result[i].tent_number;
+        }
+      }
+    }
+    this.setState({maxTentNumber: (maxTentNum+1)});
+  }
   loadTentNumber = async(id) =>{
     var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
@@ -102,14 +137,22 @@ class TentAssignment extends Component {
     });
     var userMap = new Map();
     var userMap2 = new Map();
+    var maxTentNum = 0;
+    
     for(var i = 0; i < result.length; i++){
       userMap.set(result[i].qr_code_str,result[i].id)
       userMap2.set(result[i].qr_code_str, [result[i].tenter_1, result[i].tenter_2, result[i].tenter_3,
          result[i].tenter_4, result[i].tenter_5, result[i].tenter_6, result[i].tent_pin])
+      if(result[i].tent_number != null){
+        if(result[i].tent_number > maxTentNum){
+          maxTentNum = result[i].tent_number;
+        }
+      }
     }
     console.log(userMap2);
     this.setState({data: userMap});
     this.setState({tentData:userMap2});
+    this.setState({maxTentNumber: (maxTentNum+1)});
   }
   static navigationOptions = {
     headerStyle: { backgroundColor: '#041E42' },
@@ -139,6 +182,7 @@ class TentAssignment extends Component {
               onRead={this.onSuccess.bind(this)}
               cameraStyle = {styles.camera}
               ref={(node) => { this.scanner = node }}
+              reactivateTimeout ={2000}
               />
               </Col>
             <Col size={10}></Col>
