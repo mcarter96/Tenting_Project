@@ -51,7 +51,7 @@ class QRScreen extends Component {
       });
       console.log(result);
       for(var i = 0; i < result.length; i++){
-        if(result[i].id == this.state.tentId){
+        if(result[i].qr_code_str == this.state.tentQr){
               this.setState({tentNumber: result[i].tent_number});
         }
       }
