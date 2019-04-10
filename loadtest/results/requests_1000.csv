@@ -1,0 +1,3 @@
+"Method","Name","# requests","# failures","Median response time","Average response time","Min response time","Max response time","Average Content Size","Requests/s"
+"GET","/api/profile/",4423,0,21000,21348,13121,38641,660,30.61
+"None","Total",4423,0,21000,21348,13121,38641,660,30.61
