@@ -213,7 +213,7 @@ class addMembers extends Component {
     return (
       <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={2}></Row>
-        <Row size={10} style={{zIndex:5}}>
+        <Row size={10} >
           <Col size={100}>
           <SearchableDropdown
             onTextChange={text => console.log(text)}
@@ -231,7 +231,7 @@ class addMembers extends Component {
               borderRadius: 5,
             }}
             itemTextStyle={{ color: '#222' }}
-            itemsContainerStyle={{ maxHeight: 300, zIndex: 5, }}
+            itemsContainerStyle={{ maxHeight: 300, zIndex: 5, minHeight: 300,}}
             items={this.state.emails}
             defaultIndex={2}
             placeholder="Email"

@@ -64,6 +64,8 @@ class CreateGame extends Component {
    }
   
   submit = async(name, tentStart, gameStart) =>{
+    var startDate = new Date();
+    var date = startDate.getFullYear()+"-"+('0' + (startDate.getMonth()+1) ).slice(-2)+"-"+('0' + startDate.getDate()).slice(-2)+"T"+('0' + startDate.getHours()).slice(-2)+":"+('0' + startDate.getMinutes()).slice(-2)
     const url = "https://tenting-rewards.gonzaga.edu/api/games/";
     if(name != ""){
       var result = await fetch(url, {
@@ -74,8 +76,8 @@ class CreateGame extends Component {
             Authorization: 'Token '+this.props.navigation.getParam('token'),
         },
         body: JSON.stringify({
-          game_start: new Date(),
-          tenting_start: new Date(),
+          game_start: date,
+          tenting_start: date,
           game_name: name
         }),
       })

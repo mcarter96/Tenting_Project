@@ -27,7 +27,7 @@ class TentAssignment extends Component {
     this.setState({qrString: e.data});
     Alert.alert(
       'Assign Tent',
-      'Press OK to assign tent number '+this.state.maxTentNumber + ' .',
+      'Press OK to assign tent number '+this.state.maxTentNumber + '.',
       [
         {
           text: 'Cancel',
