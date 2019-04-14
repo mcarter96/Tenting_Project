@@ -45,7 +45,7 @@ class userRegistration extends Component {
   fetchDataFromApi = (userName, passWord, Name, id, phone, gradyear)  => {
     var today = new Date();
     var yyyy = today.getFullYear();
-    const url = "http://tenting-rewards.gonzaga.edu/api/profile/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/profile/";
      return fetch(url, {
         method: 'POST',
         headers: {
@@ -94,13 +94,16 @@ class userRegistration extends Component {
         alert(alertString);
     }
     else{
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
         if(this.state.password != this.state.confirmPassword){
             alert("Passwords don't match!")
+        }
+        else if(!strongRegex.test(this.state.password)){
+            alert("Password must be minimum length of 8 characters, contain one lower and one upper case character, one numeric character, and one special character.")
         }
         else{
             var result = await this.fetchDataFromApi(userEmail, passWord, name, id, phoneNumber, gradYear)
             var success = true;
-            console.log(result);
             if(result.email){
                 if(result.email[0] == "Email address must be a zagmail email address"){
                     success = false;
@@ -138,7 +141,7 @@ class userRegistration extends Component {
   render() {
     return (
         <KeyboardShift>
-        <Grid style={{backgroundColor: "#639aff"}}>
+        <Grid style={{backgroundColor: "#C1C6C8"}}>
             <Row size={2}></Row>
             <Row size={10}>
             </Row>
@@ -148,7 +151,7 @@ class userRegistration extends Component {
                 <TextInput style = {styles.input}
                     editable = {true}
                     placeholder = "Email"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.userEmail}
@@ -163,7 +166,7 @@ class userRegistration extends Component {
             <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Name"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     returnKeyType={ "done" }
                     onChangeText = {this.userName}/>
@@ -176,7 +179,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Password"
-                        placeholderTextColor = "white"
+                        placeholderTextColor = "#041E42"
                         autoCapitalize = "none"
                         secureTextEntry = {true}
                         returnKeyType={ "done" }
@@ -190,7 +193,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Confirm Password"
-                        placeholderTextColor = "white"
+                        placeholderTextColor = "#041E42"
                         autoCapitalize = "none"
                         secureTextEntry = {true}
                         returnKeyType={ "done" }
@@ -204,7 +207,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                 <TextInput style = {styles.input}
                     placeholder = "Student ID"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     keyboardType = 'numeric'
                     maxLength={8} 
                     autoCapitalize = "none"
@@ -219,7 +222,7 @@ class userRegistration extends Component {
                 <Col size={80}>
                     <TextInput style = {styles.input}
                         placeholder = "Phone Number"
-                        placeholderTextColor = "white"
+                        placeholderTextColor = "#041E42"
                         autoCapitalize = "none"
                         keyboardType = 'number-pad'
                         returnKeyType={ "done" }
@@ -266,23 +269,24 @@ class userRegistration extends Component {
 export default userRegistration;
 
 const styles = StyleSheet.create({
-  input: {
-    color: 'white',
-    backgroundColor: '#639aff',
-    borderRadius: 10,
-    textAlign: 'center',
-    height: 40,
-    borderColor: 'white',
-    borderWidth: 0.5,
-    width: '100%'
-  },
+    input: {
+        color: '#041E42',
+        backgroundColor: 'white',
+        borderRadius: 25,
+        textAlign: 'left',
+        paddingLeft:20,
+        height: 40,
+        borderColor: '#041E42',
+        borderWidth: 1,
+        width: '100%'
+     },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
     color: 'white',
-    backgroundColor: '#9aadce',//'#4a86f7',
+    backgroundColor: '#041E42',//'#4a86f7',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,

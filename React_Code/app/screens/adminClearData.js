@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -13,11 +14,12 @@ class adminClearData extends Component {
     token:'',
   }
   static navigationOptions = {
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
-    }
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+    headerBackTitleStyle: {color: "#C1C6C8"},
+  }
   onPressClearTents = () => {
-    var url = "http://tenting-rewards.gonzaga.edu/api/remove-tents/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/remove-tents/";
     var result = fetch(url, {
       method: 'POST',
       headers: {
@@ -39,7 +41,7 @@ class adminClearData extends Component {
     alert("All tents removed");
   }
   onPressClearGames = () => {
-    var url = "http://tenting-rewards.gonzaga.edu/api/remove-games/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/remove-games/";
     var result = fetch(url, {
       method: 'POST',
       headers: {
@@ -67,8 +69,24 @@ class adminClearData extends Component {
   }
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={10}></Row>
+          <Row size={20}>
+            <Col size={24}></Col>
+              <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+            <Col size={22}></Col>
+          </Row>
+        <Row size={3}></Row>
+        <Row size ={6}>
+        <Col size={5}></Col>
+          <Col size={90}>
+            <View style = {styles.container}>
+              <Text style={{color:'#041E42', fontSize:30, fontWeight: 'bold',}}>CLEAR DATA</Text>
+            </View>
+          </Col>
+          <Col size={5}></Col>
+        </Row>
+        <Row size={11}></Row>
         <Row size={19}>
           <Col size={10}></Col>
           <Col size={80}>
@@ -95,7 +113,7 @@ class adminClearData extends Component {
           </Col>
           <Col size={10}></Col>
         </Row>
-        <Row size={52}></Row>
+        <Row size={12}></Row>
       </Grid>
       
     );
@@ -120,7 +138,7 @@ const styles = StyleSheet.create({
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -133,7 +151,7 @@ const styles = StyleSheet.create({
  },
  text4: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -146,7 +164,7 @@ const styles = StyleSheet.create({
  },
  text2: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -159,7 +177,7 @@ const styles = StyleSheet.create({
 },
 text3: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

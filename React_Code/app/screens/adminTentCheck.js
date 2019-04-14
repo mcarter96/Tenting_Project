@@ -53,7 +53,7 @@ class adminTentChecks extends Component {
     const { navigation } = this.props;
     const adminToken = navigation.getParam('adminToken', 'No ID');
     this.setState({token: adminToken});
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
     .then((response) => response.json())
@@ -70,15 +70,25 @@ class adminTentChecks extends Component {
     this.setState({data: userMap});
   }
   static navigationOptions = {
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+    headerBackTitleStyle: {color: "#C1C6C8"},
   }
   render() {
     return (
      
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
       <KeyboardShift>
-        <Row size ={20}></Row>
+      <Row size={5}></Row>
+         <Row size={15}>
+          <Col size={5}></Col>
+            <Col size={90}>
+              <View style = {styles.container}>
+                <Text style={{color:'#041E42', fontSize:30, fontWeight: 'bold',}}>TENT CHECKS</Text>
+              </View>
+            </Col>
+            <Col size={5}></Col>
+          </Row>
         <Row size={40}>
           <Col size={10}></Col>
           <Col size={80}>
@@ -98,7 +108,7 @@ class adminTentChecks extends Component {
             <TextInput style = {styles.input}
                   editable = {true}
                   placeholder = "Code"
-                  placeholderTextColor = "white"
+                  placeholderTextColor = "#041E42"
                   autoCapitalize = "none"
                   returnKeyType={ "done" }
                   onChangeText = {this.updateQrString}
@@ -156,14 +166,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   input: {
-     color: 'white',
-     backgroundColor: '#639aff',
-     borderRadius: 10,
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'white',
-     borderWidth: 0.5,
-     width: '100%'
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
+    height: 40,
+    borderColor: '#041E42',
+    borderWidth: 1,
+    width: '100%'
  },
  container: {
   alignItems: 'center',
@@ -171,7 +182,7 @@ const styles = StyleSheet.create({
 },
 text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

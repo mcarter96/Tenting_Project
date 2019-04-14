@@ -54,9 +54,9 @@ class InitialTentDetails extends Component {
  static navigationOptions = ({ navigation }) => ({
     headerLeft: <Button onPress={() => navigation.goBack(null)}
           title="Back"
-          color="#fff" />,
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
+          color="#C1C6C8" />,
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
   });
  
  componentDidMount(){
@@ -66,30 +66,19 @@ class InitialTentDetails extends Component {
   }
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <KeyboardShift>
           <Row size={5}></Row>
+          <Row size={25}>
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              
+              <View style = {styles.container}>
+                <Text style={{color:'#041E42', fontSize:30}}>SETUP TENT</Text>
+              </View>
             </Col>
             <Col size={10}></Col>
           </Row>
-          <Row size={5}>
-          </Row>
-          <Row size={10}>
-            <Col size={10}></Col>
-            <Col size={80}>
-              <TextInput style = {styles.input}
-                    placeholder = {String(this.state.fullName)}
-                    placeholderTextColor = "white"
-                    autoCapitalize = "none"
-                    editable = {false}
-                    onChangeText = {this.handleFullName}/>
-                    
-            </Col>
-            <Col size={10}></Col>
           </Row>
           <Row size={5}></Row>
           <Row size={10}>
@@ -97,7 +86,7 @@ class InitialTentDetails extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Pin"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     keyboardType = 'number-pad'
                     maxLength={6} 
                     secureTextEntry = {true}
@@ -132,14 +121,15 @@ export default InitialTentDetails;
 
 const styles = StyleSheet.create({
   input: {
-     color: 'white',
-     backgroundColor: '#639aff',
-     borderRadius: 10,
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'white',
-     borderWidth: 0.5,
-     width: '100%'
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
+    height: 40,
+    borderColor: '#041E42',
+    borderWidth: 1,
+    width: '100%'
   },
   container: {
     alignItems: 'center',
@@ -147,7 +137,7 @@ const styles = StyleSheet.create({
  },
  text: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,

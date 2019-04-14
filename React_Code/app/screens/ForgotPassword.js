@@ -19,7 +19,7 @@ class ForgotPassword extends Component {
   }
   
   resetPassword = async(useremail) => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/forgot-password/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/forgot-password/";
     var result = fetch(url, {
         method: 'POST',
         headers: {
@@ -56,14 +56,14 @@ class ForgotPassword extends Component {
     const userid = navigation.getParam('id', 'no id');
     return (
       <KeyboardShift>
-        <Grid style={{backgroundColor: "#639aff"}}>
+        <Grid style={{backgroundColor: "#C1C6C8"}}>
           <Row size={30}></Row>
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Email"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     returnKeyType={ "done" }
@@ -118,22 +118,23 @@ export default ForgotPassword;
 
 const styles = StyleSheet.create({
   input: {
-    color: 'white',
-    backgroundColor: '#639aff',
-    borderRadius: 10,
-    textAlign: 'center',
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
     height: 40,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    borderColor: '#041E42',
+    borderWidth: 1,
     width: '100%'
-  },
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

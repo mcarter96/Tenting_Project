@@ -18,7 +18,7 @@ class SearchForTent extends Component {
   }
   
   loadTentData = async(id) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
     method: 'GET'
     })
@@ -33,7 +33,7 @@ class SearchForTent extends Component {
   }
 
   addToTent = async (tentdata) => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
     console.log(tentdata);
     var result = await fetch(url, {
       method: 'PUT',
@@ -128,7 +128,7 @@ class SearchForTent extends Component {
     const { navigation } = this.props;
     const email = navigation.getParam('userEmail', 'No Name');
     this.setState({userEmail: email});
-    var result2 = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    var result2 = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),
@@ -149,7 +149,7 @@ class SearchForTent extends Component {
     }
     this.setState({email2id: userMap3});
     //console.log(userMap2);
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
     .then((response) => response.json())
@@ -170,20 +170,20 @@ class SearchForTent extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: <Button onPress={() => navigation.goBack(null)}
           title="Back"
-          color="#fff" />,
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
+          color="#C1C6C8" />,
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
   });
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={5}></Row>
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Tent Creator Email"
-                  placeholderTextColor = "white"
+                  placeholderTextColor = "#041E42"
                   autoCapitalize = "none"
                   onChangeText = {this.handleCreatorName}/>
           </Col>
@@ -196,7 +196,7 @@ class SearchForTent extends Component {
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Pin"
-                  placeholderTextColor = "white"
+                  placeholderTextColor = "#041E42"
                   keyboardType = 'number-pad'
                   maxLength={6} 
                   secureTextEntry = {true}
@@ -230,22 +230,23 @@ export default SearchForTent;
 
 const styles = StyleSheet.create({
   input: {
-    color: 'white',
-    backgroundColor: '#639aff',
-    borderRadius: 10,
-    textAlign: 'center',
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
     height: 40,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    borderColor: '#041E42',
+    borderWidth: 1,
     width: '100%'
-  },
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,

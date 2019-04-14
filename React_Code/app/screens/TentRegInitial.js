@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { ScrollView } from 'react-native';
 import { Tile, List, ListItem, Button } from 'react-native-elements';
-import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native'
 import { me } from '../config/data';
 
 class TentRegInitial extends Component {
@@ -12,6 +12,7 @@ class TentRegInitial extends Component {
   }
   onPressCreateTent = () => {
     if(this.state.tentData != null){
+      alert("Already in a tent!")
       this.props.navigation.navigate('QRCode');
     }else{
       this.props.navigation.navigate('TentingStack', {tentId: this.state.tentData, userEmail: this.state.email, token: this.props.navigation.getParam('token')});
@@ -35,6 +36,7 @@ class TentRegInitial extends Component {
 
   onPressJoinTent = () => {
     if(this.state.tentData != null){
+      alert("Already in a tent!")
       this.props.navigation.navigate('QRCode');
     }
     else{
@@ -43,7 +45,7 @@ class TentRegInitial extends Component {
     
   }
   leaveTent = async(tentdata) => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
     //console.log(tentdata);
     var result = await fetch(url, {
       method: 'PUT',
@@ -77,7 +79,7 @@ class TentRegInitial extends Component {
       console.log(result);
   }
   loadTentData = async(id) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
     method: 'GET',
     headers: {
@@ -95,7 +97,7 @@ class TentRegInitial extends Component {
   }
   email2id = async(email) =>{
     console.log(email);
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),
@@ -124,48 +126,56 @@ class TentRegInitial extends Component {
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
-        alert("Succesfully left tent!")
+        alert("Successfully left tent!")
       }
       else if(tentdata.tenter_3 == userid){
         tentdata.tenter_3 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
-        alert("Succesfully left tent!")
+        alert("Successfully left tent!")
       }
       else if(tentdata.tenter_4 == userid){
         tentdata.tenter_4 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
-        alert("Succesfully left tent!")
+        alert("Successfully left tent!")
       }
       else if(tentdata.tenter_5 == userid){
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
-        alert("Succesfully left tent!")
+        alert("Successfully left tent!")
       }
-      else{
+      else if(tentdata.tenter_6 == userid){
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: ""});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
-        alert("Succesfully left tent!")
+        alert("Successfully left tent!")
+      }
+      else{
+        alert("Can't leave a tent you created!")
       }
     }
     else{
-      alert("Your not in a tent.")
+      alert("You're not in a tent.")
     }
   }
  
 
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
-        <Row size={10}></Row>
-        <Row size={20}>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
+        <Row size={5}></Row>
+        <Row size={10}>
+          <Col size={24}></Col>
+              <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+            <Col size={22}></Col>
+        </Row>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -178,7 +188,7 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -191,7 +201,7 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={10}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -204,7 +214,6 @@ class TentRegInitial extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={10}></Row>
       </Grid>
     );
   }
@@ -221,7 +230,7 @@ const styles = StyleSheet.create ({
   },
   text: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,
@@ -231,7 +240,7 @@ const styles = StyleSheet.create ({
   },
   textJoin: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,
@@ -247,7 +256,7 @@ const styles = StyleSheet.create ({
  },
  textLeave: {
   color: 'white',
-  backgroundColor: '#9aadce',
+  backgroundColor: '#041E42',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
@@ -257,13 +266,5 @@ const styles = StyleSheet.create ({
   paddingBottom: 25,
   borderColor: 'black',
   fontSize: 30,
-   /*
-  borderWidth: 1,
-  paddingLeft: 30,
-  paddingRight: 30,
-  paddingTop: 25,
-  paddingBottom: 25,
-  borderColor: 'black',
-  fontSize: 30*/
 },
 })

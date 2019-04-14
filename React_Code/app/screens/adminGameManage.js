@@ -6,6 +6,7 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   Picker,
+  Image,
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -33,7 +34,7 @@ class adminGameManage extends Component {
     this.props.navigation.navigate('tentAssignment', {gameid: this.state.gameid});
   }
   loadGameData = async() =>{
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/games/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/games/", {
     method: 'GET',
     headers: {
       Authorization: 'Token '+this.props.navigation.getParam('token'),
@@ -64,14 +65,29 @@ class adminGameManage extends Component {
   }
  
   static navigationOptions = {
-    headerStyle: { backgroundColor: '#9aadce' },
-    headerTitleStyle: { color: 'white' },
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+    headerBackTitleStyle: {color: "#C1C6C8"},
   }
   render() {
     return (
-      <Grid style={{backgroundColor: "#639aff"}}>
-        <Row size={10}></Row>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
+        <Row size={5}></Row>
         <Row size={20}>
+            <Col size={24}></Col>
+              <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+            <Col size={22}></Col>
+        </Row>
+        <Row size={15}>
+          <Col size={5}></Col>
+            <Col size={90}>
+              <View style = {styles.container}>
+                <Text style={{color:'#041E42', fontSize:30, fontWeight: 'bold',}}>GAME MANAGEMENT</Text>
+              </View>
+            </Col>
+            <Col size={5}></Col>
+        </Row>
+        <Row size={15}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -84,7 +100,8 @@ class adminGameManage extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={5}></Row>
+        <Row size={15}>
           <Col size={20}></Col>
           <Col size={60}>
             <View style = {styles.container}>
@@ -97,10 +114,10 @@ class adminGameManage extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={40}>
+        <Row size={20}>
           <Col size={36}>
-            <Row size={35}></Row>
-            <Row size={65}><Text style={{fontSize: 20, padding: 10, color:'white'}}>Current Game:</Text></Row>
+            <Row size={67}></Row>
+            <Row size={33}><Text style={{fontSize: 20, padding: 10, color:'white'}}>Current Game:</Text></Row>
           </Col>
           <Col size={20}>
             <Picker
@@ -116,7 +133,7 @@ class adminGameManage extends Component {
           </Col>
           <Col size={34}></Col>
         </Row>
-        <Row size={10}></Row>
+        <Row size={5}></Row>
       </Grid>
       
     );
@@ -132,7 +149,7 @@ const styles = StyleSheet.create ({
   },
   text: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,

@@ -21,10 +21,10 @@ class Login extends Component {
     data: [],
     error: null,
     refreshing: false,
-    base_url: "http://tenting-rewards.gonzaga.edu/",
+    base_url: "https://tenting-rewards.gonzaga.edu/",
   }
   fetchDataFromApi = (userName, passWord)  => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/login/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/login/";
 
      return fetch(url, {
         method: 'POST',
@@ -47,7 +47,7 @@ class Login extends Component {
   };
 
    getUserId = async(userName) =>{
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
       method: 'GET'
     })
     .then((response) => response.json())
@@ -83,8 +83,9 @@ class Login extends Component {
     }
     else{
         var result = await this.fetchDataFromApi(username, password);
+        //console.log(result);
         if (!result.non_field_errors){
-          
+          console.log("HI");
           console.log(result);
           if (result.token){
             this.setState({password:''});
@@ -103,7 +104,7 @@ class Login extends Component {
             this.setState({username:''});
             this._textInput.setNativeProps({ text: '' });
             this._textInput2.setNativeProps({text: ''});
-            this.props.navigation.navigate('Confirmation', {id: userId});
+            this.props.navigation.navigate('Confirmation', {id: result.user_id});
           }
           else{
             alert("Invalid Username or Password.")
@@ -119,10 +120,11 @@ class Login extends Component {
   render() {
     return (
       <KeyboardShift>
-        <Grid style={{backgroundColor: "#639aff"}}>
-          <Row size={30}>
+        <Grid style={{backgroundColor: "#C1C6C8"}}>
+          <Row size={10}></Row>
+          <Row size={20}>
             <Col size={24}></Col>
-              <Col size={54}><Image source={require('../images/tenttwo.png')} /></Col>
+              <Col size={54}><Image source={require('../images/logo.png')} /></Col>
             <Col size={22}></Col>
           </Row>
           <Row size={10}>
@@ -130,7 +132,7 @@ class Login extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Email"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.username}
@@ -140,14 +142,14 @@ class Login extends Component {
             </Col>
             <Col size={10}></Col>
           </Row>
-          <Row size={5}></Row>
+          <Row size={1}></Row>
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
             <View style = {styles.container}>
               <TextInput style = {styles.input}
                     placeholder = "Password"
-                    placeholderTextColor = "white"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     secureTextEntry = {true}
@@ -209,13 +211,14 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
-     color: 'white',
-     backgroundColor: '#639aff',
-     borderRadius: 10,
-     textAlign: 'center',
+     color: '#041E42',
+     backgroundColor: 'white',
+     borderRadius: 25,
+     textAlign: 'left',
+     paddingLeft:20,
      height: 40,
-     borderColor: 'white',
-     borderWidth: 0.5,
+     borderColor: '#041E42',
+     borderWidth: 1,
      width: '100%'
   },
   container: {
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
  },
  text: {
     color: 'white',
-    backgroundColor: '#9aadce',
+    backgroundColor: '#041E42',
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 0,
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
  },
  text2: {
   color: 'white',
-  backgroundColor: '#9aadce',//'#4a86f7',
+  backgroundColor: '#041E42',//'#4a86f7',
   overflow: 'hidden',
   borderRadius: 10,
   borderWidth: 0,
