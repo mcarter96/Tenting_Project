@@ -214,7 +214,7 @@ class addMembers extends Component {
     return (
       <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={2}></Row>
-        <Row size={10} >
+        <Row size={10} style={{zIndex:5}}>
           <Col size={100}>
           <SearchableDropdown
             onTextChange={text => console.log(text)}
