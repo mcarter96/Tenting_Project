@@ -14,19 +14,19 @@ class TentGroup(models.Model):
     tenter_1 = models.ForeignKey(api_models.UserProfile, related_name='tenter_1', on_delete=models.PROTECT,
                                  limit_choices_to=limit_tenter_choices)
     tenter_2 = models.ForeignKey(api_models.UserProfile, related_name='tenter_2', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
+                                 limit_choices_to=limit_tenter_choices, null=True, blank=True)
     tenter_3 = models.ForeignKey(api_models.UserProfile, related_name='tenter_3', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
+                                 limit_choices_to=limit_tenter_choices, null=True, blank=True)
     tenter_4 = models.ForeignKey(api_models.UserProfile, related_name='tenter_4', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
+                                 limit_choices_to=limit_tenter_choices, null=True, blank=True)
     tenter_5 = models.ForeignKey(api_models.UserProfile, related_name='tenter_5', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
+                                 limit_choices_to=limit_tenter_choices, null=True, blank=True)
     tenter_6 = models.ForeignKey(api_models.UserProfile, related_name='tenter_6', on_delete=models.SET_NULL,
-                                 limit_choices_to=limit_tenter_choices, null=True)
+                                 limit_choices_to=limit_tenter_choices, null=True, blank=True)
     tent_pin = models.IntegerField()
     qr_code_str = models.CharField(max_length=100)
-    game_id = models.ForeignKey(game_models.Game, related_name='game_id', on_delete=models.CASCADE, null=True)
-    tent_number = models.IntegerField(null=True)
+    game_id = models.ForeignKey(game_models.Game, related_name='game_id', on_delete=models.CASCADE, null=True, blank=True)
+    tent_number = models.IntegerField(null=True, blank=True)
 
     def create_tent_group(self, tenter_1, tenter_2, tenter_3, tenter_4, tenter_5, tenter_6, tent_pin, qr_code_str):
         """Creates a new tenting group object."""
@@ -69,3 +69,8 @@ class TentGroup(models.Model):
         """Used to get QR code of tent group."""
 
         return self.qr_code_str
+
+    def __str__(self):
+        if self.tent_number:
+            return "%s: %i" % (self.game_id.game_name, self.tent_number)
+        return self.tenter_1.email

@@ -42,3 +42,6 @@ class Tent_Check(models.Model):
 
     def get_final_check(self):
         return self.final_check
+
+    def __str__(self):
+        return str(self.tent_id)

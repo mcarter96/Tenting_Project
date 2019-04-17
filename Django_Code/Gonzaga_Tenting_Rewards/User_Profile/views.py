@@ -1,7 +1,7 @@
 # This file defines different views that can be accessed from the API
 
 # Imports
-from django.contrib.auth.tokens import default_token_generator as token_generator, default_token_generator
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.template import loader
 from django.utils.encoding import force_bytes
@@ -12,7 +12,6 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from rest_framework.reverse import reverse_lazy
 from Helper_Functions import user_functions
 from rest_framework import status
 from django.core.mail import send_mail, EmailMultiAlternatives
@@ -107,6 +106,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         # Only return the generic fields when listing all user profiles
+        # TODO: Solve issues with multiple db queries
         for dicts in queryset:
             dicts['url'] = tmp + str(dicts['id'])
             dicts['tent_id'] = user_functions.getTentID(dicts['id'])
