@@ -125,6 +125,7 @@ class TentRegInitial extends Component {
         tentdata.tenter_2 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
+        this.props.navigation.navigate('Settings', {tentId: null});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
         
@@ -133,6 +134,7 @@ class TentRegInitial extends Component {
         tentdata.tenter_3 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
+        this.props.navigation.navigate('Settings', {tentId: null});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
         
@@ -141,6 +143,7 @@ class TentRegInitial extends Component {
         tentdata.tenter_4 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
+        this.props.navigation.navigate('Settings', {tentId: null});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
         
@@ -149,6 +152,7 @@ class TentRegInitial extends Component {
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
+        this.props.navigation.navigate('Settings', {tentId: null});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
         
@@ -157,6 +161,7 @@ class TentRegInitial extends Component {
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
         this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
+        this.props.navigation.navigate('Settings', {tentId: null});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
       

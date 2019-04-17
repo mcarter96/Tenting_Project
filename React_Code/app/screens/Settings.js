@@ -77,7 +77,7 @@ class Settings extends Component {
       var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent-checks/", {
         method: 'GET',
         headers: {
-          Authorization: 'Token '+'0472d271e0dd2668afcf3e57a376c4c9cda55aee'
+          Authorization: 'Token '+this.props.navigation.getParam('token')
         },
       })
       .then((response) => response.json())
@@ -114,7 +114,14 @@ class Settings extends Component {
   }
   loadTentDataId = async() =>{
     var tentIdentifier = this.props.navigation.getParam('tentId')
-    if(tentIdentifier != null){
+    if(tentIdentifier == null){
+      emailArr = [];
+      for(var i = 0; i < 6; i++){
+        emailArr.push("");
+      }
+      this.setState({emails: emailArr});
+    }
+    else if(tentIdentifier != null){
       var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/"+tentIdentifier, {
         method: 'GET',
         headers: {
