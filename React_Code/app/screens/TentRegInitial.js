@@ -76,7 +76,7 @@ class TentRegInitial extends Component {
       .catch(error => {
         console.error(error);
       });
-      console.log(result);
+      return result;
   }
   loadTentData = async(id) =>{
     var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
@@ -124,37 +124,42 @@ class TentRegInitial extends Component {
       if(tentdata.tenter_2 == userid){
         tentdata.tenter_2 = null;
         this.leaveTent(tentdata);
-        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
+        
       }
       else if(tentdata.tenter_3 == userid){
         tentdata.tenter_3 = null;
         this.leaveTent(tentdata);
-        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
+        
       }
       else if(tentdata.tenter_4 == userid){
         tentdata.tenter_4 = null;
         this.leaveTent(tentdata);
-        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
+        
       }
       else if(tentdata.tenter_5 == userid){
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
-        this.props.navigation.navigate('QRCode', {qrString: "No Tent"});
+        this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
+        
       }
       else if(tentdata.tenter_6 == userid){
         tentdata.tenter_6 = null;
         this.leaveTent(tentdata);
-        this.props.navigation.navigate('QRCode', {qrString: ""});
+        this.props.navigation.navigate('QRCode', {qrString: "TENT CODE"});
         this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.email, tentId: null});
         alert("Successfully left tent!")
+      
       }
       else{
         alert("Can't leave a tent you created!")

@@ -78,21 +78,21 @@ class QRScreen extends Component {
       this.setState({tentId: tentIdentifier});
     if(tentString != "No QR"){
       if(this.state.tentQr !== tentString)
-        this.setState({tentQr: tentString})
+        this.setState({tentQr: tentString});
     }
     if(tentNum != 'nonum'){
       if(this.state.tentNumber !== tentNum){
         this.setState({tentNumber: tentNum});
       }
     }
-    
+  }
+    /*
     else if(tentIdentifier != null){
       var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
       method: 'GET'
       })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         return responseJson;
         //return responseJson.results;
       })
@@ -105,12 +105,14 @@ class QRScreen extends Component {
             this.setState({tentQr: result[i].qr_code_str});
             if(result[i].tent_number != null && this.state.tentNumber != result[i].tent_number)
               this.setState({tentNumber: result[i].tent_number});
+              
         }
+        
       }
       
-      
     }
-  }
+
+  }*/
   render() {
     return (
       <Grid style={{backgroundColor: "#C1C6C8"}}>
