@@ -135,23 +135,25 @@ class QRScreen extends Component {
             <Col size={22}></Col>
         </Row>
         <Row size={10}>
-          <Col size={10}></Col>
-          <Col size={80}>
+          <Col size={25}></Col>
+          <Col size={50}>
             <View style = {styles.container}>
               <Text style={styles.text}>Tent #:{this.state.tentNumber}</Text>
             </View>
           </Col>
-          <Col size={10}></Col>
+          <Col size={25}></Col>
         </Row>
         <Row size={30}>
-          <Col size={24}></Col>
-          <Col size={52}>
+          <Col size={25}></Col>
+          <Col size={50}>
+          <View style={{alignItems:'center'}}>
           <QRCode
             value={this.state.tentQr}
             size={200}
             bgColor='#041E42'
-            fgColor='#C1C6C8'/></Col>
-          <Col size={24}></Col>
+            fgColor='#C1C6C8'/>
+            </View></Col>
+          <Col size={25}></Col>
         </Row>
         <Row size={5}>
           <Col size={10}></Col>

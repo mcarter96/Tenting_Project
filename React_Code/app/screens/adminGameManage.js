@@ -115,14 +115,11 @@ class adminGameManage extends Component {
           <Col size={20}></Col>
         </Row>
         <Row size={20}>
-          <Col size={36}>
-            <Row size={67}></Row>
-            <Row size={33}><Text style={{fontSize: 20, padding: 10, color:'white'}}>Current Game:</Text></Row>
-          </Col>
-          <Col size={20}>
+          <Col size={36}></Col>
+          <Col size={25}>
             <Picker
               itemStyle={{color:'white'}}
-              style={{width: 100, color:'white'}} 
+              style={{width: 100, color:'white', paddingBottom:325}} 
               selectedValue={this.state.gameid}
               onValueChange={(itemValue, itemIndex) => this.pickerChange(itemIndex)}>{
               this.state.games.map( (v)=>{
@@ -131,7 +128,7 @@ class adminGameManage extends Component {
               }
             </Picker>
           </Col>
-          <Col size={34}></Col>
+          <Col size={37}></Col>
         </Row>
         <Row size={5}></Row>
       </Grid>

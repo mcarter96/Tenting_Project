@@ -255,7 +255,7 @@ class Settings extends Component {
   render() {
     return (
       <Grid style={{backgroundColor: "#C1C6C8"}}>
-        <Row size={3}></Row>
+        <Row size={4}></Row>
         <Row size={8}>
         <Col size ={90}></Col>
         <Col size={10}>

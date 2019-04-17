@@ -232,7 +232,7 @@ class addMembers extends Component {
               borderRadius: 5,
             }}
             itemTextStyle={{ color: '#222' }}
-            itemsContainerStyle={{ maxHeight: 300, zIndex: 5, minHeight: 300,}}
+            itemsContainerStyle={{ maxHeight: 500, zIndex: 5, minHeight: 500,}}
             items={this.state.emails}
             defaultIndex={2}
             placeholder="Email"
