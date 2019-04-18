@@ -90,7 +90,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         if not DEBUG:
             staff_comparator = 'FALSE'
         with connection.cursor() as cursor:
-            cursor.execute('SELECT id, name, email FROM User_Profile_userprofile WHERE is_staff=%s;' % (staff_comparator))
+            cursor.execute('SELECT up.id, up.name, up.email, tg.id AS tent_id FROM User_Profile_userprofile up '
+                           'LEFT JOIN Tents_tentgroup tg ON up.id = tg.tenter_1_id OR up.id = tg.tenter_2_id '
+                           'OR up.id = tg.tenter_3_id OR up.id = tg.tenter_4_id OR up.id = tg.tenter_5_id '
+                           'OR up.id = tg.tenter_6_id WHERE up.is_staff=%s;' % (staff_comparator))
             queryset = dictfetchall(cursor)
 
         tmp = request.build_absolute_uri()
@@ -98,18 +101,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         # Determines if django is using paginations
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = self.get_serializer(page, many=True)
             # Only return the generic fields when listing all user profiles
-            for dicts in serializer.data:
+            for dicts in queryset:
                 dicts['url'] = tmp + str(dicts['id'])
-                dicts['tent_id'] = user_functions.getTentID(dicts['id'])
-            return self.get_paginated_response(serializer.data)
+            return self.get_paginated_response(queryset)
 
         # Only return the generic fields when listing all user profiles
-        # TODO: Solve issues with multiple db queries
         for dicts in queryset:
             dicts['url'] = tmp + str(dicts['id'])
-            dicts['tent_id'] = user_functions.getTentID(dicts['id'])
 
         return Response(queryset)
 
