@@ -20,7 +20,8 @@ from . import views
 
 
 # Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+# Additionally, we include login URLs for the browseable API.
 urlpatterns = [
-    path('privacy-policy/', views.privacy_policy)
+    path('privacy-policy/', views.privacy_policy),
+    path('api/', views.basic_info)
 ]

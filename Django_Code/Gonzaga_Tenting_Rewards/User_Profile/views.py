@@ -1,33 +1,35 @@
 # This file defines different views that can be accessed from the API
 
 # Imports
-from django.contrib.auth.forms import PasswordResetForm as password_reset_form
-from django.contrib.auth.tokens import default_token_generator as token_generator, default_token_generator
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponseRedirect
-from django.contrib.auth import get_user_model as UserModel
 from django.template import loader
-from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
-from rest_framework import filters
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.views import APIView
-from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from rest_framework.reverse import reverse_lazy
 from Helper_Functions import user_functions
 from rest_framework import status
 from django.core.mail import send_mail, EmailMultiAlternatives
 from Gonzaga_Tenting_Rewards import settings
+from django.db import connection
 
 from . import serializers
 from . import models
 from . import permissions
-from django.contrib.auth.forms import PasswordResetForm
+from Gonzaga_Tenting_Rewards.settings import DEBUG
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
 
 # Create your views here.
 
@@ -47,7 +49,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.UpdateOwnProfile,)
 
     # What filters can be used and which fields can be searched on
-    filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
 
     generic_fields = ('id','name', 'email', 'url', 'tent_id')
@@ -84,54 +85,32 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         """Query that runs when listing all of the objects (most is taken from actual list function of ModelViewSet)"""
 
-        # What objects to query on
-        queryset = self.filter_queryset(self.get_queryset())
-        # queryset.filter(is_staff=True)
+        # Use raw sql to speed up response times
+        staff_comparator = '0'
+        if not DEBUG:
+            staff_comparator = 'FALSE'
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT up.id, up.name, up.email, tg.id AS tent_id FROM User_Profile_userprofile up '
+                           'LEFT JOIN Tents_tentgroup tg ON up.id = tg.tenter_1_id OR up.id = tg.tenter_2_id '
+                           'OR up.id = tg.tenter_3_id OR up.id = tg.tenter_4_id OR up.id = tg.tenter_5_id '
+                           'OR up.id = tg.tenter_6_id WHERE up.is_staff=%s;' % (staff_comparator))
+            queryset = dictfetchall(cursor)
 
-        # Determine if there are any query parameters in the URL to filter responses with
-        id = self.request.query_params.get('id', None)
-        if id is not None:
-            queryset = queryset.filter(id=id)
-
-        email = self.request.query_params.get('email', None)
-        if email is not None:
-            queryset = queryset.filter(email=email)
-
-        name = self.request.query_params.get('name', None)
-        if name is not None:
-            queryset = queryset.filter(name=name)
+        tmp = request.build_absolute_uri()
 
         # Determines if django is using paginations
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            # Generate the base url of the application
-            tmp = reverse_lazy('api-root', request=request)
             # Only return the generic fields when listing all user profiles
-            for dicts in serializer.data:
-                dicts['url'] = tmp + "profile/" + str(dicts['id'])
-                dicts['tent_id'] = user_functions.getTentID(dicts['id'])
-                dicts_copy = dicts.copy()
-                for i in dicts_copy:
-                    if i not in self.generic_fields:
-                        del dicts[i]
-
-
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        tmp = reverse_lazy('api-root', request=request)
+            for dicts in queryset:
+                dicts['url'] = tmp + str(dicts['id'])
+            return self.get_paginated_response(queryset)
 
         # Only return the generic fields when listing all user profiles
-        for dicts in serializer.data:
-            dicts['url'] = tmp + "profile/" + str(dicts['id'])
-            dicts['tent_id'] = user_functions.getTentID(dicts['id'])
-            dicts_copy = dicts.copy()
-            for i in dicts_copy:
-                if i not in self.generic_fields:
-                    del dicts[i]
+        for dicts in queryset:
+            dicts['url'] = tmp + str(dicts['id'])
 
-        return Response(serializer.data)
+        return Response(queryset)
 
 class ConfirmEmail(APIView):
     """Class to allow email confirmations"""

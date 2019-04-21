@@ -20,3 +20,6 @@ class Game(models.Model):
 
     def get_game_name(self):
         return self.game_name
+
+    def __str__(self):
+        return self.game_name

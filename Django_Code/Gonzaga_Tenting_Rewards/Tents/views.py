@@ -4,6 +4,7 @@ from rest_framework.authentication import TokenAuthentication
 
 from . import serializers
 from . import models
+from . import permissions
 
 # Create your views here.
 class TentViewSet(viewsets.ModelViewSet):
@@ -14,6 +15,8 @@ class TentViewSet(viewsets.ModelViewSet):
 
     # What to bounce queries against
     queryset = models.TentGroup.objects.all()
+
+    permission_classes = (permissions.TentPermissions,)
 
     # What to use for authentication
     authentication_classes = (TokenAuthentication,)
