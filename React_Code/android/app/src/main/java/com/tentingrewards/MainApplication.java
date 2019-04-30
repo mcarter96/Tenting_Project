@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.tentingrewards;
 
 import android.app.Application;
 

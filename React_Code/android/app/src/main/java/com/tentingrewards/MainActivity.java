@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.tentingrewards;
 
 import com.facebook.react.ReactActivity;
 

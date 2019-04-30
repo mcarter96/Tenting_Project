@@ -114,7 +114,7 @@ class adminGameManage extends Component {
           </Col>
           <Col size={20}></Col>
         </Row>
-        <Row size={20}>
+        <Row size={15}>
           <Col size={36}></Col>
           <Col size={25}>
             <Picker
@@ -130,7 +130,7 @@ class adminGameManage extends Component {
           </Col>
           <Col size={37}></Col>
         </Row>
-        <Row size={5}></Row>
+        <Row size={25}></Row>
       </Grid>
       
     );
