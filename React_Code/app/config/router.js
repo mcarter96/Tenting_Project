@@ -10,14 +10,13 @@ import Home from '../screens/Home';
 import Settings from '../screens/Settings';
 import Feed from '../screens/Feed';
 import TentRegInitial from '../screens/TentRegInitial';
-import TentRuleConfirmation from '../screens/TentRuleConfirmation';
 import InitialTentDetails from '../screens/InitialTentDetails'
 import addMembers from '../screens/addMembers'
 import QRScreen from '../screens/QRScreen'
 import Login from '../screens/LoginScreen'
 import SearchForTent from '../screens/SearchForTent'
-import adminFeed from '../screens/adminFeed'
-import adminManageUsers from '../screens/adminManageUsers'
+import adminTentFilter from '../screens/adminTentFilter'
+import adminManageUsers from '../screens/adminClearData'
 import adminMenu from '../screens/adminMenu'
 import adminTentChecks from '../screens/adminTentCheck'
 import adminGameManage from '../screens/adminGameManage'
@@ -26,6 +25,9 @@ import confirmAccount from '../screens/confirmAccount'
 import TentAssignment from '../screens/TentAssignment';
 import CreateGame from '../screens/createGame';
 import CheckList from '../screens/adminTentCheckList'
+import ForgotPassword from '../screens/ForgotPassword'
+console.disableYellowBox = true;
+
 
 export const AdminStack = createStackNavigator({
   adminMenu: {
@@ -46,16 +48,16 @@ export const AdminStack = createStackNavigator({
       title: 'Tent Checks'
     },
   },
-  adminFeed: {
-    screen: adminFeed,
+  adminTentFilter: {
+    screen: adminTentFilter,
     navigationOptions: {
-      title: 'Admin Feed'
+      title: 'Filter Tents'
     },
   },
   adminManageUsers: {
     screen: adminManageUsers, 
     navigationOptions: {
-      title: 'Manage Users'
+      title: 'Clear Data'
     },
   },
   createGame: {
@@ -83,6 +85,7 @@ export const CreateTentStack = createStackNavigator({
   InitialTentDetails: {
     screen: InitialTentDetails,
     navigationOptions: {
+      tabBarVisible: false ,
       title: 'Setup Tent',
     },
   },
@@ -94,6 +97,7 @@ export const CreateTentStack = createStackNavigator({
   },
 });
 
+
 export const CreateJoinStack = createStackNavigator({
   SearchForTent: {
     screen: SearchForTent, 
@@ -103,42 +107,37 @@ export const CreateJoinStack = createStackNavigator({
   },
 });
 export const Tabs = createBottomTabNavigator({
-  Home: {
-    screen: Home,
+  QRCode: {
+    screen: QRScreen,
     navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => <Icon name="home" size={35} color={tintColor} />,
-    },
-  },
-  Feed: {
-    screen: Feed,
-    navigationOptions: {
-      tabBarLabel: 'Feed',
-      tabBarIcon: ({ tintColor }) => <Entypo name="news" size={35} color={tintColor} />
+      tabBarLabel: 'QR',
+      tabBarIcon: ({ tintColor }) => <AntDesign name="qrcode" size={45} color={tintColor} />
     },
   },
   TentRegInitial: {
     screen: TentRegInitial,
     navigationOptions: {
       tabBarLabel: 'Tent',
-      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={35} color={tintColor} />
-    },
-  },
-  QRCode: {
-    screen: QRScreen,
-    navigationOptions: {
-      tabBarLabel: 'QR',
-      tabBarIcon: ({ tintColor }) => <AntDesign name="qrcode" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <MaterialIcon name="tent" size={45} color={tintColor}
+       />,
     },
   },
   Settings: {
     screen: Settings,
     navigationOptions: {
-      tabBarLabel: 'Settings',
-      tabBarIcon: ({ tintColor }) => <Icon name="settings" size={35} color={tintColor} />
+      tabBarLabel: 'Info',
+      tabBarIcon: ({ tintColor }) => <AntDesign name="info" size={45} color={tintColor} />,
     },
   },
-  
+},{
+  tabBarOptions: {
+    activeTintColor: 'white',
+    inactiveTintColor: '#C1C6C8',
+    style: {
+      height: 65,
+      backgroundColor: '#041E42',
+    },
+  }
 });
 
 export const LoginStack = createStackNavigator({
@@ -151,6 +150,7 @@ export const LoginStack = createStackNavigator({
 });
 
 export const Root = createStackNavigator({
+  
   Login: {
     screen: LoginStack,
   },
@@ -171,9 +171,13 @@ export const Root = createStackNavigator({
   },
   Confirmation: {
     screen: confirmAccount,
-  }
+  },
+  ResetPassword:{
+    screen:ForgotPassword,
+  },
 }, {
   mode: 'modal',
   headerMode: 'none',
 });
+
 

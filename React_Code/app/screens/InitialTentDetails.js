@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, Dimensions, Button} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import {Content} from "native-base";
 import KeyboardShift from './KeyboardShift';
 class InitialTentDetails extends Component {
   state = {
@@ -8,6 +9,7 @@ class InitialTentDetails extends Component {
     fullName: '',
     pin: ''
   }
+  
   handleTentName = (text) => {
     this.setState({ tentName: text })
   }
@@ -45,10 +47,18 @@ class InitialTentDetails extends Component {
         alert("Must input zagmail address!")
       }
       else{
-        this.props.navigation.navigate('addMembers', {creatorName: fullName, tentPin: pin});
+        this.props.navigation.navigate('addMembers', {creatorName: fullName, tentPin: pin, token: this.props.navigation.getParam('token')});
       }
     }
  }
+ static navigationOptions = ({ navigation }) => ({
+    headerLeft: <Button onPress={() => navigation.goBack(null)}
+          title="Back"
+          color="#C1C6C8" />,
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+  });
+ 
  componentDidMount(){
   const { navigation } = this.props;
   const userEmail = navigation.getParam('userEmail', 'No Name');
@@ -56,30 +66,19 @@ class InitialTentDetails extends Component {
   }
   render() {
     return (
-      <KeyboardShift>
-        <Grid>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
+        <KeyboardShift>
           <Row size={5}></Row>
+          <Row size={25}>
           <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
-              
+              <View style = {styles.container}>
+                <Text style={{color:'#041E42', fontSize:30}}>SETUP TENT</Text>
+              </View>
             </Col>
             <Col size={10}></Col>
           </Row>
-          <Row size={5}>
-          </Row>
-          <Row size={10}>
-            <Col size={10}></Col>
-            <Col size={80}>
-              <TextInput style = {styles.input}
-                    placeholder = {String(this.state.fullName)}
-                    placeholderTextColor = "black"
-                    autoCapitalize = "none"
-                    editable = {false}
-                    onChangeText = {this.handleFullName}/>
-                    
-            </Col>
-            <Col size={10}></Col>
           </Row>
           <Row size={5}></Row>
           <Row size={10}>
@@ -87,7 +86,7 @@ class InitialTentDetails extends Component {
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Pin"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "#041E42"
                     keyboardType = 'number-pad'
                     maxLength={6} 
                     secureTextEntry = {true}
@@ -111,8 +110,9 @@ class InitialTentDetails extends Component {
               </Col>
               <Col size={20}></Col>
           </Row>
+          </KeyboardShift>
         </Grid>
-      </KeyboardShift>
+      
     );
   }
 }
@@ -121,22 +121,30 @@ export default InitialTentDetails;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
+    height: 40,
+    borderColor: '#041E42',
+    borderWidth: 1,
+    width: '100%'
   },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
-    borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft:50,
-    paddingRight:50,
+    color: 'white',
+    backgroundColor: '#041E42',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft:60,
+    paddingRight: 60,
     borderColor: 'black',
     fontSize: 20
  },

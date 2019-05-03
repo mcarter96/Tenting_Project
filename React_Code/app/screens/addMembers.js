@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { InputAutoSuggest } from 'react-native-autocomplete-search';
-
-import Autocomplete from 'react-native-autocomplete-input';
+import SearchableDropdown from 'react-native-searchable-dropdown';
 import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -16,7 +14,7 @@ class addMembers extends Component {
     query: '',
     tentMembers: [],
   }
-
+/*
   findEmail(query) {
     if (query === '') {
       return [];
@@ -24,7 +22,7 @@ class addMembers extends Component {
     const { emails } = this.state;
     const regex = new RegExp(`${query.trim()}`, 'i');
     return emails.filter(email => email.name.search(regex) >= 0);
-  }
+  }*/
   genQrCodeStr = () => {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -44,13 +42,14 @@ class addMembers extends Component {
     }
     console.log(members);
     this.setState({qrString: qrStr})
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/tent/";
 
      return fetch(url, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: 'Token '+this.props.navigation.getParam('token'),
       },
       body: JSON.stringify({
         tenter_1: members[0],
@@ -104,7 +103,8 @@ class addMembers extends Component {
       var idArray = this.email2id(members);
       var qrStr = this.genQrCodeStr();
       this.fetchDataFromApi(idArray, tentPin, qrStr);
-      this.props.navigation.navigate('TentRegInitial');
+      this.props.navigation.navigate('TentRegInitial', {tentId: 5});
+      this.props.navigation.navigate('Settings', {qrString: qrStr});
       this.props.navigation.navigate('QRCode', {tentMembers: members, qrString: qrStr});
     }
     else{
@@ -113,9 +113,13 @@ class addMembers extends Component {
       
     
  }
- async componentDidMount(){
-  var result = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
-    method: 'GET'
+ reloadEmails = async() =>{
+  this.setState({ tentMembers: []})
+  var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
   })
   .then((response) => response.json())
   .then((responseJson) => {
@@ -133,43 +137,109 @@ class addMembers extends Component {
   var emailArr = [];
   for(var i = 0; i < result.length; i++){
     userMap2.set(result[i].email, result[i].tent_id);
-    if(result[i].tent_id == null){
-      emailArr.push({id: String(i+1), name: result[i].email})
+    if(result[i].tent_id == null && result[i].email != this.props.navigation.getParam('creatorName', 'No Name')){
+      emailArr.push({id: result[i].id, name: result[i].email})
     }
   }
+  console.log(emailArr);
   this.setState({emails:emailArr})
   this.setState({tentData:userMap2});
  }
+ async componentDidMount(){
+  var result = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    return responseJson;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+  var userMap = new Map();
+  for(var i = 0; i < result.length; i++){
+    userMap.set(result[i].email,result[i].id)
+  }
+  this.setState({data: userMap});
+  var userMap2 = new Map();
+  var emailArr = [];
+  for(var i = 0; i < result.length; i++){
+    userMap2.set(result[i].email, result[i].tent_id);
+    if(result[i].tent_id == null && result[i].email != this.props.navigation.getParam('creatorName', 'No Name')){
+      emailArr.push({id: result[i].id, name: result[i].email})
+    }
+  }
+  console.log(emailArr);
+  this.setState({emails:emailArr})
+  this.setState({tentData:userMap2});
+ }
+ addNewMember = (name) =>{
+   var notDup = true;
+   emailArr = []
+    for(var i = 0; i < this.state.emails.length; i++){
+      if(name != this.state.emails[i].name){
+        emailArr.push(this.state.emails[i]);
+      }
+      
+    }
+    this.setState({emails:emailArr});
+    for(var i = 0; i < this.state.tentMembers.length; i++){
+      if(this.state.tentMembers[i] != name){
+        notDup = true;
+      }
+      else{
+        notDup = false;
+      }
+    }
+    if(notDup){
+      this.setState({ tentMembers: this.state.tentMembers.concat([name])});
+    }
+ }
+ static navigationOptions = {
+  headerStyle: { backgroundColor: '#041E42' },
+  headerTitleStyle: { color: '#041E42' },
+  headerBackTitleStyle: {color: "#C1C6C8"},
+  headerLeftContainerStyle:{color: "#C1C6C8"},
+  }
   render() {
     const { navigation } = this.props;
     const userName = navigation.getParam('creatorName', 'No Name');
     const tentPin = navigation.getParam('tentPin', 'noPin');
-    const { query } = this.state;
-    const emails = this.findEmail(query);
-    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
+    //const { query } = this.state;
+    //const emails = this.findEmail(query);
+    //const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={2}></Row>
-        <Row size={10}>
+        <Row size={10} style={{zIndex:5}}>
           <Col size={100}>
-          <Autocomplete
-            autoCapitalize="none"
-            autoCorrect={false}
-            containerStyle={styles.autocompleteContainer}
-            data={emails.length === 1 && comp(query, emails[0].name) ? [] : emails}
-            defaultValue={query}
-            listStyle={{maxHeight: 20}}
-            onChangeText={text => this.setState({ query: text })}
-            placeholder="Search for a user"
-            renderItem={({ name }) => (
-            <TouchableOpacity onPress={() => this.setState({ tentMembers: this.state.tentMembers.concat([name])})}>
-              <Text style = {styles.autoFillText}>
-                {name} 
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-            
+          <SearchableDropdown
+            onTextChange={text => console.log(text)}
+            onItemSelect={item => this.addNewMember(item.name)}
+            containerStyle={{ padding: 5 }}
+            textInputStyle={
+              styles.input
+            }
+            itemStyle={{
+              padding: 10,
+              marginTop: 2,
+              backgroundColor: 'white',
+              borderColor: '#bbb',
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
+            itemTextStyle={{ color: '#222' }}
+            itemsContainerStyle={{ maxHeight: 300, zIndex: 5, minHeight: 300,}}
+            items={this.state.emails}
+            defaultIndex={2}
+            placeholder="Email"
+            placeholderTextColor = "#041E42"
+            resetValue={true}
+            underlineColorAndroid="transparent"
+          />
           </Col>
         </Row>
         <Row size={2}>
@@ -179,28 +249,28 @@ class addMembers extends Component {
           <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[0]}</Text>
           </Col>
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>2.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[1]}</Text>
             </Col>
             
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>3.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[2]}</Text>
             </Col>
             
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>4.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[3]}</Text>
             </Col>
             
         </Row>
-        <Row size={2}></Row>
+        
         <Row size={10}>
             <Col size={10}><Text style = {styles.numberText}>5.</Text></Col>
             <Col size={90}><Text style = {styles.fillText}>{this.state.tentMembers[4]}</Text>
@@ -221,7 +291,7 @@ class addMembers extends Component {
             <Col size={10}></Col>
             <Col size={30}>
               <View style = {styles.container}>
-                <TouchableOpacity onPress={() => this.setState({ tentMembers: []})}>
+                <TouchableOpacity onPress={() => this.reloadEmails()}>
                     <Text style = {styles.text2}>
                       Clear
                     </Text>
@@ -240,40 +310,63 @@ export default addMembers;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
+    height: 40,
+    borderColor: '#041E42',
+    borderWidth: 1,
+    width: '100%'
   },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
-    borderWidth: 1,
-    padding: 15,
-    borderColor: 'black',
-    fontSize: 20
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:15,
+  paddingRight: 15,
+  borderColor: 'black',
+  fontSize: 20
  },
  text2: {
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:25,
+  paddingRight: 25,
+  borderColor: 'black',
+  fontSize: 20
+   /*
   borderWidth: 1,
   paddingLeft: 25,
   paddingRight: 25,
   paddingTop: 15,
   paddingBottom:15,
   borderColor: 'black',
-  fontSize: 20
+  fontSize: 20*/
 },
  numberText: {
     padding: 5,
     fontSize: 25,
-    color: 'black',
+    color: '#041E42',
  },
  fillText: {
   padding: 5,
   fontSize: 20,
-  color: 'black',
+  color: '#041E42',
 },
  autoFillText: {
   padding: 0,
