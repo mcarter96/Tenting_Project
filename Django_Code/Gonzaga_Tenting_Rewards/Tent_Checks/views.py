@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from . import models
@@ -16,6 +17,11 @@ class TentCheckViewSet(viewsets.ModelViewSet):
     queryset = models.Tent_Check.objects.all()
 
     permission_classes = (permissions.InteractWithTentChecks,)
+
+
+
+
+
 
 
     def list(self, request, *args, **kwargs):
@@ -67,7 +73,6 @@ class TentCheckViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
 
         # Grab the student's ids for each tent and display them
-        # TODO: Fix issue with multiple db calls
         for tents in serializer.data:
             tent = user_functions.getTenterInformation(tents['tent_id'])
             if tent is not None:
