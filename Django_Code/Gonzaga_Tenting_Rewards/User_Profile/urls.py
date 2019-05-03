@@ -10,7 +10,7 @@ from . import views
 
 # Define the router and add necessary views to the router that the api can access
 router = SimpleRouter()
-router.register('profile', views.UserProfileViewSet, base_name='profile')
+router.register('profile', views.UserProfileViewSet)
 router.register('login', views.LoginViewSet, base_name='login')
 
 # Define the different urls that can be accessed

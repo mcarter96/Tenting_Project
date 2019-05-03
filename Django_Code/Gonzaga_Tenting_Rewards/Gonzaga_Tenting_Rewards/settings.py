@@ -107,7 +107,6 @@ else:
         }
     }
 
-CONN_MAX_AGE=30
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

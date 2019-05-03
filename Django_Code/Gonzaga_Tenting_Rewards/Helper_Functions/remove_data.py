@@ -12,8 +12,8 @@ def removeAllTents():
     """Remove all data from the tent table"""
 
     tents = tent_models.TentGroup.objects.all()
-    tents._raw_delete(tents.db)
-
+    for i in tents:
+        i.delete()
 
 def removeExtraneousUsers():
     """Remove all users who had a graduation date over a year ago"""
@@ -21,11 +21,16 @@ def removeExtraneousUsers():
     # Get the current year and go back one
     year = datetime.datetime.now().year - 5
     users = Api_models.UserProfile.objects.all().filter(graduation_year__lt=year)
-    users._raw_delete(users.db)
+
+    # Go through each user and delete if their grad year was before the current year -1
+    for i in users:
+        if i.graduation_year <= year:
+            i.delete()
 
 
 def removeAllGames():
     """Delete all the games that were created"""
 
     games = game_models.Game.objects.all()
-    games._raw_delete(games.db)
+    for i in games:
+        i.delete()
