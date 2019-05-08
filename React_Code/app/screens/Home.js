@@ -22,7 +22,7 @@ class Home extends Component {
   render() {
     
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#639aff"}}>
         <Row size={30}></Row>
         <Row size={50}></Row>
         <Row size={20}>
@@ -60,10 +60,17 @@ const styles = StyleSheet.create({
     width: '100%'
  },
  text: {
-    borderWidth: 1,
-    padding: 15,
-    borderColor: 'black',
-    fontSize: 20
+  color: 'white',
+  backgroundColor: '#9aadce',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft:60,
+  paddingRight: 60,
+  borderColor: 'black',
+  fontSize: 20
  },
  numberText: {
     padding: 5,

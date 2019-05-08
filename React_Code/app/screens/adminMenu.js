@@ -5,7 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   TextInput, 
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -14,7 +15,7 @@ class adminMenu extends Component {
     token: '',
   }
   onPressTentReg = () => {
-    this.props.navigation.navigate('adminGameManage');
+    this.props.navigation.navigate('adminGameManage',{token: this.state.token});
   }
 
   onPressTentChecks = () => {
@@ -22,23 +23,37 @@ class adminMenu extends Component {
   }
 
   onPressManageUsers = () => {
-    this.props.navigation.navigate('adminManageUsers');
+    this.props.navigation.navigate('adminManageUsers', {adminToken: this.state.token});
   }
 
-  onPressUpdateFeed = () => {
-    this.props.navigation.navigate('adminFeed');
+  onPressFilterTents = () => {
+    this.props.navigation.navigate('adminTentFilter', {token: this.state.token});
+  }
+  logout = () => {
+    console.log(this.state.data);
+    this.props.navigation.navigate('Login');
   }
   componentDidMount(){
     const { navigation } = this.props;
     const adminToken = navigation.getParam('token', 'No ID');
     this.setState({token: adminToken});
 };
+static navigationOptions = {
+  headerStyle: { backgroundColor: '#C1C6C8' },
+  headerTitleStyle: { color: '#C1C6C8' },
+  }
 
   render() {
     return (
-      <Grid>
-        <Row size={10}></Row>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
+        <Row size={5}></Row>
         <Row size={20}>
+          <Col size={24}></Col>
+            <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+          <Col size={22}></Col>
+        </Row>
+        <Row size={10}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
@@ -52,44 +67,56 @@ class adminMenu extends Component {
           <Col size={10}></Col>
         </Row>
 
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
             <TouchableOpacity onPress={this.onPressTentChecks}>
-              <Text style = {styles.text2}>
+              <Text style = {styles.text5}>
                 Tent Checks
               </Text>
             </TouchableOpacity>
             </View>
           </Col>
           <Col size={10}></Col>
-        </Row>
-
-        <Row size={10}></Row>
-        <Row size={20}>
+        </Row>        
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressManageUsers}>
-                <Text style = {styles.text3}>
-                  Manage Users
+            <TouchableOpacity onPress={this.onPressFilterTents}>
+                <Text style = {styles.text2}>
+                  Filter Tents
                 </Text>
             </TouchableOpacity>
             </View>
           </Col>
           <Col size={10}></Col>
         </Row>
-        
-        <Row size={10}></Row>
-        <Row size={20}>
+        <Row size={1}></Row>
+        <Row size={15}>
           <Col size={10}></Col>
           <Col size={80}>
             <View style = {styles.container}>
-            <TouchableOpacity onPress={this.onPressUpdateFeed}>
-                <Text style = {styles.text2}>
-                  Update Feed
+            <TouchableOpacity onPress={this.onPressManageUsers}>
+                <Text style = {styles.text3}>
+                  Clear Data
+                </Text>
+            </TouchableOpacity>
+            </View>
+          </Col>
+          <Col size={10}></Col>
+        </Row>
+        <Row size={1}></Row>
+        <Row size={15}>
+          <Col size={10}></Col>
+          <Col size={80}>
+            <View style = {styles.container}>
+            <TouchableOpacity onPress={this.logout}>
+                <Text style = {styles.text4}>
+                  Logout
                 </Text>
             </TouchableOpacity>
             </View>
@@ -104,41 +131,85 @@ export default adminMenu;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
+    color: 'white',
+    backgroundColor: '#639aff',
+    borderRadius: 10,
+    textAlign: 'center',
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    width: '100%'
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
-    borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft:50,
-    paddingRight:50,
-    borderColor: 'black',
-    fontSize: 20
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:50,
+  paddingRight: 50,
+  borderColor: 'black',
+  fontSize: 20
+ },
+ text4: {
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:105,
+  paddingRight: 105,
+  borderColor: 'black',
+  fontSize: 20
  },
  text2: {
-  borderWidth: 1,
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
   paddingTop: 10,
   paddingBottom: 10,
-  paddingLeft:80,
-  paddingRight:80,
+  paddingLeft:90,
+  paddingRight: 90,
   borderColor: 'black',
   fontSize: 20
+   
+},
+text5: {
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:85,
+  paddingRight: 85,
+  borderColor: 'black',
+  fontSize: 20
+   
 },
 text3: {
-  borderWidth: 1,
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
   paddingTop: 10,
   paddingBottom: 10,
-  paddingLeft:70,
-  paddingRight:70,
+  paddingLeft:90,
+  paddingRight: 90,
   borderColor: 'black',
   fontSize: 20
+
 },
 })

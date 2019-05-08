@@ -21,6 +21,10 @@ from django.conf.urls import url, include
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('Api.urls')),
-    url(r'^api/', include('Tent_Checks.urls'))
+    url(r'^api/', include('User_Profile.urls')),
+    url(r'^api/', include('Tent_Checks.urls')),
+    url(r'^api/', include('Admin_Maintenance.urls')),
+    url(r'^api/', include('Game.urls')),
+    url(r'^api/', include('Tents.urls')),
+    url(r'', include('Generic_Information.urls')),
 ]

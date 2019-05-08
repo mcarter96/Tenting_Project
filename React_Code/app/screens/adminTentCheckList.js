@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import CheckboxFormX from 'react-native-checkbox-form';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -21,7 +22,7 @@ class CheckList extends Component {
     console.log(item);
   };
   loadTentChecks = async(token) => {
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent-checks/";
     var result = await fetch(url, {
     method: 'GET',
     headers: new Headers({
@@ -39,7 +40,7 @@ class CheckList extends Component {
     return result;
   }
   updateTentCheck =(checkdata)=>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/"+this.state.tentCheckId+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent-checks/"+this.state.tentCheckId+"/";
     var result = fetch(url, {
       method: 'PUT',
       headers: {
@@ -66,10 +67,11 @@ class CheckList extends Component {
     .catch(error => {
       console.error(error);
     });
+    this.props.navigation.navigate('adminTentChecks');
     alert("Tent successfully checked!")
   }
   createTentCheck = async(tentid) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent-checks/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent-checks/";
     var result = fetch(url, {
       method: 'POST',
       headers: {
@@ -115,37 +117,37 @@ class CheckList extends Component {
         this.setState({tentCheckId: tentcheckData[i].id});
         var updatedData = [
           {
-              label: 'Waiver Check',
+              label: 'Waiver Check ',
               value: 'one',
               RNchecked: tentcheckData[i].waiver_check,
           },
           {
-              label: 'Tent Setup',
+              label: 'Tent Setup      ',
               value: 'two',
               RNchecked: tentcheckData[i].setup_check,
           },
           {
-              label: 'Tent Check 1',
+              label: 'Tent Check 1  ',
               value: 'three',
               RNchecked: tentcheckData[i].tent_check_1,
           },
           {
-            label: 'Tent Check 2',
+            label: 'Tent Check 2  ',
             value: 'four',
             RNchecked: tentcheckData[i].tent_check_2,
           },
           {
-            label: 'Tent Check 3',
+            label: 'Tent Check 3  ',
             value: 'five',
             RNchecked: tentcheckData[i].tent_check_3,
           },
           {
-            label: 'Tent Check 4',
+            label: 'Tent Check 4  ',
             value: 'six',
             RNchecked: tentcheckData[i].tent_check_4,
           },
           {
-            label: 'Final Check',
+            label: 'Final  Check    ',
             value: 'seven',
             RNchecked: tentcheckData[i].final_check,
          },
@@ -158,37 +160,37 @@ class CheckList extends Component {
       this.createTentCheck(tentid)
       var updatedData = [
         {
-            label: 'Waiver Check',
+            label: 'Waiver Check ',
             value: 'one',
             RNchecked: false,
         },
         {
-            label: 'Tent Setup',
+            label: 'Tent Setup      ',
             value: 'two',
             RNchecked: false,
         },
         {
-            label: 'Tent Check 1',
+            label: 'Tent Check 1  ',
             value: 'three',
             RNchecked: false,
         },
         {
-          label: 'Tent Check 2',
+          label: 'Tent Check 2  ',
           value: 'four',
           RNchecked: false,
         },
         {
-          label: 'Tent Check 3',
+          label: 'Tent Check 3  ',
           value: 'five',
           RNchecked: false,
         },
         {
-          label: 'Tent Check 4',
+          label: 'Tent Check 4  ',
           value: 'six',
           RNchecked: false,
         },
         {
-          label: 'Final Check',
+          label: 'Final  Check     ',
           value: 'seven',
           RNchecked: false,
        },
@@ -197,31 +199,43 @@ class CheckList extends Component {
       noTentCheck = false;
     }
 };
+static navigationOptions = {
+  headerStyle: { backgroundColor: '#041E42' },
+  headerTitleStyle: { color: '#041E42' },
+  headerBackTitleStyle: {color: "#C1C6C8"},
+}
   render() {
     return (
-      <Grid>
-        <Row size ={2}></Row>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
+        <Row size={5}></Row>
+        <Row size={20}>
+          <Col size={24}></Col>
+            <Col size={54}><Image source={require('../images/logo.png')} /></Col>
+          <Col size={22}></Col>
+        </Row>
         <Row size ={6}>
-          <Col size={10}></Col>
-            <Col size={80}>
+          <Col size={5}></Col>
+            <Col size={90}>
               <View style = {styles.container}>
-                <Text style={{fontSize: 30}}>Tent #{this.state.tentId}</Text>
+                <Text style={{color:'#041E42', fontSize:30, fontWeight: 'bold',}}>TENT CHECK LIST</Text>
               </View>
             </Col>
-            <Col size={10}></Col>
+            <Col size={5}></Col>
         </Row>
         <Row size ={2}></Row>
-        <Row size={65}>
+        <Row size={45}>
         <View style={styles.container}>
           <View style={{ marginVertical:10}} >
               <CheckboxFormX
                   style={{ width: '100%', marginLeft: 0}}
                   dataSource={this.state.checkData}
+                  textStyle={{color: '#041E42',fontWeight: 'bold' }}
                   itemShowKey="label"
                   itemCheckedKey="RNchecked"
+                  iconColor="#041E42"
                   iconSize={30}
                   formHorizontal={false}
-                  labelHorizontal={false}
+                  labelHorizontal={true}
                   onChecked={(item) => this._onSelect(item)}
               />
           </View>
@@ -229,7 +243,7 @@ class CheckList extends Component {
         </Row>
         <Row size={5}>
         </Row>
-        <Row size={15}>
+        <Row size={10}>
             <Col size={20}></Col>
               <Col size={60}>
                 <View style = {styles.container}>
@@ -242,7 +256,7 @@ class CheckList extends Component {
               </Col>
               <Col size={20}></Col>
           </Row>
-        <Row size={15}></Row>
+        <Row size={10}></Row>
       </Grid>
       
     );
@@ -261,13 +275,25 @@ const styles = StyleSheet.create ({
       width: '100%'
   },
   text: {
+    color: 'white',
+    backgroundColor: '#041E42',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderWidth: 0,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft:30,
+    paddingRight: 30,
+    borderColor: 'black',
+    fontSize: 20
+    /*
       borderWidth: 1,
       paddingTop: 10,
       paddingBottom: 10,
       paddingLeft:30,
       paddingRight:30,
       borderColor: 'black',
-      fontSize: 20
+      fontSize: 20*/
   },
   textJoin: {
     borderWidth: 1,

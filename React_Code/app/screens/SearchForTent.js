@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity} from 'react-native';
+import {Text,View,ScrollView,StyleSheet,TextInput, TouchableOpacity, Button} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 class SearchForTent extends Component {
@@ -18,7 +18,7 @@ class SearchForTent extends Component {
   }
   
   loadTentData = async(id) =>{
-    var url = "http://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
+    var url = "https://tenting-rewards.gonzaga.edu/api/tent/"+id+"/";
     var result = await fetch(url, {
     method: 'GET'
     })
@@ -33,7 +33,7 @@ class SearchForTent extends Component {
   }
 
   addToTent = async (tentdata) => {
-    const url = "http://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
+    const url = "https://tenting-rewards.gonzaga.edu/api/tent/"+tentdata.id+"/";
     console.log(tentdata);
     var result = await fetch(url, {
       method: 'PUT',
@@ -87,31 +87,31 @@ class SearchForTent extends Component {
             tentData.tenter_2 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str,  tentnum: tentData.tent_number});
           }
           else if(tentData.tenter_3 == null){
             tentData.tenter_3 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
           else if(tentData.tenter_4 == null){
             tentData.tenter_4 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
           else if(tentData.tenter_5 == null){
             tentData.tenter_5 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
           else{
             tentData.tenter_6 = this.state.email2id.get(this.state.userEmail);
             this.addToTent(tentData);
             this.props.navigation.navigate('TentRegInitial', {userEmail: this.state.userEmail, tentId: tentData.id});
-            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str});
+            this.props.navigation.navigate('QRCode', {qrString: tentData.qr_code_str, tentnum: tentData.tent_number});
           }
         }
         else{
@@ -128,8 +128,11 @@ class SearchForTent extends Component {
     const { navigation } = this.props;
     const email = navigation.getParam('userEmail', 'No Name');
     this.setState({userEmail: email});
-    var result2 = await fetch("http://tenting-rewards.gonzaga.edu/api/profile/", {
-    method: 'GET'
+    var result2 = await fetch("https://tenting-rewards.gonzaga.edu/api/profile/", {
+    method: 'GET',
+    headers: {
+      Authorization: 'Token '+this.props.navigation.getParam('token'),
+    },
     })
     .then((response) => response.json())
     .then((responseJson) => {
@@ -146,7 +149,7 @@ class SearchForTent extends Component {
     }
     this.setState({email2id: userMap3});
     //console.log(userMap2);
-    var result = await fetch("http://tenting-rewards.gonzaga.edu/api/tent/", {
+    var result = await fetch("https://tenting-rewards.gonzaga.edu/api/tent/", {
     method: 'GET'
     })
     .then((response) => response.json())
@@ -164,16 +167,23 @@ class SearchForTent extends Component {
     //console.log(userMap);
     this.setState({mapOfCreators2Ids: userMap});
   }
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: <Button onPress={() => navigation.goBack(null)}
+          title="Back"
+          color="#C1C6C8" />,
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+  });
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={5}></Row>
         <Row size={10}>
           <Col size={10}></Col>
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Tent Creator Email"
-                  placeholderTextColor = "black"
+                  placeholderTextColor = "#041E42"
                   autoCapitalize = "none"
                   onChangeText = {this.handleCreatorName}/>
           </Col>
@@ -186,11 +196,12 @@ class SearchForTent extends Component {
           <Col size={80}>
             <TextInput style = {styles.input}
                   placeholder = "Pin"
-                  placeholderTextColor = "black"
+                  placeholderTextColor = "#041E42"
                   keyboardType = 'number-pad'
                   maxLength={6} 
                   secureTextEntry = {true}
                   autoCapitalize = "none"
+                  returnKeyType={ "done" }
                   onChangeText = {this.handlePin}/>
           </Col>
           <Col size={10}></Col>
@@ -219,23 +230,39 @@ export default SearchForTent;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
+    height: 40,
+    borderColor: '#041E42',
+    borderWidth: 1,
+    width: '100%'
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  text: {
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:50,
+  paddingRight: 50,
+  borderColor: 'black',
+  fontSize: 20
+   /*
     borderWidth: 1,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft:50,
     paddingRight:50,
     borderColor: 'black',
-    fontSize: 20
+    fontSize: 20*/
  },
 })

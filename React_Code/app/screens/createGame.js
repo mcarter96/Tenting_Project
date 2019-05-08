@@ -49,11 +49,11 @@ class CreateGame extends Component {
   handleEndDatePicked = (date) => {
     var startDate = new Date(date)
     if(startDate.getHours() > 12){
-      this.setState({tentingStart: 'Tenting Start: ' + (startDate.getMonth()+1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
+      this.setState({tentingStart: 'Tent Start: ' + (startDate.getMonth()+1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
     ", " +(startDate.getHours() - 12) + ":" + ('0' + (startDate.getMinutes())).slice(-2) + " PM"});
     }
     else{
-      this.setState({tentingStart: 'Game Start: ' + (startDate.getMonth() + 1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
+      this.setState({tentingStart: 'Tent Start: ' + (startDate.getMonth() + 1) + "/" + startDate.getDate()+"/" +startDate.getFullYear()+
     ", " +startDate.getHours() + ":" + ('0' + (startDate.getMinutes())).slice(-2)+ " AM"})
     }
     this.setState({postTentingStart: startDate.getFullYear()+"-"+('0' + (startDate.getMonth()+1) ).slice(-2)+"-"+('0' + startDate.getDate()).slice(-2)+"T"+('0' + startDate.getHours()).slice(-2)+":"+('0' + startDate.getMinutes()).slice(-2)});
@@ -64,17 +64,20 @@ class CreateGame extends Component {
    }
   
   submit = async(name, tentStart, gameStart) =>{
-    const url = "http://tenting-rewards.gonzaga.edu/api/games/";
-    if(name != "" && tentStart != "" && gameStart != ""){
+    var startDate = new Date();
+    var date = startDate.getFullYear()+"-"+('0' + (startDate.getMonth()+1) ).slice(-2)+"-"+('0' + startDate.getDate()).slice(-2)+"T"+('0' + startDate.getHours()).slice(-2)+":"+('0' + startDate.getMinutes()).slice(-2)
+    const url = "https://tenting-rewards.gonzaga.edu/api/games/";
+    if(name != ""){
       var result = await fetch(url, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Token '+this.props.navigation.getParam('token'),
         },
         body: JSON.stringify({
-          game_start: gameStart,
-          tenting_start: tentStart,
+          game_start: date,
+          tenting_start: date,
           game_name: name
         }),
       })
@@ -92,16 +95,21 @@ class CreateGame extends Component {
       alert("All fields are required!");
     }
   }
+  static navigationOptions = {
+    headerStyle: { backgroundColor: '#041E42' },
+    headerTitleStyle: { color: '#041E42' },
+    headerBackTitleStyle: {color: "#C1C6C8"},
+  }
   render() {
     return (
-      <Grid>
+      <Grid style={{backgroundColor: "#C1C6C8"}}>
         <Row size={10}></Row>
         <Row size={10}>
             <Col size={10}></Col>
             <Col size={80}>
               <TextInput style = {styles.input}
                     placeholder = "Game Name"
-                    placeholderTextColor = "black"
+                    placeholderTextColor = "#041E42"
                     autoCapitalize = "none"
                     autoCorrect = {false}
                     onChangeText = {this.gamename}
@@ -111,45 +119,11 @@ class CreateGame extends Component {
             <Col size={10}></Col>
         </Row>
         <Row size={5}></Row>
-        <Row size={10}><Text style = {styles.startingText}>{this.state.gameStart}</Text></Row>
+        <Row size={10}></Row>
         <Row size={15}>
-            <Col size={10}></Col>
-              <Col size={80}>
-                <View style = {styles.container}>
-                <TouchableOpacity onPress={this.showStartDateTimePicker}>
-                    <Text style = {styles.pickerText}>
-                      Set Game Start
-                    </Text>
-                </TouchableOpacity>
-                <DateTimePicker
-                  isVisible={this.state.startDateTimePickerVisible}
-                  onConfirm={this.handleStartDatePicked}
-                  onCancel={this.hideStartDateTimePicker}
-                  mode={'datetime'}
-                />
-                </View>
-              </Col>
-              <Col size={10}></Col>
         </Row>
-        <Row size={10}><Text style = {styles.startingText}>{this.state.tentingStart}</Text></Row>
+        <Row size={10}></Row>
         <Row size={15}>
-            <Col size={10}></Col>
-              <Col size={80}>
-                <View style = {styles.container}>
-                <TouchableOpacity onPress={this.showEndDateTimePicker}>
-                    <Text style = {styles.picker2Text}>
-                      Set Tent Start
-                    </Text>
-                </TouchableOpacity>
-                <DateTimePicker
-                  isVisible={this.state.endDateTimePickerVisible}
-                  onConfirm={this.handleEndDatePicked}
-                  onCancel={this.hideEndDateTimePicker}
-                  mode={'datetime'}
-                />
-                </View>
-              </Col>
-              <Col size={10}></Col>
         </Row>
         
         <Row size={10}>
@@ -176,47 +150,86 @@ export default CreateGame;
 
 const styles = StyleSheet.create({
   input: {
-     textAlign: 'center',
-     height: 40,
-     borderColor: 'black',
-     borderWidth: 1,
-     width: '100%'
-  },
+    color: '#041E42',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    textAlign: 'left',
+    paddingLeft:20,
+    height: 40,
+    borderColor: '#041E42',
+    borderWidth: 1,
+    width: '100%'
+ },
   container: {
     alignItems: 'center',
     width: '100%'
  },
  pickerText: {
+  color: "white",
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  padding:10,
+  borderColor: 'black',
+  fontSize: 20
+   /*
     borderWidth: 1,
     padding: 10,
     borderColor: 'black',
-    fontSize: 20
+    fontSize: 20*/
  },
  picker2Text:{
+  color: "white",
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 11,
+  paddingBottom: 11,
+  paddingLeft:16,
+  paddingRight: 16,
+  borderColor: 'black',
+  fontSize: 20
+  /*
   borderWidth: 1,
   paddingTop: 11,
   paddingBottom: 11,
   paddingLeft: 16,
   paddingRight: 16,
   borderColor: 'black',
-  fontSize: 20
+  fontSize: 20*/
  },
  submitText: {
+  color: 'white',
+  backgroundColor: '#041E42',
+  overflow: 'hidden',
+  borderRadius: 10,
+  borderWidth: 0,
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:43,
+  paddingRight: 43,
+  borderColor: 'black',
+  fontSize: 20
+   /*
   borderWidth: 1,
   paddingTop: 10,
   paddingBottom: 10,
   paddingLeft: 43,
   paddingRight: 43,
   borderColor: 'black',
-  fontSize: 20
+  fontSize: 20*/
 },
  numberText: {
     padding: 5,
-    fontSize: 30
+    fontSize: 30,
+    color:'#041E42',
  },
  startingText:{
    padding: 5,
    fontSize: 20,
+   color:'#041E42',
  }
 })
 
