@@ -3,7 +3,7 @@ cffi==1.12.1
 chardet==3.0.4
 Click==7.0
 coverage==4.5.2
-Django==2.0.9
+Django==2.2.13
 django-nose==1.4.6
 djangorestframework==3.9.0
 Flask==1.0.2
